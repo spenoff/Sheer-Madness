@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/spenoff/Sheer-Madness/issues"
   },
-  "homepage": "https://github.com/spenoff/Sheer-Madness#readme"
+  "homepage": "https://github.com/spenoff/Sheer-Madness#readme",
+  "dependencies": {
+    "phaser": "^3.22.0"
+  }
 }

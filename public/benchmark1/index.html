@@ -1,180 +1,96 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Title</title>
+    <title>Design Doc</title>
     <link rel="stylesheet" type="text/css" href="index.css">
   </head>
 
   <body>
 
-    <p align="center" style="margin-bottom: 0in">
+    <p align="center">
       <a href="imgs/Sheep Game Logo V2.png"><img src="imgs/Sheep Game Logo V2.png" alt="Logo"></a>
-
       <br>
-      
-      &ldquo;<font size="4" style="font-size: 14pt">Sheer Madness&rdquo;</font></p>
-    <p align="center" style="margin-bottom: 0in"><font size="4" style="font-size: 14pt">GAME
-	DESIGN DOCUMENT</font></p>
-    <p align="center" style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">by
-	Billy Wong, Norman Deng, Spencer Nisonoff</font></p>
-    <p style="margin-bottom: 0in"><br/>
+      <font style="font-size: 14pt">"Sheer Madness"</font>
+    </p>
+    <p align="center">
+      <font style="font-size: 14pt">GAME DESIGN DOCUMENT</font>
+    </p>
+    <p align="center"><font style="font-size: 12pt"> by Billy Wong, Norman Deng, Spencer Nisonoff</font></p>
 
-    </p>
-    <p style="margin-bottom: 0in"><font size="4" style="font-size: 14pt">INTRODUCTION</font></p>
-    <p style="margin-bottom: 0in"><br/>
+    <p><br></p>
 
+    <p><font size="4" style="font-size: 14pt">INTRODUCTION</font></p>
+    <p></p>
+    <p><font size="3" style="font-size: 12pt">This document describes a game called "Sheer Madness", which is a 2D top-down puzzle solving game. </font>
     </p>
-    <p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">This
-	document describes a game called &ldquo;Sheer Madness&rdquo;, which
-	is a 2D top-down puzzle solving game. </font>
+    
+    <p><br></p>
+    
+    <p><font size="4" style="font-size: 14pt">TECHNOLOGY</font></p>
+    <p></p>
+    <p><font size="3" style="font-size: 12pt">"Sheer Madness" will be developed using the Phaser game engine, using the Javascript programming language. </font>
     </p>
-    <p style="margin-bottom: 0in"><br/>
+    
+    <p><br></p>
 
-    </p>
-    <p style="margin-bottom: 0in"><font size="4" style="font-size: 14pt">TECHNOLOGY</font></p>
-    <p style="margin-bottom: 0in"><br/>
+    <p><font size="4" style="font-size: 14pt">BACKSTORY</font></p>
+    <p></p>
+    <p><font size="3" style="font-size: 12pt"> You are a dog who happens to be one of the world's best shepherds, known to be able to herd any amount of sheep through any kind of obstacles. Now you are tasked with herding sheep through some of the most difficult obstacles. Don't screw up cause your reputation is on the line.
+    </font></p>
 
-    </p>
-    <p style="margin-bottom: 0in">&ldquo;<font size="3" style="font-size: 12pt">Sheer
-	Madness&rdquo; will be developed using the Phaser game engine, using
-	the Javascript programming language. </font>
-    </p>
-    <p style="margin-bottom: 0in"><br/>
+    <p><br></p>
 
-    </p>
-    <p style="margin-bottom: 0in"><font size="4" style="font-size: 14pt">BACKSTORY</font></p>
-    <p style="margin-bottom: 0in"><br/>
+    <p><font size="4" style="font-size: 14pt">OBJECTIVE</font></p>
+    <p></p>
+    <p><font size="3" style="font-size: 12pt"> You are to move sheep through a series of levels, with each level becoming progressively harder and introducing new obstacles for the player to overcome.
+    </font></p>
+    
+    <p><br></p>
 
-    </p>
-    <p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">You
-	are a dog who happens to be one of the world&rsquo;s best shepherds,
-	known to be able to herd any amount of sheep through any kind of
-	obstacles. Now you are tasked with herding sheep through some of the
-	most difficult obstacles. Don&rsquo;t screw up cause your reputation
-	is on the line.</font></p>
-    <p style="margin-bottom: 0in"><br/>
+    <p><font size="4" style="font-size: 14pt">GAMEPLAY</font></p>
+    <p></p>
+    <p><font size="3" style="font-size: 12pt"> The game will operate with a map based system that is viewed from the top. The player will be able to move, turn, throw a lasso, or bark. The objective is to get the sheep to the goal, which will be a line of spaces or a set of spaces. Along the way, there will be a variety of obstacles that will obstruct your path to herding the sheep. Once all the sheep have been herded or lost, the level will end and a score will be given depending on the time taken, number of moves taken, and number of sheep successfully herded. A certain score is required to move on to the next level.
+    </font></p>
+    
+    <p></p>
 
-    </p>
-    <p style="margin-bottom: 0in"><font size="4" style="font-size: 14pt">OBJECTIVE</font></p>
-    <p style="margin-bottom: 0in"><br/>
-
-    </p>
-    <p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">You
-	are to move sheep through a series of levels, with each level
-	becoming progressively harder and introducing new obstacles for the
-	player to overcome. </font>
-    </p>
-    <p style="margin-bottom: 0in"><br/>
-
-    </p>
-    <p style="margin-bottom: 0in"><font size="4" style="font-size: 14pt">GAMEPLAY</font></p>
-    <p style="margin-bottom: 0in"><br/>
-
-    </p>
-    <p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">The
-	game will operate with a map based system that is viewed from the
-	top. The player will be able to move, turn, throw a lasso, or bark.
-	The objective is to get the sheep to the goal, which will be a line
-	of spaces or a set of spaces. Along the way, there will be a variety
-	of obstacles that will obstruct your path to herding the sheep. Once
-	all the sheep have been herded or lost, the level will end and a
-	score will be given depending on the time taken, number of moves
-	taken, and number of sheep successfully herded. A certain score is
-	required to move on to the next level.</font></p>
-    <p style="margin-bottom: 0in"><br/>
-
-    </p>
-    <p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Player
-	actions:</font></p>
+    <p><font size="3" style="font-size: 12pt">Player actions:</font></p>
     <ul>
-      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Move
-	    (forward/backward): Moves one space forward or backwards depending
-	    on the direction that the player is facing</font></p>
-      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Turn
-	    (left/right): Turns the player left or right</font></p>
-      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Lasso:
-	    Throws the lasso forward in the direction that the player is facing.
-	    If a sheep is in the space ahead, the sheep will be lassoed.
-	    Otherwise, the lasso is automatically retrieved.</font></p>
-	<ul>
-	  <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Lassoing
-		state</font></p>
-	    <ul>
-	      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Moving:
-		    When moving forward, the sheep will be pushed one space forward in
-		    the direction you move. When moving backward, the sheep will be
-		    pulled one space backward in the direction you move. Note that if
-		    moving would cause the sheep to go into an invalid space, the
-		    player cannot move in that direction.</font></p>
-	      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Turning:
-		    When turning, the sheep will follow in the direction that is
-		    turned, so that the sheep will always be in front of the player.
-		    Note that if turning would cause the sheep to go into an invalid
-		    space, the player cannot turn in that direction.</font></p>
-	    </ul>
-	</ul>
-      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Howl:
-	    Howling moves all sheep one space away from the player. Note: the
-	    sheep can move diagonally when the player howls.</font></p>
+      <li><p><font size="3" style="font-size: 12pt">Move (forward/backward): Moves one space forward or backwards depending on the direction that the player is facing</font></p>
+      <li><p><font size="3" style="font-size: 12pt">Turn (left/right): Turns the player left or right</font></p>
+      <li><p><font size="3" style="font-size: 12pt">Lasso: Throws the lasso forward in the direction that the player is facing. If a sheep is in the space ahead, the sheep will be lassoed. Otherwise, the lasso is automatically retrieved.</font></p> <ul>   <li><p><font size="3" style="font-size: 12pt">Lassoing 	state</font></p> <ul>   <li><p><font size="3" style="font-size: 12pt">Moving: 	    When moving forward, the sheep will be pushed one space forward in 	    the direction you move. When moving backward, the sheep will be 	    pulled one space backward in the direction you move. Note that if 	    moving would cause the sheep to go into an invalid space, the 	    player cannot move in that direction.</font></p>   <li><p><font size="3" style="font-size: 12pt">Turning: 	    When turning, the sheep will follow in the direction that is 	    turned, so that the sheep will always be in front of the player. 	    Note that if turning would cause the sheep to go into an invalid 	    space, the player cannot turn in that direction.</font></p> </ul> </ul>
+      <li><p><font size="3" style="font-size: 12pt">Howl: Howling moves all sheep one space away from the player. Note: the sheep can move diagonally when the player howls.</font></p>
     </ul>
-    <p style="margin-left: 1in; margin-bottom: 0in"><br/>
-
-    </p>
-    <p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Obstacles:</font></p>
+    <p></p>
+    <p><font size="3" style="font-size: 12pt">Obstacles:</font></p>
     <ul>
-      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Fences:
-	    These take up a space and prevent the player or sheep from moving
-	    onto that space.</font></p>
-      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Pits:
-	    If a sheep falls into a pit, that sheep will fall into the pit and
-	    be lost, lowering the possible number of points for the score. The
-	    player can also fall into the pit, in which case the player loses
-	    and has to restart that level from the beginning.</font></p>
-      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Wolves:
-	    They will patrol an area until a sheep gets close. When a sheep gets
-	    close, they will start to follow the sheep until it is out of range
-	    or it is eaten. If a sheep gets too close to a wolf, it will get
-	    eaten, lowering the possible number of points for the score. </font>
-	</p>
+      <li><p><font size="3" style="font-size: 12pt">Fences: These take up a space and prevent the player or sheep from moving onto that space.</font></p>
+      <li><p><font size="3" style="font-size: 12pt">Pits: If a sheep falls into a pit, that sheep will fall into the pit and be lost, lowering the possible number of points for the score. The player can also fall into the pit, in which case the player loses and has to restart that level from the beginning.</font></p>
+      <li><p><font size="3" style="font-size: 12pt">Wolves: They will patrol an area until a sheep gets close. When a sheep gets close, they will start to follow the sheep until it is out of range or it is eaten. If a sheep gets too close to a wolf, it will get eaten, lowering the possible number of points for the score. </font> </p>
     </ul>
-    <p style="margin-bottom: 0in"><br/>
+    <p><br/>
 
     </p>
-    <p style="margin-bottom: 0in"><font size="4" style="font-size: 14pt">CONTROLS</font></p>
-    <p style="margin-bottom: 0in"><br/>
+    <p><font size="4" style="font-size: 14pt">CONTROLS</font></p>
+    <p></p>
+    <p><font size="3" style="font-size: 12pt">This game will be played with keyboard, with the following controls</font></p>
 
-    </p>
-    <p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">This
-	game will be played with keyboard, with the following controls</font></p>
-    <p style="margin-bottom: 0in"><br/>
+    <p></p>
 
-    </p>
     <ul>
-      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt"><b>W
-	      / Up</b></font><font size="3" style="font-size: 12pt"> 		- Move
-	    forward</font></p>
-      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt"><b>A
-	      / Left</b></font><font size="3" style="font-size: 12pt"> 		- Turn
-	    left</font></p>
-      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt"><b>S
-	      / Down</b></font><font size="3" style="font-size: 12pt">		- Move
-	    backward</font></p>
-      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt"><b>D
-	      / Right</b></font><font size="3" style="font-size: 12pt">		- Turn
-	    right</font></p>
-      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt"><b>Mouseclick</b></font><font size="3" style="font-size: 12pt">		-
-	    Throw lasso / Pick up lasso</font></p>
-      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt"><b>Space</b></font><font size="3" style="font-size: 12pt">			-
-	    Bark</font></p>
+      <li><p><font size="3" style="font-size: 12pt"><b>W / Up</b></font><font size="3" style="font-size: 12pt"> - Move forward</font></p>
+      <li><p><font size="3" style="font-size: 12pt"><b>A / Left</b></font><font size="3" style="font-size: 12pt"> - Turn left</font></p>
+      <li><p><font size="3" style="font-size: 12pt"><b>S / Down</b></font><font size="3" style="font-size: 12pt"> - Move backward</font></p>
+      <li><p><font size="3" style="font-size: 12pt"><b>D / Right</b></font><font size="3" style="font-size: 12pt"> - Turn right</font></p>
+      <li><p><font size="3" style="font-size: 12pt"><b>Mouseclick</b></font><font size="3" style="font-size: 12pt"> - Throw lasso / Pick up lasso</font></p>
+      <li><p><font size="3" style="font-size: 12pt"><b>Space</b></font><font size="3" style="font-size: 12pt"> - Bark</font></p>
     </ul>
-    <p style="margin-bottom: 0in"><br/>
+    <p><br/>
 
     </p>
-    <p style="margin-bottom: 0in"><font size="4" style="font-size: 14pt">GRAPHICAL
-	USER INTERFACE</font></p>
-    <p style="margin-bottom: 0in"><br/>
+    <p><font size="4" style="font-size: 14pt">GRAPHICAL USER INTERFACE</font></p>
 
-    </p>
+    <p></p>
 
     <p display="inline-block">
       <a href="imgs/Splashscreen.png"><img src="imgs/Splashscreen.png" width="576" height="324" alt="Splashscreen"></a>
@@ -185,164 +101,51 @@
     </p>
     
     <ul>
-      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Splash
-	    Screen - The splash screen will appear everytime the player launches
-	    the game. It is a simple screen with the game title that prompts the
-	    player to press any button, and it will take the player to the main
-	    menu.</font></p>
-      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Main
-	    Menu - The main menu will contain the game title and a simple
-	    background. It also contains 5 buttons, each with their own
-	    function. </font>
-	</p>
-	<ul>
-	  <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">START
-		will bring the player to the first level or wherever they last
-		saved. </font>
-	    </p>
-	  <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">LEVEL
-		SELECT will bring the player to the level select menu, and the
-		player is free to choose whichever level to play as long as they
-		have unlocked it. </font>
-	    </p>
-	  <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">SETTING
-		will bring the player to the settings menu where the player can
-		adjust the game settings, such as volume and button controls, to
-		their liking. </font>
-	    </p>
-	  <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">ABOUT
-		will bring the player to the game&rsquo;s about page. The about
-		page will give a brief background of the game along with the
-		creators of the game.</font></p>
-	  <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">QUIT
-		will exit the player from the game.</font></p>
-	</ul>
-      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">IN-GAME
-	    - When the game starts the player will be given an overview of the
-	    level then moves the camera to be centered on the player character.
-	    The following items will also be shown on the player&rsquo;s screen</font></p>
-	<ul>
-	  <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">A
-		button on the top left of the screen to allow the player to pause
-		the game.</font></p>
-	  <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">A
-		timer showing the remaining time on the top center of the screen.</font></p>
-	  <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">A
-		counter to show the remaining amount of sheep in the level.</font></p>
-	</ul>
-      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Pause
-	    Menu - The pause menu will contain 3 buttons.</font></p>
-	<ul>
-	  <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">RESUME
-		will put the player back into the game.</font></p>
-	  <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">SETTINGS
-		will open the settings menu for the player and will have the same
-		functions as described above.</font></p>
-	  <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">MAIN
-		MENU will bring the player back to the main menu.</font></p>
-	</ul>
+      <li><p><font size="3" style="font-size: 12pt">Splash Screen - The splash screen will appear everytime the player launches the game. It is a simple screen with the game title that prompts the player to press any button, and it will take the player to the main menu.</font></p>
+      <li><p><font size="3" style="font-size: 12pt">Main Menu - The main menu will contain the game title and a simple background. It also contains 5 buttons, each with their own function. </font> </p> <ul>   <li><p><font size="3" style="font-size: 12pt">START 	will bring the player to the first level or wherever they last 	saved. </font> </p>   <li><p><font size="3" style="font-size: 12pt">LEVEL 	SELECT will bring the player to the level select menu, and the 	player is free to choose whichever level to play as long as they 	have unlocked it. </font> </p>   <li><p><font size="3" style="font-size: 12pt">SETTING 	will bring the player to the settings menu where the player can 	adjust the game settings, such as volume and button controls, to 	their liking. </font> </p>   <li><p><font size="3" style="font-size: 12pt">ABOUT 	will bring the player to the game's about page. The about 	page will give a brief background of the game along with the 	creators of the game.</font></p>   <li><p><font size="3" style="font-size: 12pt">QUIT 	will exit the player from the game.</font></p> </ul>
+      <li><p><font size="3" style="font-size: 12pt">IN-GAME - When the game starts the player will be given an overview of the level then moves the camera to be centered on the player character. The following items will also be shown on the player's screen</font></p> <ul>   <li><p><font size="3" style="font-size: 12pt">A 	button on the top left of the screen to allow the player to pause 	the game.</font></p>   <li><p><font size="3" style="font-size: 12pt">A 	timer showing the remaining time on the top center of the screen.</font></p>   <li><p><font size="3" style="font-size: 12pt">A 	counter to show the remaining amount of sheep in the level.</font></p> </ul>
+      <li><p><font size="3" style="font-size: 12pt">Pause Menu - The pause menu will contain 3 buttons.</font></p> <ul>   <li><p><font size="3" style="font-size: 12pt">RESUME 	will put the player back into the game.</font></p>   <li><p><font size="3" style="font-size: 12pt">SETTINGS 	will open the settings menu for the player and will have the same 	functions as described above.</font></p>   <li><p><font size="3" style="font-size: 12pt">MAIN 	MENU will bring the player back to the main menu.</font></p> </ul>
     </ul>
-    <p style="margin-bottom: 0in"><br/>
+    <p><br/>
 
     </p>
-    <p style="margin-bottom: 0in"><font size="4" style="font-size: 14pt">ARTWORK</font></p>
-    <p style="margin-bottom: 0in"><br/>
+    <p><font size="4" style="font-size: 14pt">ARTWORK</font></p>
+    <p></p>
 
-    </p>
     <ul>
-      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt"><b>Player</b></font></p>
-	<ul>
-	  <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Walking
-		animation</font></p>
-	  <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Idle
-		animation</font></p>
-	  <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Lasso
-		throw animation</font></p>
-	  <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Lasso
-		out animation</font></p>
-	  <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Lasso
-		retrieve animation</font></p>
-	</ul>
-      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt"><b>Sheep</b></font></p>
-	<ul>
-	  <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Walking
-		animation</font></p>
-	    <ul>
-	      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Regular</font></p>
-	      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Lassoed</font></p>
-	    </ul>
-	  <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Idle
-		animation</font></p>
-	    <ul>
-	      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Regular</font></p>
-	      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Lassoed</font></p>
-	    </ul>
-	</ul>
-      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt"><b>Wolf</b></font></p>
-	<ul>
-	  <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Walking
-		animation</font></p>
-	  <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Idle
-		animation</font></p>
-	</ul>
+      <li><p><font size="3" style="font-size: 12pt"><b>Player</b></font></p> <ul>   <li><p><font size="3" style="font-size: 12pt">Walking 	animation</font></p>   <li><p><font size="3" style="font-size: 12pt">Idle 	animation</font></p>   <li><p><font size="3" style="font-size: 12pt">Lasso 	throw animation</font></p>   <li><p><font size="3" style="font-size: 12pt">Lasso 	out animation</font></p>   <li><p><font size="3" style="font-size: 12pt">Lasso 	retrieve animation</font></p> </ul>
+      <li><p><font size="3" style="font-size: 12pt"><b>Sheep</b></font></p> <ul>   <li><p><font size="3" style="font-size: 12pt">Walking 	animation</font></p> <ul>   <li><p><font size="3" style="font-size: 12pt">Regular</font></p>   <li><p><font size="3" style="font-size: 12pt">Lassoed</font></p> </ul>   <li><p><font size="3" style="font-size: 12pt">Idle 	animation</font></p> <ul>   <li><p><font size="3" style="font-size: 12pt">Regular</font></p>   <li><p><font size="3" style="font-size: 12pt">Lassoed</font></p> </ul> </ul>
+      <li><p><font size="3" style="font-size: 12pt"><b>Wolf</b></font></p> <ul>   <li><p><font size="3" style="font-size: 12pt">Walking 	animation</font></p>   <li><p><font size="3" style="font-size: 12pt">Idle 	animation</font></p> </ul>
     </ul>
     <ul>
-      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt"><b>Grass</b></font></p>
-      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt"><b>Fence
-	  </b></font>
-	</p>
-	<ul>
-	  <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Horizontal
-		unconnected</font></p>
-	  <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Horizontal
-		connected</font></p>
-	  <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Horizontal
-		on one side</font></p>
-	  <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Vertical
-		unconnected</font></p>
-	  <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Vertical
-		connected</font></p>
-	  <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Vertical
-		on one side</font></p>
-	</ul>
-      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt"><b>Holes</b></font></p>
+      <li><p><font size="3" style="font-size: 12pt"><b>Grass</b></font></p>
+      <li><p><font size="3" style="font-size: 12pt"><b>Fence   </b></font> </p> <ul>   <li><p><font size="3" style="font-size: 12pt">Horizontal 	unconnected</font></p>   <li><p><font size="3" style="font-size: 12pt">Horizontal 	connected</font></p>   <li><p><font size="3" style="font-size: 12pt">Horizontal 	on one side</font></p>   <li><p><font size="3" style="font-size: 12pt">Vertical 	unconnected</font></p>   <li><p><font size="3" style="font-size: 12pt">Vertical 	connected</font></p>   <li><p><font size="3" style="font-size: 12pt">Vertical 	on one side</font></p> </ul>
+      <li><p><font size="3" style="font-size: 12pt"><b>Holes</b></font></p>
     </ul>
-    <p style="margin-bottom: 0in"><br/>
 
-    </p>
-    <p style="margin-bottom: 0in"><br/>
+    <p><br></p>
 
-    </p>
-    <p style="margin-bottom: 0in"><font size="4" style="font-size: 14pt">SOUND
-	EFFECTS</font></p>
-    <p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">All
-	sound effects will be original. Sounds must be made to coincide with
-	each of the following events:</font></p>
+    <p><font size="4" style="font-size: 14pt">SOUND EFFECTS</font></p>
+    <p><font size="3" style="font-size: 12pt">All sound effects will be original. Sounds must be made to coincide with each of the following events:</font></p>
     <ul>
-      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Walking</font></p>
-      <li><p style="margin-bottom: 0in">&ldquo;<font size="3" style="font-size: 12pt">Baas&rdquo;
-	    for Sheep feedback</font></p>
-      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Falling
-	    into holes</font></p>
-      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Bark</font></p>
-      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Bumping
-	    into walls</font></p>
-      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Throwing
-	    Lasso</font></p>
-      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Picking
-	    Up Lasso</font></p>
-      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Sheep
-	    being eaten</font></p>
-      <li><p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Winning</font></p>
+      <li><p><font size="3" style="font-size: 12pt">Walking</font></p>
+      <li><p><font size="3" style="font-size: 12pt">"Baas" for Sheep feedback</font></p>
+      <li><p><font size="3" style="font-size: 12pt">Falling into holes</font></p>
+      <li><p><font size="3" style="font-size: 12pt">Bark</font></p>
+      <li><p><font size="3" style="font-size: 12pt">Bumping into walls</font></p>
+      <li><p><font size="3" style="font-size: 12pt">Throwing Lasso</font></p>
+      <li><p><font size="3" style="font-size: 12pt">Picking Up Lasso</font></p>
+      <li><p><font size="3" style="font-size: 12pt">Sheep being eaten</font></p>
+      <li><p><font size="3" style="font-size: 12pt">Winning</font></p>
     </ul>
-    <p style="margin-bottom: 0in"><br/>
-
+    
+    <p><br></p>
+	  
+    <p>
+      <font size="4" style="font-size: 14pt">MUSIC</font>
     </p>
-    <p style="margin-bottom: 0in"><font size="4" style="font-size: 14pt">MUSIC</font></p>
-    <p style="margin-bottom: 0in"><font size="3" style="font-size: 12pt">Music
-	will be added when time permits.</font></p>
-    <p style="margin-bottom: 0in"><br/>
-
+    <p>
+      <font size="3" style="font-size: 12pt">Music will be added when time permits.</font>
     </p>
     
   </body>
