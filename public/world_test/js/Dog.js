@@ -1,12 +1,33 @@
+//Does this class have an use?
+//Controls handles a lot
+
 export class Dog {
-    constructor(game, group, sheep, fences) {
+    constructor() {}
+
+    constructor(game, player, sheepGroup, fencesGroup) {
         this.game = game;
-        this.group = group;
-        this.sheep = sheep;
-        this.fences = fences;
+        this.player = player;
+        this.sheepGroup = sheepGroup;
+        this.fencesGroup = fencesGroup;
     }
 
-    
+    setGame(game) {
+        this.game = game;
+    }
+
+    setPlayer(player) {
+        this.player = player;
+    }
+
+    setSheep(sheepGroup) {
+        this.sheepGroup = sheepGroup;
+    }
+
+    setFencesGroup(fencesGroup) {
+        this.fencesGroup = fencesGroup;
+    }
+
+
 
     //contain the dog object
 

@@ -4,6 +4,18 @@ import { Dog } from "./Dog.js"
 //Try to find a way to build a container
 class Game {
     constructor() {}
+
+    setPlayer(player) {
+        this.player = player;
+    }
+
+    setFencesGroup(fencesGroup) {
+        this.fencesGroup = fencesGroup;
+    }
+
+    setSheepGroup(sheepGroup) {
+        this.sheepGroup = sheepGroup;
+    }
 }
 
 
@@ -26,11 +38,13 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
-var controls;
-var dog;
-var fences;
-var player;
-var sheep;
+var PlayerControls;
+var DogPlayer;
+
+export var dog;
+export var fences;
+export var player;
+export var sheep;
 
 function preload () {
     this.load.image('dog', 'assets/058.png');
@@ -53,7 +67,8 @@ function create () {
     var cursors = this.input.keyboard.createCursorKeys();
     var spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     var pointer = this.input.activePointer;
-    controls = new Controls(this, cursors, player, spaceKey, pointer, sheep);
+    PlayerControls = new Controls(this, cursors, player, spaceKey, pointer, sheep);
+    DogPlayer = new Dog(game, player, sheep, fences);
 
     //Can I move this to controls?
     this.input.on("pointerup", function(pointer) {
@@ -62,7 +77,7 @@ function create () {
 }   
 
 function update() {
-    controls.check();
+    PlayerControls.check();
 }
 
 //get sheep positions
@@ -87,3 +102,4 @@ console.log(player);
 cursors = game.input.keyboard.createCursorKeys();
 controls = new Controls(game, cursors, player);
 */
+
