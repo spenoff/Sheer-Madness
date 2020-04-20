@@ -1,5 +1,6 @@
 import { Controls } from "./Controls.js";
 import { Dog } from "./Dog.js"
+import { Sheep } from "./Sheep.js";
 
 //Try to find a way to build a container
 class Game {
@@ -40,6 +41,7 @@ var config = {
 var game = new Phaser.Game(config);
 var PlayerControls;
 var DogPlayer;
+var sheepAI;
 
 export var dog;
 export var fences;
@@ -48,6 +50,7 @@ export var sheep;
 
 function preload () {
     this.load.image('dog', 'assets/058.png');
+    this.load.image('sheep', 'assets/sheep.png');
 }
 
 function create () {
@@ -69,6 +72,7 @@ function create () {
     var pointer = this.input.activePointer;
     PlayerControls = new Controls(this, cursors, player, spaceKey, pointer, sheep);
     DogPlayer = new Dog(game, player, sheep, fences);
+    sheepAI = new Sheep(game, DogPlayer, "IDLE", sheep.create(961, 541));
 
     //Can I move this to controls?
     this.input.on("pointerup", function(pointer) {
@@ -78,6 +82,7 @@ function create () {
 
 function update() {
     PlayerControls.check();
+    sheepAI.update();
 }
 
 //get sheep positions
