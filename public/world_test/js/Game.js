@@ -52,7 +52,7 @@ function preload () {
 
 function create () {
     dog = this.physics.add.group({
-    defaultKey: "dog"
+        defaultKey: "dog"
     });
     player = dog.create(960, 540);
     player.body.collideWorldBounds = true;

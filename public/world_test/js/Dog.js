@@ -2,7 +2,6 @@
 //Controls handles a lot
 
 export class Dog {
-    constructor() {}
 
     constructor(game, player, sheepGroup, fencesGroup) {
         this.game = game;
