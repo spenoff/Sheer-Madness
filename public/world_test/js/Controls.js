@@ -6,7 +6,7 @@ export class Controls {
         this.spaceKey = spaceKey;
         this.mouse = mouse;
         this.sheep = sheep;
-        this.barkRadius = 5;
+        this.barkRadius = 250;
     }
 
     check() {

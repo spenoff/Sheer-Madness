@@ -60,7 +60,9 @@ function create () {
     player = dog.create(960, 540);
     player.body.collideWorldBounds = true;
 
-    sheep = this.physics.add.group();
+    sheep = this.physics.add.group({
+        defaultKey: "sheep"
+    });
 
     fences = this.physics.add.staticGroup();
     this.physics.add.collider(player, fences);

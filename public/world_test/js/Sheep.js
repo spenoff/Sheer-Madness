@@ -37,7 +37,7 @@ export class Sheep {
         var dogX = this.dog.player.x;
         var dogY = this.dog.player.y;
 
-        if(Math.sqrt(Math.pow(dogX, 2) + Math.pow(dogY, 2)) - Math.sqrt(Math.pow(this.asset.x, 2) + Math.pow(this.asset.y, 2)) < 50) {
+        if(Math.sqrt(Math.pow(dogX - this.asset.x, 2) + Math.pow(dogY - this.asset.y, 2)) < 50) {
             //distance between the dog and the sheep is less than 50
             //The sheep must move away from the dog
             if(dogX < this.asset.x) {
