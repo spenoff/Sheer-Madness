@@ -151,11 +151,12 @@ var config = {
             gravity: { y: 0 }
         }
     },
-    scene: [ TestLevel, TestLevel2 ]
+    //scene: [ TestLevel, TestLevel2 ]
+    scene : [ TestLevel ]
 };
 
 var game = new Phaser.Game(config);
-
+game.scene.add('TestLevel2', TestLevel2);
 
 function preload () {
     this.load.image('dog', 'assets/058.png');
