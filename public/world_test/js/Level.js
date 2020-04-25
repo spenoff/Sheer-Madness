@@ -63,6 +63,7 @@ export class Level extends Phaser.Scene {
 
         this.physics.add.collider(this.dog, this.fence);
         this.physics.add.collider(this.sheep, this.fence);
+        this.physics.add.collider(this.dog, this.sheep);
 
         var cursors = this.input.keyboard.createCursorKeys();
         var spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -77,7 +78,7 @@ export class Level extends Phaser.Scene {
                 var target = null;
                 for (var i = 0; i < this.allSheep.length; i++) {
                     var sheep = this.allSheep[i].asset;
-                    if (Math.sqrt(Math.pow(this.player.x - sheep.x, 2) + Math.pow(this.player.y - sheep.y, 2)) <= 30) {
+                    if (Math.sqrt(Math.pow(this.player.x - sheep.x, 2) + Math.pow(this.player.y - sheep.y, 2)) <= 32 + 30) {
                         target = sheep;
                     }
                     //when to override target?
