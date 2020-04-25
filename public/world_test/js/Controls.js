@@ -9,7 +9,7 @@ export class Controls {
         this.barkRadius = 250;
     }
 
-    check() {
+    update() {
         if (this.cursors.left.isDown) {
             this.player.setVelocityX(-160);
         }
