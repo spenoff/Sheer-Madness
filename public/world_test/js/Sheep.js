@@ -41,16 +41,24 @@ export class Sheep {
             //distance between the dog and the sheep is less than 50
             //The sheep must move away from the dog
             if(dogX < this.asset.x) {
-                this.asset.x++;
+                //this.asset.x++;
+                this.asset.setVelocityX(140);
             } else if(dogX > this.asset.x) {
-                this.asset.x--;
+                //this.asset.x--;
+                this.asset.setVelocityX(-140);
             }
 
             if(dogY < this.asset.y) {
-                this.asset.y++;
+                //this.asset.y++;
+                this.asset.setVelocityY(140);
             } else if(dogY > this.asset.y) {
-                this.asset.y--;
+                //this.asset.y--;
+                this.asset.setVelocityY(-140);
             }
+        }
+        else {
+            this.asset.setVelocityX(0);
+            this.asset.setVelocityY(0);
         }
     }
 }

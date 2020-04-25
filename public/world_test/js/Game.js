@@ -3,8 +3,13 @@ import { Dog } from "./Dog.js"
 import { Sheep } from "./Sheep.js";
 
 //Try to find a way to build a container
-class Game {
-    constructor() {}
+export class Game {
+    constructor() {
+        this.allSheep = [];
+        this.allFences = [];
+        this.allPonds = [];
+        this.allWolves = [];
+    }
 
     setGame(game) {
         this.game = game;
@@ -21,6 +26,22 @@ class Game {
     setSheepGroup(sheepGroup) {
         this.sheepGroup = sheepGroup;
     }
+
+    createSheep(x, y) {
+        if (this.sheepGroup) {
+            var sheep = this.sheepGroup.create(x,y);
+            var sheepAI = new Sheep(this.game, this.player, "IDLE", sheep);
+            this.allSheep.add(sheepAI);
+        }
+    }
+
+    createFence(x,y) {
+
+    }
+
+    createPond(x,y) {
+
+    }
 }
 
 //currently messy since outside level classes
@@ -28,10 +49,15 @@ var PlayerControls;
 var DogPlayer;
 var sheepAI;
 
+/*
 export var dog;
 export var fences;
 export var player;
 export var sheep;
+*/
+
+var fences;
+var sheep;
 
 class TestLevel extends Phaser.Scene {
     constructor() {
@@ -45,19 +71,21 @@ class TestLevel extends Phaser.Scene {
     }
     
     create () {
-        dog = this.physics.add.group({
+        var dog = this.physics.add.group({
             defaultKey: "dog"
         });
-        player = dog.create(960, 540);
+        var player = dog.create(960, 540);
         player.body.collideWorldBounds = true;
     
         sheep = this.physics.add.group({
             defaultKey: "sheep"
         });
+        
     
         fences = this.physics.add.staticGroup();
         this.physics.add.collider(player, fences);
-    
+        this.physics.add.collider(sheep, fences);
+
         //console.log(player);
     
         var cursors = this.input.keyboard.createCursorKeys();
@@ -68,12 +96,17 @@ class TestLevel extends Phaser.Scene {
 
         PlayerControls = new Controls(this, cursors, player, spaceKey, pointer, sheep);
         DogPlayer = new Dog(game, player, sheep, fences);
-        sheepAI = new Sheep(game, DogPlayer, "IDLE", sheep.create(961, 541));
+
+        var sheepObj = sheep.create(961, 541);
+        sheepObj.body.collideWorldBounds = true;
+        sheepAI = new Sheep(game, DogPlayer, "IDLE", sheepObj);
     
         //Can I move this to controls?
         this.input.on("pointerup", function(pointer) {
             console.log("lasso");
         });
+
+        fences.create(1100, 600);
     }   
     
     update() {
