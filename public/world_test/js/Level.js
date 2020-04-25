@@ -10,15 +10,26 @@ export class Level extends Phaser.Scene {
         this.allFences = [];
         this.allPonds = [];
         this.allWolves = [];
+        this.allFinishSpaces = [];
+        this.status = 0; //0 = in progress, 1 = complete, 2 = fail
     }
 
     preload() {
         //Load images and assets
-        this.load.image('dog', 'assets/058.png');
-        this.load.image('sheep', 'assets/sheep.png');
+        //this.load.image('dog', 'assets/058.png');
+        this.load.spritesheet('dog', 'assets/Dog.png', {frameWidth: 32, frameHeight: 32});
+        this.load.image('sheep', 'assets/Sheep.png');
+        //this.load.image('fence', 'assets/Fence.png');
+        this.load.spritesheet('fence', 'assets/Fence.png', {frameWidth: 32, frameHeight: 32});
+        this.load.image('grass', 'assets/green.png');
+        this.load.image('red', 'assets/red.png');
     }
 
     create() {
+
+        var bgtile = this.add.tileSprite(0, 0, 1920*2, 1080*2, 'grass');
+        bgtile.setDepth(-1);
+
         this.dog = this.physics.add.group({
             defaultKey: "dog"
         });
@@ -27,23 +38,31 @@ export class Level extends Phaser.Scene {
             defaultKey: "sheep"
         });
 
-        this.fences = this.physics.add.staticGroup({
+        this.fence = this.physics.add.staticGroup({
             defaultKey: "fence"
         });
 
-        this.ponds = this.physics.add.staticGroup({
+        this.pond = this.physics.add.staticGroup({
             defaultKey: 'pond'
         });
 
-        this.wolves = this.physics.add.staticGroup({
+        this.wolf = this.physics.add.staticGroup({
             defaultKey: 'wolf'
         });
 
-        this.player = this.dog.create(960, 540);
+        this.finishSpace = this.physics.add.staticGroup({
+            defaultKey: 'finishSpace'
+        });
+
+
+        this.player = this.dog.create(960, 540, undefined, 0);
+        //need to animate
+
+
         this.player.body.collideWorldBounds = true;
 
-        this.physics.add.collider(this.player, this.fences);
-        this.physics.add.collider(this.sheep, this.fences);
+        this.physics.add.collider(this.dog, this.fence);
+        this.physics.add.collider(this.sheep, this.fence);
 
         var cursors = this.input.keyboard.createCursorKeys();
         var spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -60,19 +79,100 @@ export class Level extends Phaser.Scene {
         //TESTING START
         this.cKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
 
+        /*
         var sheepObj = this.sheep.create(961, 541);
         sheepObj.body.collideWorldBounds = true;
         var sheepAI = new Sheep(this.game, this.DogPlayer, "IDLE", sheepObj);
         this.allSheep.push(sheepAI);
 
-        this.fences.create(1100, 600);
+        var f = this.fence.create(1100, 600, undefined, 0);
+        f.angle += 90;
+        var f = this.fence.create(1132, 600, undefined, 0);
+        f.angle += 90;
+        */
         //TESTING END
+        console.log(this.player);
     }
 
     update() {
-        this.controls.update();
-        this.allSheep.forEach(function(sheep) {
-            sheep.update();
-        });
+        if (this.status == 0) {
+            //this.player.angle = 180 / Math.PI * Math.atan2(this.dog.velocityY, this.dog.velocityX);
+            //this.player.angle = Math.atan2(this.player.body.velocityY, this.player.body.velocityX) * 180 / Math.PI;
+            //console.log(this.player.angle);
+            //console.log(Math.atan2(this.player.velocityY, this.player.velocityX));
+            //console.log(this.player.body.angularVelocity);
+
+            this.controls.update();
+            this.allSheep.forEach(function(sheep) {
+                sheep.update();
+            });
+        }
     }
+
+    createHorizontalFences(startX, startY, num, dir=1, startTerminate=true, endTerminate=true) {
+        var f;
+        if (num == 1) {
+            f = this.fence.create(startX, startY, undefined, 0);
+            f.angle += 90;
+        }
+        else {
+            var incrementer = dir * 32;
+            for (var i = 0; i < num; i++) {
+                if (i == 0 && startTerminate) {
+                    f = this.fence.create(startX + incrementer * i, startY, undefined, 2);
+                    f.angle -= 90 * dir;
+                }
+                else if (i == num - 1 && endTerminate) {
+                    f = this.fence.create(startX + incrementer * i, startY, undefined, 2);
+                    f.angle += 90 * dir;
+                }
+                else {
+                    f = this.fence.create(startX + incrementer * i, startY, undefined, 0);
+                    f.angle += 90;
+                }
+            }
+        }
+    }
+
+    createVerticalFences(startX, startY, num, dir=1, startTerminate=true, endTerminate=true) {
+        var f;
+        if (num == 1) {
+            f = this.fence.create(startX, startY, undefined, 0);
+        }
+        else {
+            var incrementer = dir * 32;
+            for (var i = 0; i < num; i++) {
+                if (i == 0 && startTerminate) {
+                    f = this.fence.create(startX, startY + incrementer * i, undefined, 2);
+                    if (dir == -1) {
+                        f.angle += 180;
+                    }
+                }
+                else if (i == num - 1 && endTerminate) {
+                    f = this.fence.create(startX, startY + incrementer * i, undefined, 2);
+                    if (dir == 1) {
+                        f.angle += 180;
+                    }
+                }
+                else {
+                    f = this.fence.create(startX, startY + incrementer * i, undefined, 0);
+                }
+            }
+        }
+    }
+
+    createTFence(x, y, angle) {
+        var f = this.fence.create(x, y, undefined, 3);
+        f.angle += angle;
+    }
+
+    createLFence(x, y, angle) {
+        var f = this.fence.create(x, y, undefined, 3);
+        f.angle += 180 + angle;
+    }   
+
+    createPlusFence(x, y) {
+        var f = this.fence.create(x, y, undefined, 4);
+    }
+
 }
