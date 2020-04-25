@@ -69,8 +69,29 @@ export class Level extends Phaser.Scene {
         var pointer = this.input.activePointer;
 
         //Can I move this to controls?
-        this.input.on("pointerup", function(pointer) {
+        this.input.on("pointerup", (pointer) => {
             console.log("lasso");
+            //check for sheep within range
+            console.log(this.player.lassoTarget);
+            if (this.player.lassoTarget == null) {
+                var target = null;
+                for (var i = 0; i < this.allSheep.length; i++) {
+                    var sheep = this.allSheep[i].asset;
+                    if (Math.sqrt(Math.pow(this.player.x - sheep.x, 2) + Math.pow(this.player.y - sheep.y, 2)) <= 30) {
+                        target = sheep;
+                    }
+                    //when to override target?
+                }
+                if (target) {
+                    target.lassoed = true;
+                    this.player.lassoTarget = target;
+                    console.log("lassoed!!!");
+                }
+            }
+            else {
+                this.player.lassoTarget.lassoed = false;
+                this.player.lassoTarget = null;
+            }
         });
 
         this.controls = new Controls(this, cursors, this.player, spaceKey, pointer, this.sheep);
@@ -96,19 +117,21 @@ export class Level extends Phaser.Scene {
 
     update() {
         if (this.status == 0) {
-            //this.player.angle = 180 / Math.PI * Math.atan2(this.dog.velocityY, this.dog.velocityX);
-            //this.player.angle = Math.atan2(this.player.body.velocityY, this.player.body.velocityX) * 180 / Math.PI;
-            //console.log(this.player.angle);
-            //console.log(Math.atan2(this.player.velocityY, this.player.velocityX));
-            //console.log(this.player.body.angularVelocity);
-
             this.controls.update();
+            this.player.angle = 90 + Math.atan2(this.player.body.velocity.y, this.player.body.velocity.x) * 180 / Math.PI;
+
             this.allSheep.forEach(function(sheep) {
                 sheep.update();
             });
         }
     }
 
+    /*
+        num: number of consecutive fences
+        dir: direction, -1 or 1, negative or positive direction in the axis
+        startTerminate: end the fence line at start
+        endTerminate: end the fence line at end
+    */
     createHorizontalFences(startX, startY, num, dir=1, startTerminate=true, endTerminate=true) {
         var f;
         if (num == 1) {

@@ -37,28 +37,34 @@ export class Sheep {
         var dogX = this.dog.player.x;
         var dogY = this.dog.player.y;
 
-        if(Math.sqrt(Math.pow(dogX - this.asset.x, 2) + Math.pow(dogY - this.asset.y, 2)) < 50) {
-            //distance between the dog and the sheep is less than 50
-            //The sheep must move away from the dog
-            if(dogX < this.asset.x) {
-                //this.asset.x++;
-                this.asset.setVelocityX(140);
-            } else if(dogX > this.asset.x) {
-                //this.asset.x--;
-                this.asset.setVelocityX(-140);
-            }
+        if (!this.asset.lassoed) {
+            if(Math.sqrt(Math.pow(dogX - this.asset.x, 2) + Math.pow(dogY - this.asset.y, 2)) <= 60) {
+                //distance between the dog and the sheep is less than 50
+                //The sheep must move away from the dog
+                if(dogX < this.asset.x) {
+                    //this.asset.x++;
+                    this.asset.setVelocityX(140);
+                } else if(dogX > this.asset.x) {
+                    //this.asset.x--;
+                    this.asset.setVelocityX(-140);
+                }
 
-            if(dogY < this.asset.y) {
-                //this.asset.y++;
-                this.asset.setVelocityY(140);
-            } else if(dogY > this.asset.y) {
-                //this.asset.y--;
-                this.asset.setVelocityY(-140);
+                if(dogY < this.asset.y) {
+                    //this.asset.y++;
+                    this.asset.setVelocityY(140);
+                } else if(dogY > this.asset.y) {
+                    //this.asset.y--;
+                    this.asset.setVelocityY(-140);
+                }
+            }
+            else {
+                this.asset.setVelocityX(0);
+                this.asset.setVelocityY(0);
             }
         }
         else {
-            this.asset.setVelocityX(0);
-            this.asset.setVelocityY(0);
+            this.asset.setVelocityX(this.dog.player.body.velocity.x);
+            this.asset.setVelocityY(this.dog.player.body.velocity.y);
         }
     }
 }

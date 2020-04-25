@@ -23,15 +23,11 @@ export class Level0 extends Level {
 
         var sheepObj = this.sheep.create(1000, 600);
         sheepObj.body.collideWorldBounds = true;
+        sheepObj.lassoed = false;
         var sheepAI = new Sheep(this.game, this.DogPlayer, "IDLE", sheepObj);
         this.allSheep.push(sheepAI);
         this.player.x = 800;
         this.player.y = 800;
-
-        this.createHorizontalFences(32, 32, 10);
-        this.createHorizontalFences(400, 64, 10, -1);
-        this.createVerticalFences(32, 96, 10);
-        this.createVerticalFences(64, 96+32*10-32, 10, -1);
     }
 
     update() {

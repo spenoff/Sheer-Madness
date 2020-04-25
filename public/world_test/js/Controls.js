@@ -33,7 +33,7 @@ export class Controls {
         if (Phaser.Input.Keyboard.JustDown(this.spaceKey)) {
             console.log("bark");
             this.sheep.children.iterate(function(child) {
-                if (Math.sqrt(Math.pow(player.x - child.x, 2) + Math.pow(player.y - child.y, 2)) < this.barkRadius) {
+                if (Math.sqrt(Math.pow(this.player.x - child.x, 2) + Math.pow(this.player.y - child.y, 2)) < this.barkRadius) {
                     child.alert = true;
                 }
             })
