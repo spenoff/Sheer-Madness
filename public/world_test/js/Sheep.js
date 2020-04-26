@@ -41,19 +41,17 @@ export class Sheep {
             if(Math.sqrt(Math.pow(dogX - this.asset.x, 2) + Math.pow(dogY - this.asset.y, 2)) <= 60) {
                 //distance between the dog and the sheep is less than 50
                 //The sheep must move away from the dog
-                if(dogX < this.asset.x) {
-                    //this.asset.x++;
+                if (dogX < this.asset.x) {
                     this.asset.setVelocityX(140);
-                } else if(dogX > this.asset.x) {
-                    //this.asset.x--;
+                } 
+                else if (dogX > this.asset.x) {
                     this.asset.setVelocityX(-140);
                 }
 
-                if(dogY < this.asset.y) {
-                    //this.asset.y++;
+                if (dogY < this.asset.y) {
                     this.asset.setVelocityY(140);
-                } else if(dogY > this.asset.y) {
-                    //this.asset.y--;
+                } 
+                else if (dogY > this.asset.y) {
                     this.asset.setVelocityY(-140);
                 }
             }

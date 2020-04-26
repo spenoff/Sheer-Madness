@@ -12,6 +12,7 @@ export class Level extends Phaser.Scene {
         this.allWolves = [];
         this.allFinishSpaces = [];
         this.score = 0;
+        this.requiredScore = 0;
     }
 
     preload() {
@@ -73,16 +74,7 @@ export class Level extends Phaser.Scene {
             alert("Game over! Press R to restart the level");
         });
         this.physics.add.collider(this.sheep, this.pond, (sheep, pond) => {
-            var remove_index = -1;
-            for (var i = 0; i < this.allSheep.length; i++) {
-                if (this.allSheep[i].asset === sheep) {
-                    remove_index = i;
-                }
-            }
-            if (remove_index != -1) {
-                this.allSheep.splice(remove_index);
-            }
-            sheep.destroy();
+            this.removeSheep(sheep);
         });
 
         var cursors = this.input.keyboard.createCursorKeys();
@@ -139,6 +131,16 @@ export class Level extends Phaser.Scene {
                     sheep.asset.angle = 90 + Math.atan2(sheep.asset.body.velocity.y, sheep.asset.body.velocity.x) * 180 / Math.PI;
                 }
             });
+
+            if (this.score >= this.requiredScore) {
+                this.status = 1;
+                this.player.setVelocity(0);
+                this.allSheep.forEach((sheep) => {
+                    sheep.asset.setVelocity(0);
+                });
+                alert("Level complete!");
+            }
+
         }
         
         if (Phaser.Input.Keyboard.JustDown(this.rKey)) {
@@ -165,6 +167,40 @@ export class Level extends Phaser.Scene {
         this.allWolves = [];
         this.allFinishSpaces = [];
         this.score = 0; 
+    }
+
+
+    setRequiredScore(s) {
+        this.requiredScore = s;
+    }
+
+    setPlayerPosition(x, y) {
+        this.player.x = x;
+        this.player.y = y;
+    }
+
+    createSheep(x, y) {
+        var sheepObj = this.sheep.create(x, y);
+        sheepObj.body.collideWorldBounds = true;
+        sheepObj.lassoed = false;
+        var sheepAI = new Sheep(this.game, this.player, "IDLE", sheepObj);
+        this.allSheep.push(sheepAI);
+    }
+
+    removeSheep(sheep) {
+        var remove_index = -1;
+        for (var i = 0; i < this.allSheep.length; i++) {
+            if (this.allSheep[i].asset === sheep) {
+                remove_index = i;
+            }
+        }
+        if (remove_index != -1) {
+            this.allSheep.splice(remove_index);
+        }
+        if (this.player.lassoTarget == sheep) {
+            this.player.lassoTarget = null;
+        }
+        sheep.destroy();
     }
 
     /*
@@ -241,6 +277,7 @@ export class Level extends Phaser.Scene {
         var f = this.fence.create(x, y, undefined, 4);
     }
 
+    //Create finish area centered at (x,y) with width and height
     createFinishSpace(x, y, width, height) {
         var spaceBgTile = this.add.tileSprite(x, y, width, height, 'red');
         spaceBgTile.setDepth(-1);
