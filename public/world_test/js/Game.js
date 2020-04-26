@@ -3,6 +3,7 @@ import { Level } from "./Level.js";
 import { Level0 } from "./Level0.js";
 import { Level1 } from "./Level1.js";
 import { Level2 } from "./Level2.js";
+import { Level3 } from "./Level3.js";
 
 //CHANGE SCENE within scene class
 //this.scene.start('TestLevel2');
@@ -67,7 +68,7 @@ var config = {
             gravity: { y: 0 }
         }
     },
-    scene : [ MainMenu, Level0, Level1, Level2 ]
+    scene : [ MainMenu, Level0, Level1, Level2, Level3 ]
 };
 
 var game = new Phaser.Game(config);
