@@ -41,8 +41,7 @@ class MainMenu extends GameScene {
             alert("setting");
         });
         about.on('pointerdown', function(event) {
-            alert("about");
-            //this.scene.start('AboutMenu');
+            this.scene.start('AboutMenu');
         }, this);
     }
 
@@ -54,9 +53,13 @@ class MainMenu extends GameScene {
 
 class AboutMenu extends Phaser.Scene {
 
+    constructor() {
+        super("AboutMenu");
+    }
+
     preload() {
 
-        this.load.image("aboutmenu", 'imgs/About.png');
+        this.load.image("aboutmenu", 'assets/About.png');
     }
 
     create() {
@@ -86,7 +89,7 @@ var config = {
             gravity: { y: 0 }
         }
     },
-    scene : [ MainMenu, Level0, Level1, Level2 ]
+    scene : [ MainMenu, AboutMenu, Level0, Level1, Level2 ]
 };
 
 var game = new Phaser.Game(config);
