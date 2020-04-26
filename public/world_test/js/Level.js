@@ -11,7 +11,7 @@ export class Level extends Phaser.Scene {
         this.allWolves = [];
         this.allFinishSpaces = [];
         this.score = 0;
-        this.requiredScore = 500; //500 is default
+        this.requiredScore = 500;
         this.sheepScore = 500;
     }
 
@@ -71,7 +71,7 @@ export class Level extends Phaser.Scene {
             //Do we add something to let the player know the sheep drowned? sfx, anything else?
         });
         this.physics.add.collider(this.sheep, this.finishSpace, (sheep, space) => {
-            this.score += 500; //sheep score right now is 500
+            this.score += this.sheepScore;
             this.removeSheep(sheep);
         });
 
@@ -131,7 +131,7 @@ export class Level extends Phaser.Scene {
                     var sheep = this.allSheep[i].asset;
                     if (sheep.x - sheep.width/2 >= space.x - space.width/2 && sheep.x + sheep.body.width/2 <= space.x + space.width/2 &&
                         sheep.y - sheep.height/2 >= space.y - space.height/2 && sheep.y + sheep.body.height/2 <= space.y + space.height/2) {
-                        this.score += 500;
+                        this.score += this.sheepScore;
                         this.removeSheep(sheep);
                     }
                 }
@@ -282,6 +282,18 @@ export class Level extends Phaser.Scene {
 
     createPlusFence(x, y) {
         var f = this.fence.create(x, y, undefined, 4);
+    }
+
+    createBoxOfFences(startX, startY, numHorizFences, numVerticFences) {
+        this.createVerticalFences(startX, startY + 32, numVerticFences, 1, false, false);
+        this.createVerticalFences(startX + 32 * (numHorizFences + 1), startY + 32, numVerticFences, 1, false, false);
+        this.createHorizontalFences(startX + 32, startY, numHorizFences, 1, false, false);
+        this.createHorizontalFences(startX + 32, startY + 32 * (numVerticFences + 1), numHorizFences, 1, false, false);
+
+        this.createLFence(startX, startY, 90);
+        this.createLFence(startX, startY + 32 * (numVerticFences + 1), 0);
+        this.createLFence(startX + 32 * (numHorizFences + 1), 32, 180);
+        this.createLFence(startX + 32 * (numHorizFences + 1), startY + 32 * (numVerticFences + 1), -90);
     }
 
     //Create finish area centered at (x,y) with width and height
