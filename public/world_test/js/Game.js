@@ -110,7 +110,7 @@ var config = {
             gravity: { y: 0 }
         }
     },
-    scene : [ MainMenu, SettingMenu, AboutMenu, Level0, Level1, Level2, Level3 ]
+    scene : [ MainMenu, AboutMenu, SettingMenu, Level0, Level1, Level2, Level3 ]
 };
 
 var game = new Phaser.Game(config);
