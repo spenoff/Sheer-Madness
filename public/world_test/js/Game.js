@@ -24,11 +24,10 @@ class MainMenu extends Phaser.Scene {
         var levelsel    = this.add.sprite(960, 480, 'menubuttons', 1).setInteractive();
         var setting     = this.add.sprite(960, 600, 'menubuttons', 2).setInteractive();
         var about       = this.add.sprite(960, 720, 'menubuttons', 3).setInteractive();
-        var quit        = this.add.sprite(960, 840, 'menubuttons', 4).setInteractive();
 
-        start.on('pointerdown', function() {
-            alert("start");
-        });
+        start.on('pointerdown', function(event) {
+            this.scene.start('Level0');
+        }, this);
         levelsel.on('pointerdown', function() {
             alert("levelsel");
         });
@@ -37,9 +36,6 @@ class MainMenu extends Phaser.Scene {
         });
         about.on('pointerdown', function() {
             alert("about");
-        });
-        quit.on('pointerdown', function() {
-            alert("quit");
         });
     }
 
@@ -65,7 +61,7 @@ var config = {
             gravity: { y: 0 }
         }
     },
-    scene : [ MainMenu ]
+    scene : [ MainMenu, Level0, Level1, Level2 ]
 };
 
 var game = new Phaser.Game(config);
