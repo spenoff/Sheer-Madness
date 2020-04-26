@@ -3,7 +3,7 @@ import { Level } from "./Level.js";
 export class Level2 extends Level {
     constructor() {
         super('Level2');
-        this.requiredScore = 1000;
+        this.requiredScore = 500;
     }
 
     create() {
@@ -12,7 +12,21 @@ export class Level2 extends Level {
         this.createBoxOfFences(32, 32, 20, 30);
         this.createFinishSpace(32, 32, 672, 150);
 
-        this.setPlayerPosition(32 + 336, 1000);
+        this.setPlayerPosition(32 + 336, 950);
+        this.createSheep(32 + 336, 850);
+
+        for (var y = 600; y <= 632; y+=32) {
+            for (var x = 240; x <= 240 + 32 * 8; x+=32) {
+                this.createPond(x, y);
+            }
+        } 
+
+        for (var x = 64; x <= 32 + 32 * 5; x += 32) {
+            this.createPond(x, 300);
+        }
+        for (var x = 672; x >= 672 - 32 * 5; x -= 32) {
+            this.createPond(x, 300);
+        }
 
 
     }
