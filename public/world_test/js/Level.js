@@ -1,5 +1,4 @@
 import { Controls } from "./Controls.js";
-import { Dog } from "./Dog.js"
 import { Sheep } from "./Sheep.js";
 
 export class Level extends Phaser.Scene {
@@ -12,7 +11,8 @@ export class Level extends Phaser.Scene {
         this.allWolves = [];
         this.allFinishSpaces = [];
         this.score = 0;
-        this.requiredScore = 0;
+        this.requiredScore = 500;
+        this.sheepScore = 500;
     }
 
     preload() {
@@ -23,7 +23,7 @@ export class Level extends Phaser.Scene {
         this.load.image('grass', 'assets/green.png'); //replace when grass sprite is created
         this.load.image('red', 'assets/red.png');
         this.load.image('pond', 'assets/blue.png'); //replace when pond sprite is created
-        //victory tile
+        this.load.image('finishSpace', 'assets/red.png'); //victory tile
         //wolf image
     }
 
@@ -69,6 +69,10 @@ export class Level extends Phaser.Scene {
         this.physics.add.collider(this.sheep, this.pond, (sheep, pond) => {
             this.removeSheep(sheep);
             //Do we add something to let the player know the sheep drowned? sfx, anything else?
+        });
+        this.physics.add.collider(this.sheep, this.finishSpace, (sheep, space) => {
+            this.score += this.sheepScore;
+            this.removeSheep(sheep);
         });
 
         var cursors = this.input.keyboard.createCursorKeys();
@@ -120,6 +124,19 @@ export class Level extends Phaser.Scene {
                 }
             });
 
+            //figure out how to implement just straight up collision
+            for (var i = 0; i < this.allFinishSpaces.length; i++) {
+                var space = this.allFinishSpaces[i];
+                for (var j = 0; j < this.allSheep.length; j++) {
+                    var sheep = this.allSheep[i].asset;
+                    if (sheep.x - sheep.width/2 >= space.x - space.width/2 && sheep.x + sheep.body.width/2 <= space.x + space.width/2 &&
+                        sheep.y - sheep.height/2 >= space.y - space.height/2 && sheep.y + sheep.body.height/2 <= space.y + space.height/2) {
+                        this.score += this.sheepScore;
+                        this.removeSheep(sheep);
+                    }
+                }
+            }
+
             if (this.score >= this.requiredScore) {
                 this.status = 1;
                 this.player.setVelocity(0);
@@ -137,11 +154,15 @@ export class Level extends Phaser.Scene {
         }
         if (Phaser.Input.Keyboard.JustDown(this.zeroKey)) {
             this.stopLevel();
-            this.scene.start('Level0')   
+            this.scene.start('Level0');  
         }
         if (Phaser.Input.Keyboard.JustDown(this.oneKey)) {
             this.stopLevel();
-            this.scene.start('Level1')   
+            this.scene.start('Level1');   
+        }
+        if (Phaser.Input.Keyboard.JustDown(this.twoKey)) {
+            this.stopLevel();
+            this.scene.start('Level2');   
         }
     }
 
@@ -263,10 +284,28 @@ export class Level extends Phaser.Scene {
         var f = this.fence.create(x, y, undefined, 4);
     }
 
+    createBoxOfFences(startX, startY, numHorizFences, numVerticFences) {
+        this.createVerticalFences(startX, startY + 32, numVerticFences, 1, false, false);
+        this.createVerticalFences(startX + 32 * (numHorizFences + 1), startY + 32, numVerticFences, 1, false, false);
+        this.createHorizontalFences(startX + 32, startY, numHorizFences, 1, false, false);
+        this.createHorizontalFences(startX + 32, startY + 32 * (numVerticFences + 1), numHorizFences, 1, false, false);
+
+        this.createLFence(startX, startY, 90);
+        this.createLFence(startX, startY + 32 * (numVerticFences + 1), 0);
+        this.createLFence(startX + 32 * (numHorizFences + 1), 32, 180);
+        this.createLFence(startX + 32 * (numHorizFences + 1), startY + 32 * (numVerticFences + 1), -90);
+    }
+
     //Create finish area centered at (x,y) with width and height
     createFinishSpace(x, y, width, height) {
         var spaceBgTile = this.add.tileSprite(x, y, width, height, 'red');
         spaceBgTile.setDepth(-1);
+        /* //does not work right now
+        this.physics.add.collider(spaceBgTile, this.sheep, (tile, sheep) => {
+            console.log("hi");
+        });
+        */
+
         this.allFinishSpaces.push({
             x: x,
             y: y,

@@ -21,20 +21,5 @@ export class Level0 extends Level {
 
     update() {
         super.update();
-        if (this.status === 0) {
-
-            //do I check the sheep entering to a basic collide? or leave it like this (sheep has to fully enter a finish area)
-            for (var i = 0; i < this.allFinishSpaces.length; i++) {
-                var space = this.allFinishSpaces[i];
-                for (var j = 0; j < this.allSheep.length; j++) {
-                    var sheep = this.allSheep[i].asset;
-                    if (sheep.x - sheep.width/2 >= space.x - space.width/2 && sheep.x + sheep.body.width/2 <= space.x + space.width/2 &&
-                        sheep.y - sheep.height/2 >= space.y - space.height/2 && sheep.y + sheep.body.height/2 <= space.y + space.height/2) {
-                        this.score += 500;
-                        this.removeSheep(sheep);
-                    }
-                }
-            }
-        }
     }
 }
