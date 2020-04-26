@@ -284,6 +284,10 @@ export class Level extends Phaser.Scene {
         var f = this.fence.create(x, y, undefined, 4);
     }
 
+    /*
+    numHorizonFences = number of horizontal fences between the corners
+    numVerticFences = number of vertical fences between the corners
+    */
     createBoxOfFences(startX, startY, numHorizFences, numVerticFences) {
         this.createVerticalFences(startX, startY + 32, numVerticFences, 1, false, false);
         this.createVerticalFences(startX + 32 * (numHorizFences + 1), startY + 32, numVerticFences, 1, false, false);
@@ -296,9 +300,9 @@ export class Level extends Phaser.Scene {
         this.createLFence(startX + 32 * (numHorizFences + 1), startY + 32 * (numVerticFences + 1), -90);
     }
 
-    //Create finish area centered at (x,y) with width and height
+    //Create finish area starting at (x,y) with width and height
     createFinishSpace(x, y, width, height) {
-        var spaceBgTile = this.add.tileSprite(x, y, width, height, 'red');
+        var spaceBgTile = this.add.tileSprite(x + width/2, y + height/2, width, height, 'red');
         spaceBgTile.setDepth(-1);
         /* //does not work right now
         this.physics.add.collider(spaceBgTile, this.sheep, (tile, sheep) => {
