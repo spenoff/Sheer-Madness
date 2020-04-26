@@ -11,7 +11,7 @@ export class Level extends Phaser.Scene {
         this.allPonds = [];
         this.allWolves = [];
         this.allFinishSpaces = [];
-        this.status = 0; //0 = in progress, 1 = complete, 2 = fail, 3 = restart
+        this.score = 0;
     }
 
     preload() {
@@ -27,6 +27,8 @@ export class Level extends Phaser.Scene {
     }
 
     create() {
+        this.status = 0; //0 = in progress, 1 = complete, 2 = fail, 3 = restart/change level
+
         var bgtile = this.add.tileSprite(0, 0, 1920*2, 1080*2, 'grass');
         bgtile.setDepth(-1);
 
@@ -68,7 +70,7 @@ export class Level extends Phaser.Scene {
             console.log("oops");
             this.status = 2;
             dog.destroy();
-            alert("Game over???");
+            alert("Game over! Press R to restart the level");
         });
         this.physics.add.collider(this.sheep, this.pond, (sheep, pond) => {
             var remove_index = -1;
@@ -89,9 +91,10 @@ export class Level extends Phaser.Scene {
         this.controls = new Controls(this, cursors, this.player, spaceKey, pointer, this.sheep);
 
         this.rKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
-        this.OneKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);
-        this.TwoKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);
-        this.ThreeKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE);
+        this.zeroKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ZERO);
+        this.oneKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);
+        this.twoKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);
+        this.threeKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE);
 
         //Can I move this to controls?
         this.input.on("pointerup", (pointer) => {
@@ -139,16 +142,29 @@ export class Level extends Phaser.Scene {
         }
         
         if (Phaser.Input.Keyboard.JustDown(this.rKey)) {
-            this.status = 3;
-            this.allSheep = [];
-            this.allFences = [];
-            this.allPonds = [];
-            this.allWolves = [];
-            this.allFinishSpaces = [];
-            this.player = null;
+            this.stopLevel();
             this.scene.restart();
             this.status = 0;
         }
+        if (Phaser.Input.Keyboard.JustDown(this.zeroKey)) {
+            this.stopLevel();
+            this.scene.start('Level0')   
+        }
+        if (Phaser.Input.Keyboard.JustDown(this.oneKey)) {
+            this.stopLevel();
+            this.scene.start('Level1')   
+        }
+    }
+
+    stopLevel() {
+        this.status = 3;
+        this.player = null;
+        this.allSheep = [];
+        this.allFences = [];
+        this.allPonds = [];
+        this.allWolves = [];
+        this.allFinishSpaces = [];
+        this.score = 0; 
     }
 
     /*

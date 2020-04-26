@@ -8,11 +8,16 @@ import { Level0 } from "./Level0.js";
 //CHANGE SCENE within scene class
 //this.scene.start('TestLevel2');
 
-
-
 class NewTestLevel extends Level {
     constructor() {
         super("NewTestLevel");
+    }
+}
+
+//placeholder
+class Level1 extends Level {
+    constructor() {
+        super('Level1');
     }
 }
 
@@ -27,7 +32,7 @@ var config = {
             gravity: { y: 0 }
         }
     },
-    scene : [ Level0 ]
+    scene : [ Level0 , Level1 ]
 };
 
 var game = new Phaser.Game(config);
