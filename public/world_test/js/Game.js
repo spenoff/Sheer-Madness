@@ -34,15 +34,34 @@ class MainMenu extends Phaser.Scene {
         setting.on('pointerdown', function() {
             alert("setting");
         });
-        about.on('pointerdown', function() {
+        about.on('pointerdown', function(event) {
             alert("about");
-        });
+            //this.scene.start('AboutMenu');
+        }, this);
     }
 
     update() {
 
     }
 
+}
+
+class AboutMenu extends Phaser.Scene {
+
+    preload() {
+
+        this.load.image("aboutmenu", 'imgs/About.png');
+    }
+
+    create() {
+
+        var aboutmenu = this.add.tileSprite(960, 540, 0, 0, 'aboutmenu');
+        aboutmenu.setDepth(-1);
+    }
+
+    update() {
+
+    }
 }
 
 class NewTestLevel extends Level {
