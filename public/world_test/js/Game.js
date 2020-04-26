@@ -1,3 +1,4 @@
+import { GameScene } from "./GameScene.js";
 import { Level } from "./Level.js";
 import { Level0 } from "./Level0.js";
 import { Level1 } from "./Level1.js";
@@ -6,7 +7,11 @@ import { Level2 } from "./Level2.js";
 //CHANGE SCENE within scene class
 //this.scene.start('TestLevel2');
 
-class MainMenu extends Phaser.Scene {
+class MainMenu extends GameScene {
+
+    constructor() {
+        super('MainMenu');
+    }
 
     preload() {
         
@@ -16,6 +21,7 @@ class MainMenu extends Phaser.Scene {
     }
 
     create() {
+        super.create();
 
         var background = this.add.tileSprite(960, 540, 0, 0, 'mainbackground');
         background.setDepth(-1);
@@ -40,7 +46,7 @@ class MainMenu extends Phaser.Scene {
     }
 
     update() {
-
+        super.update();
     }
 
 }

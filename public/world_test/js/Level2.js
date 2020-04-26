@@ -8,20 +8,13 @@ export class Level2 extends Level {
 
     create() {
         super.create();
-        
-        /*
-        this.createVerticalFences(32, 64, 20, 1, false, false);
-        this.createVerticalFences(352+32, 64, 20, 1, false, false);
-        this.createHorizontalFences(64, 32, 10, 1, false, false);
-        this.createHorizontalFences(64, 32+32*20+32, 10, 1, false, false);
-
-        this.createLFence(32, 32, 90);
-        this.createLFence(32, 32+32*20+32, 0);
-        this.createLFence(352+32, 32, 180);
-        this.createLFence(352+32, 32+32*20+32, -90);
-        */
 
         this.createBoxOfFences(32, 32, 20, 30);
+        this.createFinishSpace(32, 32, 672, 150);
+
+        this.setPlayerPosition(32 + 336, 1000);
+
+
     }
 
     update() {
