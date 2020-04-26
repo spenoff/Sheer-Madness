@@ -63,6 +63,7 @@ export class Level extends GameScene {
 
         this.physics.add.collider(this.dog, this.fence);
         this.physics.add.collider(this.sheep, this.fence);
+        this.physics.add.collider(this.sheep, this.sheep);
         this.physics.add.collider(this.dog, this.sheep);
         this.physics.add.collider(this.dog, this.pond, (dog, pond) => {
             this.status = 2;
@@ -130,7 +131,6 @@ export class Level extends GameScene {
                         sheep.y - sheep.height/2 >= space.y - space.height/2 && sheep.y + sheep.body.height/2 <= space.y + space.height/2) {
                         this.score += this.sheepScore;
                         this.removeSheep(sheep);
-                        console.log("finished");
                     }
                 }
             }
@@ -142,6 +142,12 @@ export class Level extends GameScene {
                     sheep.asset.setVelocity(0);
                 });
                 alert('Level complete!');
+            }
+
+            if (this.allSheep.length == 0 && this.score < this.requiredScore) {
+                this.status = 2;
+                this.player.destroy();
+                alert("Game over! {No more sheep?} Press R to restart the level");
             }
 
         }
