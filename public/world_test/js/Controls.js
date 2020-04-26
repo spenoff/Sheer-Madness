@@ -42,14 +42,5 @@ export class Controls {
             }
 
         }
-
-        /*
-        if (this.mouse.isDown) {
-            console.log("lasso");
-        }
-        */
-
-        //click
-        //spacebar
     }
 }

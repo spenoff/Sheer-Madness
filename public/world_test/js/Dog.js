@@ -1,5 +1,6 @@
-//Does this class have an use?
-//Controls handles a lot
+/*
+    Unused class
+*/
 
 export class Dog {
 

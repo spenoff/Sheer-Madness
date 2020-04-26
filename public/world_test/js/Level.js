@@ -17,14 +17,14 @@ export class Level extends Phaser.Scene {
 
     preload() {
         //Load images and assets
-        //this.load.image('dog', 'assets/058.png');
-        this.load.spritesheet('dog', 'assets/Dog.png', {frameWidth: 32, frameHeight: 32});
-        this.load.image('sheep', 'assets/Sheep.png');
-        //this.load.image('fence', 'assets/Fence.png');
+        this.load.spritesheet('dog', 'assets/Dog.png', {frameWidth: 32, frameHeight: 32}); //Need to add animation
+        this.load.image('sheep', 'assets/Sheep.png'); //Change the spritesheet and add animation?
         this.load.spritesheet('fence', 'assets/Fence.png', {frameWidth: 32, frameHeight: 32});
-        this.load.image('grass', 'assets/green.png');
+        this.load.image('grass', 'assets/green.png'); //replace when grass sprite is created
         this.load.image('red', 'assets/red.png');
-        this.load.image('pond', 'assets/blue.png');
+        this.load.image('pond', 'assets/blue.png'); //replace when pond sprite is created
+        //victory tile
+        //wolf image
     }
 
     create() {
@@ -35,32 +35,26 @@ export class Level extends Phaser.Scene {
 
         this.dog = this.physics.add.group({
             defaultKey: "dog"
-        });
-    
+        }); 
         this.sheep = this.physics.add.group({
             defaultKey: "sheep"
         });
-
         this.fence = this.physics.add.staticGroup({
             defaultKey: "fence"
         });
-
         this.pond = this.physics.add.staticGroup({
             defaultKey: 'pond'
         });
-
         this.wolf = this.physics.add.staticGroup({
             defaultKey: 'wolf'
         });
-
         this.finishSpace = this.physics.add.staticGroup({
             defaultKey: 'finishSpace'
         });
 
 
         this.player = this.dog.create(960, 540, undefined, 0);
-        //need to animate
-
+        //Need to animate the dog
 
         this.player.body.collideWorldBounds = true;
 
@@ -68,13 +62,13 @@ export class Level extends Phaser.Scene {
         this.physics.add.collider(this.sheep, this.fence);
         this.physics.add.collider(this.dog, this.sheep);
         this.physics.add.collider(this.dog, this.pond, (dog, pond) => {
-            console.log("oops");
             this.status = 2;
             dog.destroy();
-            alert("Game over! Press R to restart the level");
+            alert("Game over! {explanation for why?} Press R to restart the level");
         });
         this.physics.add.collider(this.sheep, this.pond, (sheep, pond) => {
             this.removeSheep(sheep);
+            //Do we add something to let the player know the sheep drowned? sfx, anything else?
         });
 
         var cursors = this.input.keyboard.createCursorKeys();
@@ -88,24 +82,20 @@ export class Level extends Phaser.Scene {
         this.twoKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);
         this.threeKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE);
 
-        //Can I move this to controls?
+        //Is it possible to move this to controls? Likely not, since setting an event
         this.input.on("pointerup", (pointer) => {
-            console.log("lasso");
-            //check for sheep within range
-            console.log(this.player.lassoTarget);
             if (this.player.lassoTarget == null) {
                 var target = null;
                 for (var i = 0; i < this.allSheep.length; i++) {
                     var sheep = this.allSheep[i].asset;
                     if (Math.sqrt(Math.pow(this.player.x - sheep.x, 2) + Math.pow(this.player.y - sheep.y, 2)) <= 32 + 30) {
+                        //When do I override the lasso target? Currently, the sheep to lasso will be the last one in list to fulfill conditions
                         target = sheep;
                     }
-                    //when to override target?
                 }
-                if (target) {
+                if (target != null) {
                     target.lassoed = true;
                     this.player.lassoTarget = target;
-                    console.log("lassoed!!!");
                 }
             }
             else {
@@ -113,8 +103,6 @@ export class Level extends Phaser.Scene {
                 this.player.lassoTarget = null;
             }
         });
-
-        //this.DogPlayer = new Dog(this.game, this.player, this.sheep, this.fences); //not currently in use, all functionality currently in controls
     }
 
     update() {
@@ -138,7 +126,7 @@ export class Level extends Phaser.Scene {
                 this.allSheep.forEach((sheep) => {
                     sheep.asset.setVelocity(0);
                 });
-                alert("Level complete!");
+                alert('Level complete!');
             }
 
         }
@@ -146,7 +134,6 @@ export class Level extends Phaser.Scene {
         if (Phaser.Input.Keyboard.JustDown(this.rKey)) {
             this.stopLevel();
             this.scene.restart();
-            this.status = 0;
         }
         if (Phaser.Input.Keyboard.JustDown(this.zeroKey)) {
             this.stopLevel();
@@ -168,7 +155,6 @@ export class Level extends Phaser.Scene {
         this.allFinishSpaces = [];
         this.score = 0; 
     }
-
 
     setRequiredScore(s) {
         this.requiredScore = s;
@@ -269,7 +255,7 @@ export class Level extends Phaser.Scene {
     }
 
     createLFence(x, y, angle) {
-        var f = this.fence.create(x, y, undefined, 3);
+        var f = this.fence.create(x, y, undefined, 1);
         f.angle += 180 + angle;
     }   
 
@@ -292,7 +278,6 @@ export class Level extends Phaser.Scene {
     createPond(x, y) {
         var pond = this.pond.create(x, y);
         pond.setDepth(-1);
-        pond.body.onCollide = true;
     }
 
 }

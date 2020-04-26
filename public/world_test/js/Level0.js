@@ -1,9 +1,8 @@
 import { Level } from "./Level.js"
-import { Sheep } from "./Sheep.js"
 
 export class Level0 extends Level {
     constructor() {
-        super("Level0");
+        super('Level0');
     }
 
     create() {

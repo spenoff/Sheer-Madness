@@ -38,9 +38,16 @@ export class Sheep {
         var dogY = this.dog.y;
 
         if (!this.asset.lassoed) {
+
+            /*
+            -Change this part so that sheep are set to alert (this.asset.alert) if within a range
+            -Set sheep to not be alert if not within range
+            -If sheep is alert, then it moves away from the dog
+            -How do we conjoin this with bark? If sheep is not in range for natural alert, but is in range for bark alert, sheep will only move once for bark
+               Do we have an alert timer or something?
+            */
+
             if(Math.sqrt(Math.pow(dogX - this.asset.x, 2) + Math.pow(dogY - this.asset.y, 2)) <= 60) {
-                //distance between the dog and the sheep is less than 50
-                //The sheep must move away from the dog
                 if (dogX < this.asset.x) {
                     this.asset.setVelocityX(140);
                 } 
