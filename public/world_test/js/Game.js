@@ -16,7 +16,7 @@ class MainMenu extends GameScene {
     preload() {
         
         this.load.image('mainbackground', 'assets/Background.png');
-        this.load.spritesheet('menubuttons', 'assets/MenuButtons.png', {frameWidth: 500, frameHeight: 101});
+        this.load.spritesheet('buttons', 'assets/Buttons.png', {frameWidth: 506, frameHeight: 105});
 
     }
 
@@ -26,10 +26,10 @@ class MainMenu extends GameScene {
         var background = this.add.tileSprite(960, 540, 0, 0, 'mainbackground');
         background.setDepth(-1);
 
-        var start       = this.add.sprite(960, 360, 'menubuttons', 0).setInteractive();
-        var levelsel    = this.add.sprite(960, 480, 'menubuttons', 1).setInteractive();
-        var setting     = this.add.sprite(960, 600, 'menubuttons', 2).setInteractive();
-        var about       = this.add.sprite(960, 720, 'menubuttons', 3).setInteractive();
+        var start       = this.add.sprite(960, 360, 'buttons', 0).setInteractive();
+        var levelsel    = this.add.sprite(960, 480, 'buttons', 1).setInteractive();
+        var setting     = this.add.sprite(960, 600, 'buttons', 2).setInteractive();
+        var about       = this.add.sprite(960, 720, 'buttons', 3).setInteractive();
 
         start.on('pointerdown', function(event) {
             this.scene.start('Level0');
