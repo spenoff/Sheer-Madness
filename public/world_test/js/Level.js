@@ -1,9 +1,10 @@
+import { GameScene } from "./GameScene.js";
 import { Controls } from "./Controls.js";
 import { Sheep } from "./Sheep.js";
 
-export class Level extends Phaser.Scene {
+export class Level extends GameScene {
     constructor(levelName) {
-        super({key: levelName});
+        super(levelName);
         this.player = null;
         this.allSheep = [];
         this.allFences = [];
@@ -28,6 +29,8 @@ export class Level extends Phaser.Scene {
     }
 
     create() {
+        super.create();
+
         this.status = 0; //0 = in progress, 1 = complete, 2 = fail, 3 = restart/change level
 
         var bgtile = this.add.tileSprite(0, 0, 1920*2, 1080*2, 'grass');
@@ -80,11 +83,13 @@ export class Level extends Phaser.Scene {
         var pointer = this.input.activePointer;
         this.controls = new Controls(this, cursors, this.player, spaceKey, pointer, this.sheep);
 
+        /*
         this.rKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         this.zeroKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ZERO);
         this.oneKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);
         this.twoKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);
         this.threeKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE);
+        */
 
         //Is it possible to move this to controls? Likely not, since setting an event
         this.input.on("pointerup", (pointer) => {
@@ -148,6 +153,7 @@ export class Level extends Phaser.Scene {
 
         }
         
+        /*
         if (Phaser.Input.Keyboard.JustDown(this.rKey)) {
             this.stopLevel();
             this.scene.restart();
@@ -164,6 +170,8 @@ export class Level extends Phaser.Scene {
             this.stopLevel();
             this.scene.start('Level2');   
         }
+        */
+       super.update();
     }
 
     stopLevel() {
