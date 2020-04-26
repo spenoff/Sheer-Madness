@@ -3,12 +3,12 @@ import { Level } from "./Level.js"
 export class Level0 extends Level {
     constructor() {
         super('Level0');
+        this.setRequiredScore(500);
     }
 
     create() {
         super.create();
     
-        this.setRequiredScore(500);
         this.setPlayerPosition(800, 800);
         this.createSheep(900, 600);
         this.createPond(400,700);

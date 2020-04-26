@@ -3,17 +3,19 @@ import { Level } from "./Level.js";
 export class Level2 extends Level {
     constructor() {
         super('Level2');
-        this.requiredScore = 500;
+        this.setRequiredScore(500);
     }
 
     create() {
         super.create();
-
+        
         this.createBoxOfFences(32, 32, 20, 30);
         this.createFinishSpace(32, 32, 672, 150);
 
         this.setPlayerPosition(32 + 336, 950);
         this.createSheep(32 + 336, 850);
+
+        this.createSheep(1000, 1000);
 
         for (var y = 600; y <= 632; y+=32) {
             for (var x = 240; x <= 240 + 32 * 8; x+=32) {

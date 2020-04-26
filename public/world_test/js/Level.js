@@ -66,9 +66,7 @@ export class Level extends GameScene {
         this.physics.add.collider(this.sheep, this.sheep);
         this.physics.add.collider(this.dog, this.sheep);
         this.physics.add.collider(this.dog, this.pond, (dog, pond) => {
-            this.status = 2;
-            dog.destroy();
-            alert("Game over! {explanation for why?} Press R to restart the level");
+            this.levelDoneSequence(2, 'Game over! {explanation for why?} Press R to restart the level');
         });
         this.physics.add.collider(this.sheep, this.pond, (sheep, pond) => {
             this.removeSheep(sheep);
@@ -85,7 +83,9 @@ export class Level extends GameScene {
         this.controls = new Controls(this, cursors, this.player, spaceKey, pointer, this.sheep);
 
         //Is it possible to move this to controls? Likely not, since setting an event
-        this.input.on("pointerup", (pointer) => {
+        //Lasso needs to be improved
+        //Dog can push into sheep position weirdly
+        this.input.on('pointerup', (pointer) => {
             if (this.player.lassoTarget == null) {
                 var target = null;
                 for (var i = 0; i < this.allSheep.length; i++) {
@@ -129,6 +129,7 @@ export class Level extends GameScene {
                     var sheep = this.allSheep[i].asset;
                     if (sheep.x - sheep.width/2 >= space.x - space.width/2 && sheep.x + sheep.body.width/2 <= space.x + space.width/2 &&
                         sheep.y - sheep.height/2 >= space.y - space.height/2 && sheep.y + sheep.body.height/2 <= space.y + space.height/2) {
+                        console.log("scored");
                         this.score += this.sheepScore;
                         this.removeSheep(sheep);
                     }
@@ -136,18 +137,11 @@ export class Level extends GameScene {
             }
 
             if (this.score >= this.requiredScore) {
-                this.status = 1;
-                this.player.setVelocity(0);
-                this.allSheep.forEach((sheep) => {
-                    sheep.asset.setVelocity(0);
-                });
-                alert('Level complete!');
+                this.levelDoneSequence(1, 'Level complete!');
             }
 
             if (this.allSheep.length == 0 && this.score < this.requiredScore) {
-                this.status = 2;
-                this.player.destroy();
-                alert("Game over! {No more sheep?} Press R to restart the level");
+                this.levelDoneSequence(2, 'Game over! {No more sheep?} Press R to restart the level');
             }
 
         }
@@ -164,6 +158,15 @@ export class Level extends GameScene {
         this.allWolves = [];
         this.allFinishSpaces = [];
         this.score = 0; 
+    }
+
+    levelDoneSequence(status, msg) {
+        this.status = status;
+        this.player.setVelocity(0);
+        this.allSheep.forEach((sheep) => {
+            sheep.asset.setVelocity(0);
+        });
+        alert(msg);
     }
 
     setRequiredScore(s) {
@@ -185,14 +188,17 @@ export class Level extends GameScene {
 
     removeSheep(sheep) {
         var remove_index = -1;
+        console.log("pre:", this.allSheep.length);
         for (var i = 0; i < this.allSheep.length; i++) {
             if (this.allSheep[i].asset === sheep) {
                 remove_index = i;
             }
         }
         if (remove_index != -1) {
-            this.allSheep.splice(remove_index);
+            console.log(remove_index);
+            this.allSheep.splice(remove_index, 1);
         }
+        console.log("post:", this.allSheep.length);
         if (this.player.lassoTarget == sheep) {
             this.player.lassoTarget = null;
         }
