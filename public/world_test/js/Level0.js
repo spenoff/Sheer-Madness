@@ -10,6 +10,7 @@ export class Level0 extends Level {
         super.create();
     
         this.bgtile = this.add.tileSprite(800, 100, 128, 128, 'red'); //xy are the center
+        console.log(this.bgtile);
         this.bgtile.setDepth(-1);
 
         this.allFinishSpaces = [
@@ -24,7 +25,7 @@ export class Level0 extends Level {
         var sheepObj = this.sheep.create(900, 600);
         sheepObj.body.collideWorldBounds = true;
         sheepObj.lassoed = false;
-        var sheepAI = new Sheep(this.game, this.DogPlayer, "IDLE", sheepObj);
+        var sheepAI = new Sheep(this.game, this.player, "IDLE", sheepObj);
         this.allSheep.push(sheepAI);
         this.player.x = 800;
         this.player.y = 800;
@@ -32,6 +33,9 @@ export class Level0 extends Level {
         this.createVerticalFences(400, 32, 10);
         this.createVerticalFences(1200, 32, 10);
         this.createHorizontalFences(600, 700, 15);
+        this.createPond(400,700);
+
+        console.log(sheepObj);
     }
 
     update() {

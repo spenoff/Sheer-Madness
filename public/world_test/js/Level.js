@@ -11,7 +11,7 @@ export class Level extends Phaser.Scene {
         this.allPonds = [];
         this.allWolves = [];
         this.allFinishSpaces = [];
-        this.status = 0; //0 = in progress, 1 = complete, 2 = fail
+        this.status = 0; //0 = in progress, 1 = complete, 2 = fail, 3 = restart
     }
 
     preload() {
@@ -23,10 +23,10 @@ export class Level extends Phaser.Scene {
         this.load.spritesheet('fence', 'assets/Fence.png', {frameWidth: 32, frameHeight: 32});
         this.load.image('grass', 'assets/green.png');
         this.load.image('red', 'assets/red.png');
+        this.load.image('pond', 'assets/blue.png');
     }
 
     create() {
-
         var bgtile = this.add.tileSprite(0, 0, 1920*2, 1080*2, 'grass');
         bgtile.setDepth(-1);
 
@@ -64,10 +64,34 @@ export class Level extends Phaser.Scene {
         this.physics.add.collider(this.dog, this.fence);
         this.physics.add.collider(this.sheep, this.fence);
         this.physics.add.collider(this.dog, this.sheep);
+        this.physics.add.collider(this.dog, this.pond, (dog, pond) => {
+            console.log("oops");
+            this.status = 2;
+            dog.destroy();
+            alert("Game over???");
+        });
+        this.physics.add.collider(this.sheep, this.pond, (sheep, pond) => {
+            var remove_index = -1;
+            for (var i = 0; i < this.allSheep.length; i++) {
+                if (this.allSheep[i].asset === sheep) {
+                    remove_index = i;
+                }
+            }
+            if (remove_index != -1) {
+                this.allSheep.splice(remove_index);
+            }
+            sheep.destroy();
+        });
 
         var cursors = this.input.keyboard.createCursorKeys();
         var spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         var pointer = this.input.activePointer;
+        this.controls = new Controls(this, cursors, this.player, spaceKey, pointer, this.sheep);
+
+        this.rKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+        this.OneKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);
+        this.TwoKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);
+        this.ThreeKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE);
 
         //Can I move this to controls?
         this.input.on("pointerup", (pointer) => {
@@ -95,39 +119,41 @@ export class Level extends Phaser.Scene {
             }
         });
 
-        this.controls = new Controls(this, cursors, this.player, spaceKey, pointer, this.sheep);
-        this.DogPlayer = new Dog(this.game, this.player, this.sheep, this.fences); //not currently in use, all functionality currently in controls
-
-        //TESTING START
-        this.cKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
-
-        /*
-        var sheepObj = this.sheep.create(961, 541);
-        sheepObj.body.collideWorldBounds = true;
-        var sheepAI = new Sheep(this.game, this.DogPlayer, "IDLE", sheepObj);
-        this.allSheep.push(sheepAI);
-
-        var f = this.fence.create(1100, 600, undefined, 0);
-        f.angle += 90;
-        var f = this.fence.create(1132, 600, undefined, 0);
-        f.angle += 90;
-        */
-        //TESTING END
-        console.log(this.player);
+        //this.DogPlayer = new Dog(this.game, this.player, this.sheep, this.fences); //not currently in use, all functionality currently in controls
     }
 
     update() {
         if (this.status == 0) {
             this.controls.update();
-            this.player.angle = 90 + Math.atan2(this.player.body.velocity.y, this.player.body.velocity.x) * 180 / Math.PI;
+
+            if (this.player.body != null && (this.player.body.velocity.x != 0 || this.player.body.velocity.y != 0)) {
+                this.player.angle = 90 + Math.atan2(this.player.body.velocity.y, this.player.body.velocity.x) * 180 / Math.PI;
+            }
 
             this.allSheep.forEach(function(sheep) {
                 sheep.update();
+                if (sheep.asset.body.velocity.x != 0 || sheep.asset.body.velocity.y != 0) {
+                    sheep.asset.angle = 90 + Math.atan2(sheep.asset.body.velocity.y, sheep.asset.body.velocity.x) * 180 / Math.PI;
+                }
             });
+        }
+        
+        if (Phaser.Input.Keyboard.JustDown(this.rKey)) {
+            this.status = 3;
+            this.allSheep = [];
+            this.allFences = [];
+            this.allPonds = [];
+            this.allWolves = [];
+            this.allFinishSpaces = [];
+            this.player = null;
+            this.scene.restart();
+            this.status = 0;
         }
     }
 
     /*
+        startX: x coordinate of first fence
+        startY: y coordinate of first fence
         num: number of consecutive fences
         dir: direction, -1 or 1, negative or positive direction in the axis
         startTerminate: end the fence line at start
@@ -197,6 +223,23 @@ export class Level extends Phaser.Scene {
 
     createPlusFence(x, y) {
         var f = this.fence.create(x, y, undefined, 4);
+    }
+
+    createFinishSpace(x, y, width, height) {
+        var spaceBgTile = this.add.tileSprite(x, y, width, height, 'red');
+        spaceBgTile.setDepth(-1);
+        this.allFinishSpaces.push({
+            x: x,
+            y: y,
+            width: width,
+            height: height
+        })
+    }
+
+    createPond(x, y) {
+        var pond = this.pond.create(x, y);
+        pond.setDepth(-1);
+        pond.body.onCollide = true;
     }
 
 }

@@ -14,7 +14,7 @@ export class Sheep {
     /**
      * Contructs the Sheep object.
      * @param {Game} game The game that the sheep is in.
-     * @param {Dog} dog The dog in the game.
+     * @param {GameObject} dog The dog in the game.
      * @param {String} state Represents the curent state of the sheep.
      * @param {GameObject} asset The game object to reference
      */
@@ -34,8 +34,8 @@ export class Sheep {
     }
 
     update() {
-        var dogX = this.dog.player.x;
-        var dogY = this.dog.player.y;
+        var dogX = this.dog.x;
+        var dogY = this.dog.y;
 
         if (!this.asset.lassoed) {
             if(Math.sqrt(Math.pow(dogX - this.asset.x, 2) + Math.pow(dogY - this.asset.y, 2)) <= 60) {
@@ -63,8 +63,8 @@ export class Sheep {
             }
         }
         else {
-            this.asset.setVelocityX(this.dog.player.body.velocity.x);
-            this.asset.setVelocityY(this.dog.player.body.velocity.y);
+            this.asset.setVelocityX(this.dog.body.velocity.x);
+            this.asset.setVelocityY(this.dog.body.velocity.y);
         }
     }
 }
