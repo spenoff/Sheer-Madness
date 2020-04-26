@@ -3,7 +3,7 @@ import { Level } from "./Level.js"
 export class Level0 extends Level {
     constructor() {
         super('Level0');
-        this.setRequiredScore(500);
+        
     }
 
     create() {
@@ -17,6 +17,9 @@ export class Level0 extends Level {
         this.createVerticalFences(400, 32, 10);
         this.createVerticalFences(1200, 32, 10);
         this.createHorizontalFences(600, 700, 15);
+
+        this.createWolf(200, 400, 120, 0, 50);
+
     }
 
     update() {

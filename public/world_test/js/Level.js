@@ -1,6 +1,7 @@
 import { GameScene } from "./GameScene.js";
 import { Controls } from "./Controls.js";
 import { Sheep } from "./Sheep.js";
+import { Wolf } from "./Wolf.js";
 
 export class Level extends GameScene {
     constructor(levelName) {
@@ -24,8 +25,8 @@ export class Level extends GameScene {
         this.load.image('grass', 'assets/green.png'); //replace when grass sprite is created
         this.load.image('red', 'assets/red.png');
         this.load.image('pond', 'assets/blue.png'); //replace when pond sprite is created
-        this.load.image('finishSpace', 'assets/red.png'); //victory tile
-        //wolf image
+        this.load.image('finishSpace', 'assets/red.png'); //victory tile - replace if we make one?
+        this.load.image('wolf', 'assets/262.png'); //wolf image - replace when created
     }
 
     create() {
@@ -42,14 +43,14 @@ export class Level extends GameScene {
         this.sheep = this.physics.add.group({
             defaultKey: "sheep"
         });
+        this.wolf = this.physics.add.group({
+            defaultKey: 'wolf'
+        });
         this.fence = this.physics.add.staticGroup({
             defaultKey: "fence"
         });
         this.pond = this.physics.add.staticGroup({
             defaultKey: 'pond'
-        });
-        this.wolf = this.physics.add.staticGroup({
-            defaultKey: 'wolf'
         });
         this.finishSpace = this.physics.add.staticGroup({
             defaultKey: 'finishSpace'
@@ -76,6 +77,11 @@ export class Level extends GameScene {
             this.score += this.sheepScore;
             this.removeSheep(sheep);
         });
+        this.physics.add.collider(this.wolf, this.fence);
+        this.physics.add.collider(this.wolf, this.pond); //do I have an event?
+        this.physics.add.collider(this.wolf, this.dog); //do I have an event?
+        this.physics.add.collider(this.wolf, this.sheep); //do I have an event?
+
 
         var cursors = this.input.keyboard.createCursorKeys();
         var spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -120,6 +126,15 @@ export class Level extends GameScene {
                 if (sheep.asset.body.velocity.x != 0 || sheep.asset.body.velocity.y != 0) {
                     sheep.asset.angle = 90 + Math.atan2(sheep.asset.body.velocity.y, sheep.asset.body.velocity.x) * 180 / Math.PI;
                 }
+            });
+
+            this.allWolves.forEach(function(wolf) {
+                wolf.update();
+                /* //add in when wolf sprite created
+                if (wolf.asset.body.velocity.x != 0 || wolf.asset.body.velocity.y != 0) {
+                    wolf.asset.angle = 90 + Math.atan2(wolf.asset.body.velocity.y, wolf.asset.body.velocity.x) * 180 / Math.PI; 
+                }
+                */
             });
 
             //figure out how to implement just straight up collision
@@ -184,6 +199,7 @@ export class Level extends GameScene {
         sheepObj.lassoed = false;
         var sheepAI = new Sheep(this.game, this.player, "IDLE", sheepObj);
         this.allSheep.push(sheepAI);
+        return sheepAI;
     }
 
     removeSheep(sheep) {
@@ -203,6 +219,15 @@ export class Level extends GameScene {
             this.player.lassoTarget = null;
         }
         sheep.destroy();
+    }
+
+    createWolf(x, y, startVelocityX=0, startVelocityY=0, stepLimit=0) {
+        var wolfObj = this.wolf.create(x, y);
+        wolfObj.body.collideWorldBounds = true;
+        var wolfAI = new Wolf(this.game, this.sheep, "IDLE", wolfObj);
+        wolfAI.setPatrol(startVelocityX, startVelocityY, stepLimit)
+        this.allWolves.push(wolfAI);
+        return wolfAI;
     }
 
     /*
