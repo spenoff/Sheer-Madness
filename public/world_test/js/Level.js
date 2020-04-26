@@ -83,14 +83,6 @@ export class Level extends GameScene {
         var pointer = this.input.activePointer;
         this.controls = new Controls(this, cursors, this.player, spaceKey, pointer, this.sheep);
 
-        /*
-        this.rKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
-        this.zeroKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ZERO);
-        this.oneKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);
-        this.twoKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);
-        this.threeKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE);
-        */
-
         //Is it possible to move this to controls? Likely not, since setting an event
         this.input.on("pointerup", (pointer) => {
             if (this.player.lassoTarget == null) {
@@ -138,6 +130,7 @@ export class Level extends GameScene {
                         sheep.y - sheep.height/2 >= space.y - space.height/2 && sheep.y + sheep.body.height/2 <= space.y + space.height/2) {
                         this.score += this.sheepScore;
                         this.removeSheep(sheep);
+                        console.log("finished");
                     }
                 }
             }
@@ -152,25 +145,7 @@ export class Level extends GameScene {
             }
 
         }
-        
-        /*
-        if (Phaser.Input.Keyboard.JustDown(this.rKey)) {
-            this.stopLevel();
-            this.scene.restart();
-        }
-        if (Phaser.Input.Keyboard.JustDown(this.zeroKey)) {
-            this.stopLevel();
-            this.scene.start('Level0');  
-        }
-        if (Phaser.Input.Keyboard.JustDown(this.oneKey)) {
-            this.stopLevel();
-            this.scene.start('Level1');   
-        }
-        if (Phaser.Input.Keyboard.JustDown(this.twoKey)) {
-            this.stopLevel();
-            this.scene.start('Level2');   
-        }
-        */
+
        super.update();
     }
 
@@ -319,8 +294,8 @@ export class Level extends GameScene {
         */
 
         this.allFinishSpaces.push({
-            x: x,
-            y: y,
+            x: x + width/2,
+            y: y + height/2,
             width: width,
             height: height
         })
