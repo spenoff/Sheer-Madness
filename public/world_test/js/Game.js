@@ -37,9 +37,9 @@ class MainMenu extends GameScene {
         levelsel.on('pointerdown', function() {
             alert("levelsel");
         });
-        setting.on('pointerdown', function() {
-            alert("setting");
-        });
+        setting.on('pointerdown', function(event) {
+            this.scene.start('SettingMenu');
+        }, this);
         about.on('pointerdown', function(event) {
             this.scene.start('AboutMenu');
         }, this);
@@ -51,6 +51,26 @@ class MainMenu extends GameScene {
 
 }
 
+class SettingMenu extends Phaser.Scene {
+
+    constructor() {
+        super("SettingMenu");
+    }
+
+    preload() {
+        this.load.image("settingmenu", 'assets/Controls.png');
+    }
+
+    create() {
+        var settingmenu = this.add.tileSprite(960, 540, 0, 0, 'settingmenu');
+        settingmenu.setDepth(-1);
+    }
+
+    update() {
+
+    }
+}
+
 class AboutMenu extends Phaser.Scene {
 
     constructor() {
@@ -59,7 +79,7 @@ class AboutMenu extends Phaser.Scene {
 
     preload() {
 
-        this.load.image("aboutmenu", 'assets/About.png');
+        this.load.image('aboutmenu', 'assets/About.png');
     }
 
     create() {
@@ -89,7 +109,7 @@ var config = {
             gravity: { y: 0 }
         }
     },
-    scene : [ MainMenu, AboutMenu, Level0, Level1, Level2 ]
+    scene : [ MainMenu, AboutMenu, SettingMenu, Level0, Level1, Level2 ]
 };
 
 var game = new Phaser.Game(config);
