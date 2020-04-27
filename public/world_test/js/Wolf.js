@@ -13,6 +13,7 @@ export class Wolf {
     setPatrol(startVelocityX, startVelocityY, stepLimit) {
         this.startVelocityX = startVelocityX;
         this.startVelocityY = startVelocityY;
+        console.log(this.startVelocityY);
         this.stepLimit = stepLimit;
         console.log(this.asset);
         this.asset.setVelocityX(startVelocityX);
@@ -20,6 +21,7 @@ export class Wolf {
     }
 
     update() {
+        console.log(this.startVelocityY);
         if (this.stepCounter < this.stepLimit) {
             this.stepCounter++;
         }
