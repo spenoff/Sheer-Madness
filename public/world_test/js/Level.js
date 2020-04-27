@@ -93,7 +93,11 @@ export class Level extends GameScene {
         var cursors = this.input.keyboard.createCursorKeys();
         var spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         var pointer = this.input.activePointer;
-        this.controls = new Controls(this, cursors, this.player, spaceKey, pointer, this.sheep);
+        this.wKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        this.aKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        this.sKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+        this.dKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.d);
+        this.controls = new Controls(this, cursors, this.player, spaceKey, this.wKey, this.aKey, this.sKey, this.dKey, this.sheep);
 
         //Is it possible to move this to controls? Likely not, since setting an event
         //Lasso needs to be improved

@@ -1,9 +1,13 @@
 export class Controls {
-    constructor(game, cursors, player, spaceKey, mouse, sheep) {
+    constructor(game, cursors, player, spaceKey, wKey, aKey, sKey, dKey, mouse, sheep) {
         this.game = game;
         this.cursors = cursors;
         this.player = player;
         this.spaceKey = spaceKey;
+        this.wKey = wKey;
+        this.aKey = aKey;
+        this.sKey = sKey;
+        this.dKey = dKey;
         this.mouse = mouse;
         this.sheep = sheep;
         this.barkRadius = 250;
@@ -12,20 +16,20 @@ export class Controls {
     update() {
         if (this.player.body != null) {
 
-            if (this.cursors.left.isDown) {
+            if (this.cursors.left.isDown || this.aKey.isDown) {
                 this.player.setVelocityX(-160);
             }
-            else if (this.cursors.right.isDown) {
+            else if (this.cursors.right.isDown || this.dKey.isDown) {
                 this.player.setVelocityX(160);
             }
             else {
                 this.player.setVelocityX(0);
             }
 
-            if (this.cursors.up.isDown) {
+            if (this.cursors.up.isDown || this.wKey.isDown) {
                 this.player.setVelocityY(-160);
             }
-            else if (this.cursors.down.isDown) {
+            else if (this.cursors.down.isDown || this.sKey.isDown) {
                 this.player.setVelocityY(160);
             }
             else {

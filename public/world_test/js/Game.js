@@ -52,10 +52,10 @@ class MainMenu extends GameScene {
 
 }
 
-class SettingMenu extends Phaser.Scene {
+class SettingMenu extends GameScene {
 
     constructor() {
-        super("SettingMenu");
+        super('SettingMenu');
     }
 
     preload() {
@@ -63,19 +63,20 @@ class SettingMenu extends Phaser.Scene {
     }
 
     create() {
+        super.create();
         var settingmenu = this.add.tileSprite(960, 540, 0, 0, 'settingmenu');
         settingmenu.setDepth(-1);
     }
 
     update() {
-
+        super.update();
     }
 }
 
-class AboutMenu extends Phaser.Scene {
+class AboutMenu extends GameScene {
 
     constructor() {
-        super("AboutMenu");
+        super('AboutMenu');
     }
 
     preload() {
@@ -84,13 +85,13 @@ class AboutMenu extends Phaser.Scene {
     }
 
     create() {
-
+        super.create();
         var aboutmenu = this.add.tileSprite(960, 540, 0, 0, 'aboutmenu');
         aboutmenu.setDepth(-1);
     }
 
     update() {
-
+        super.update();
     }
 }
 
