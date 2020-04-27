@@ -20,7 +20,6 @@ export class Wolf {
     }
 
     update() {
-        console.log(this.stepCounter);
         if (this.stepCounter < this.stepLimit) {
             this.stepCounter++;
         }
@@ -29,10 +28,6 @@ export class Wolf {
             this.asset.body.velocity.y *= -1;
             this.stepCounter = 0;
         }
-
-        //when to make the wolf eat sheep? at collision or in range
-
-
     }
 
 }

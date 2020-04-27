@@ -78,9 +78,16 @@ export class Level extends GameScene {
             this.removeSheep(sheep);
         });
         this.physics.add.collider(this.wolf, this.fence);
-        this.physics.add.collider(this.wolf, this.pond); //do I have an event?
-        this.physics.add.collider(this.wolf, this.dog); //do I have an event?
-        this.physics.add.collider(this.wolf, this.sheep); //do I have an event?
+        this.physics.add.collider(this.wolf, this.pond, (wolf, pond) => {
+            this.removeWolf(wolf);
+        }); //do I have an event? - weird interaction
+        this.physics.add.collider(this.wolf, this.dog, (wolf, dog) => {
+            this.levelDoneSequence(2, "Game over! The wolf killed you!");
+            this.player.destroy();
+        }); //do I have an event? - weird interaction
+        this.physics.add.collider(this.wolf, this.sheep, (wolf, sheep) => {
+            this.removeSheep(sheep);
+        }); //do I have an event?
 
 
         var cursors = this.input.keyboard.createCursorKeys();
@@ -181,6 +188,9 @@ export class Level extends GameScene {
         this.allSheep.forEach((sheep) => {
             sheep.asset.setVelocity(0);
         });
+        this.allWolves.forEach((wolf) => {
+            wolf.asset.setVelocity(0);
+        })
         alert(msg);
     }
 
@@ -204,7 +214,6 @@ export class Level extends GameScene {
 
     removeSheep(sheep) {
         var remove_index = -1;
-        console.log("pre:", this.allSheep.length);
         for (var i = 0; i < this.allSheep.length; i++) {
             if (this.allSheep[i].asset === sheep) {
                 remove_index = i;
@@ -214,7 +223,6 @@ export class Level extends GameScene {
             console.log(remove_index);
             this.allSheep.splice(remove_index, 1);
         }
-        console.log("post:", this.allSheep.length);
         if (this.player.lassoTarget == sheep) {
             this.player.lassoTarget = null;
         }
@@ -228,6 +236,20 @@ export class Level extends GameScene {
         wolfAI.setPatrol(startVelocityX, startVelocityY, stepLimit)
         this.allWolves.push(wolfAI);
         return wolfAI;
+    }
+
+    removeWolf(wolf) {
+        var remove_index = -1;
+        for (var i = 0; i < this.allWolves.length; i++) {
+            if (this.allWolves[i].asset === wolf) {
+                remove_index = i;
+            }
+        }
+        if (remove_index != -1) {
+            console.log(remove_index);
+            this.allWolves.splice(remove_index, 1);
+        }
+        wolf.destroy();
     }
 
     /*
