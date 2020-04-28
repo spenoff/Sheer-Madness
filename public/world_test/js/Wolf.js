@@ -4,24 +4,28 @@ export class Wolf {
         this.sheep = sheep;
         this.state = state;
         this.asset = asset;
-        this.stepLimit = 0;
+        this.ms = 0;
         this.startVelocityX = 0;
         this.startVelocityY = 0;
         this.stepCounter = 0;
+        this.startStep = 0;
     }
 
-    setPatrol(startVelocityX, startVelocityY, stepLimit) {
+    setPatrol(startVelocityX, startVelocityY, ms, startStep=0) {
         this.startVelocityX = startVelocityX;
         this.startVelocityY = startVelocityY;
-        console.log(this.startVelocityY);
-        this.stepLimit = stepLimit;
-        console.log(this.asset);
+        this.ms = ms;
+        this.startStep = startStep;
         this.asset.setVelocityX(startVelocityX);
         this.asset.setVelocityY(startVelocityY);
+        this.game.time.addEvent({delay: ms, callback: () => {
+            this.asset.body.velocity.x *= -1;
+            this.asset.body.velocity.y *= -1;
+        }, loop: true});
     }
 
     update() {
-        console.log(this.startVelocityY);
+        /*
         if (this.stepCounter < this.stepLimit) {
             this.stepCounter++;
         }
@@ -30,6 +34,7 @@ export class Wolf {
             this.asset.body.velocity.y *= -1;
             this.stepCounter = 0;
         }
+        */
     }
 
 }

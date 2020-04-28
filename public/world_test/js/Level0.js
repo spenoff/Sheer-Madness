@@ -18,8 +18,8 @@ export class Level0 extends Level {
         this.createVerticalFences(1200, 32, 10);
         this.createHorizontalFences(600, 700, 15);
 
-        this.createWolf(200, 400, 120, 0, 50);
-        this.createWolf(300, 700, 120, 0, 50)
+        this.createWolf(200, 400, 120, 0, 1500);
+        this.createWolf(300, 700, 120, 0, 1500)
     }
 
     update() {

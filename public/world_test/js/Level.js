@@ -211,7 +211,7 @@ export class Level extends GameScene {
         var sheepObj = this.sheep.create(x, y);
         sheepObj.body.collideWorldBounds = true;
         sheepObj.lassoed = false;
-        var sheepAI = new Sheep(this.game, this.player, "IDLE", sheepObj);
+        var sheepAI = new Sheep(this, this.player, "IDLE", sheepObj);
         this.allSheep.push(sheepAI);
         return sheepAI;
     }
@@ -233,11 +233,11 @@ export class Level extends GameScene {
         sheep.destroy();
     }
 
-    createWolf(x, y, startVelocityX=0, startVelocityY=0, stepLimit=0) {
+    createWolf(x, y, startVelocityX=0, startVelocityY=0, ms=0, startStep=0) {
         var wolfObj = this.wolf.create(x, y);
         wolfObj.body.collideWorldBounds = true;
-        var wolfAI = new Wolf(this.game, this.sheep, "IDLE", wolfObj);
-        wolfAI.setPatrol(startVelocityX, startVelocityY, stepLimit)
+        var wolfAI = new Wolf(this, this.sheep, "IDLE", wolfObj);
+        wolfAI.setPatrol(startVelocityX, startVelocityY, ms, startStep);
         this.allWolves.push(wolfAI);
         return wolfAI;
     }

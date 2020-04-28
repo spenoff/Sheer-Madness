@@ -15,7 +15,7 @@ export class Level2 extends Level {
         this.setPlayerPosition(32 + 336, 950);
         this.createSheep(32 + 336, 850);
 
-        this.createSheep(1000, 1000);
+        //this.createSheep(1000, 1000);
 
         for (var y = 600; y <= 632; y+=32) {
             for (var x = 240; x <= 240 + 32 * 8; x+=32) {

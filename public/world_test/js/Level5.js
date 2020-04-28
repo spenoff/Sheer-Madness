@@ -33,13 +33,13 @@ export class Level5 extends Level {
         }
 
         //Wolf 1
-        this.createWolf(992, 728, 100, 0, 100);
+        this.createWolf(992, 728, 100, 0, 3600);
 
         //Wolf 2
-        this.createWolf(680, 396, 0, 100, 100);
+        this.createWolf(680, 396, 0, 100, 3600);
 
         //Wolf 3
-        this.createWolf(400, 114, 0, 100, 100);
+        this.createWolf(400, 114, 0, 100, 3600);
 
     }
 
