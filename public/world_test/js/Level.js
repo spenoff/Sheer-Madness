@@ -211,6 +211,8 @@ export class Level extends GameScene {
         var sheepObj = this.sheep.create(x, y);
         sheepObj.body.collideWorldBounds = true;
         sheepObj.lassoed = false;
+        sheepObj.alert = false;
+        sheepObj.dogAlert = false;
         var sheepAI = new Sheep(this, this.player, "IDLE", sheepObj);
         this.allSheep.push(sheepAI);
         return sheepAI;

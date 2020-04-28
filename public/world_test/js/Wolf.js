@@ -18,10 +18,14 @@ export class Wolf {
         this.startStep = startStep;
         this.asset.setVelocityX(startVelocityX);
         this.asset.setVelocityY(startVelocityY);
-        this.game.time.addEvent({delay: ms, callback: () => {
-            this.asset.body.velocity.x *= -1;
-            this.asset.body.velocity.y *= -1;
-        }, loop: true});
+        this.game.time.addEvent({delay: ms, 
+            callback: () => {
+                if (this.asset.body) { //Can I remove this after wolf dies?
+                    this.asset.body.velocity.x *= -1;
+                    this.asset.body.velocity.y *= -1;
+                }
+            }, 
+            loop: true});
     }
 
     update() {

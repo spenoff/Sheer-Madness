@@ -37,9 +37,7 @@ export class Sheep {
         var dogX = this.dog.x;
         var dogY = this.dog.y;
 
-        if (!this.asset.lassoed) {
-
-            /*
+        /*
             -Change this part so that sheep are set to alert (this.asset.alert) if within a range
             -Set sheep to not be alert if not within range
             -If sheep is alert, then it moves away from the dog
@@ -47,29 +45,31 @@ export class Sheep {
                Do we have an alert timer or something?
             */
 
-            if(Math.sqrt(Math.pow(dogX - this.asset.x, 2) + Math.pow(dogY - this.asset.y, 2)) <= 60) {
-                if (dogX < this.asset.x) {
-                    this.asset.setVelocityX(140);
-                } 
-                else if (dogX > this.asset.x) {
-                    this.asset.setVelocityX(-140);
-                }
+        this.asset.alert = Math.sqrt(Math.pow(dogX - this.asset.x, 2) + Math.pow(dogY - this.asset.y, 2)) <= 60;
 
-                if (dogY < this.asset.y) {
-                    this.asset.setVelocityY(140);
-                } 
-                else if (dogY > this.asset.y) {
-                    this.asset.setVelocityY(-140);
-                }
-            }
-            else {
-                this.asset.setVelocityX(0);
-                this.asset.setVelocityY(0);
-            }
-        }
-        else {
+        if (this.asset.lassoed) {
             this.asset.setVelocityX(this.dog.body.velocity.x);
             this.asset.setVelocityY(this.dog.body.velocity.y);
+        }
+        else if (this.asset.alert || this.asset.dogAlert) {
+            if (dogX < this.asset.x) {
+                this.asset.setVelocityX(140);
+            } 
+            else if (dogX > this.asset.x) {
+                this.asset.setVelocityX(-140);
+            }
+
+            if (dogY < this.asset.y) {
+                this.asset.setVelocityY(140);
+            } 
+            else if (dogY > this.asset.y) {
+                this.asset.setVelocityY(-140);
+            }
+        }
+
+        else {
+            this.asset.setVelocityX(0);
+            this.asset.setVelocityY(0);
         }
     }
 }

@@ -39,7 +39,14 @@ export class Controls {
                 console.log("bark");
                 this.sheep.children.iterate((child) => {
                     if (Math.sqrt(Math.pow(this.player.x - child.x, 2) + Math.pow(this.player.y - child.y, 2)) < this.barkRadius) {
-                        child.alert = true;
+                        child.dogAlert = true;
+                        this.game.time.addEvent({
+                            delay: 2000,
+                            loop: false,
+                            callback: () => {
+                                child.dogAlert = false;
+                            }
+                        })
                     }
                 })
             }
