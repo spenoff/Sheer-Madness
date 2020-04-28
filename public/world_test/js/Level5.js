@@ -9,6 +9,7 @@ export class Level5 extends Level {
     create() {
         super.create();
     
+        this.setRequiredScore(1000);
         this.setPlayerPosition(600, 900);
         this.createSheep(600, 1000);
         this.createSheep(500, 900);
@@ -33,13 +34,13 @@ export class Level5 extends Level {
         }
 
         //Wolf 1
-        this.createWolf(992, 728, 100, 0, 100);
+        this.createWolf(992, 728, 100, 0, 3600);
 
         //Wolf 2
-        this.createWolf(680, 396, 0, 100, 100);
+        this.createWolf(680, 396, 0, 100, 3600);
 
         //Wolf 3
-        this.createWolf(400, 114, 0, 100, 100);
+        this.createWolf(400, 114, 0, 100, 3600);
 
     }
 

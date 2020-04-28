@@ -30,7 +30,7 @@ class MainMenu extends GameScene {
         var background = this.add.tileSprite(960, 540, 0, 0, 'mainbackground');
         background.setDepth(-1);
 
-        var mmtitle     = this.add.sprite(960, 200, 'titles', 0);
+        var mmtitle     = this.add.sprite(960, 150, 'titles', 0);
 
         var start       = this.add.sprite(960, 450, 'buttons', 0).setInteractive();
         var levelsel    = this.add.sprite(960, 570, 'buttons', 1).setInteractive();
@@ -67,6 +67,7 @@ class LevelSelectMenu extends GameScene {
         
         this.load.image('mainbackground', 'assets/Background.png');
         this.load.spritesheet('titles', 'Titles.png', {frameWidth: 801, frameHeight: 200});
+        this.load.spritesheet('buttons', 'assets/Buttons.png', {frameWidth: 506, frameHeight: 105});
         this.load.spritesheet('levelselectbuttons', 'assets/Levels.png', {frameWidth: 105, frameHeight: 105});
 
     }
@@ -77,7 +78,7 @@ class LevelSelectMenu extends GameScene {
         var background = this.add.tileSprite(960, 540, 0, 0, 'mainbackground');
         background.setDepth(-1);
 
-        var lstitle = this.add.sprite(960, 200, 'titles', 1);
+        var lstitle = this.add.sprite(960, 150, 'titles', 1);
 
         var l1      = this.add.sprite(585, 450, 'levelselectbuttons', 0).setInteractive();
         var l2      = this.add.sprite(735, 450, 'levelselectbuttons', 1).setInteractive();
@@ -91,6 +92,8 @@ class LevelSelectMenu extends GameScene {
         var l10     = this.add.sprite(1035, 600, 'levelselectbuttons', 9).setInteractive();
         var l11     = this.add.sprite(1185, 600, 'levelselectbuttons', 10).setInteractive();
         var lock    = this.add.sprite(1335, 600, 'levelselectbuttons', 11).setInteractive();
+
+        var back    = this.add.sprite(960, 1000, 'buttons', 7).setInteractive();
 
         l1.on('pointerdown', function(event) {
             this.scene.start('Level1');
@@ -107,6 +110,10 @@ class LevelSelectMenu extends GameScene {
         lock.on('pointerdown', function(event) {
             this.scene.start('Level0');
         }, this);
+
+        back.on('pointerdown', function(event) {
+            this.scene.start('MainMenu');
+        }, this);
     }
 
     update() {
@@ -122,14 +129,27 @@ class SettingMenu extends GameScene {
 
     preload() {
 
-        this.load.image("settingmenu", 'assets/Controls.png');
+        this.load.image('mainbackground', 'assets/Background.png');
+        this.load.spritesheet('titles', 'Titles.png', {frameWidth: 801, frameHeight: 200});
+        this.load.spritesheet('buttons', 'assets/Buttons.png', {frameWidth: 506, frameHeight: 105});
+        this.load.image('settings', 'assets/Settings.png');
 
     }
 
     create() {
         super.create();
-        var settingmenu = this.add.tileSprite(960, 540, 0, 0, 'settingmenu');
-        settingmenu.setDepth(-1);
+
+        var background = this.add.tileSprite(960, 540, 0, 0, 'mainbackground');
+        background.setDepth(-1);
+
+        var lstitle = this.add.sprite(960, 150, 'titles', 2);
+        var settings = this.add.sprite(960, 600, 'settings');
+        var back = this.add.sprite(960, 1000, 'buttons', 7).setInteractive();
+
+        back.on('pointerdown', function(event) {
+            this.scene.start('MainMenu');
+        }, this);
+        
     }
 
     update() {
@@ -145,13 +165,27 @@ class AboutMenu extends GameScene {
 
     preload() {
 
-        this.load.image('aboutmenu', 'assets/About.png');
+        this.load.image('mainbackground', 'assets/Background.png');
+        this.load.spritesheet('titles', 'Titles.png', {frameWidth: 801, frameHeight: 200});
+        this.load.spritesheet('buttons', 'assets/Buttons.png', {frameWidth: 506, frameHeight: 105});
+        this.load.image('about', 'assets/AboutV2.png');
+
     }
 
     create() {
         super.create();
-        var aboutmenu = this.add.tileSprite(960, 540, 0, 0, 'aboutmenu');
-        aboutmenu.setDepth(-1);
+        
+        var background = this.add.tileSprite(960, 540, 0, 0, 'mainbackground');
+        background.setDepth(-1);
+
+        var lstitle = this.add.sprite(960, 150, 'titles', 3);
+        var about = this.add.sprite(960, 600, 'about');
+        var back = this.add.sprite(960, 1000, 'buttons', 7).setInteractive();
+
+        back.on('pointerdown', function(event) {
+            this.scene.start('MainMenu');
+        }, this);
+
     }
 
     update() {

@@ -1,5 +1,5 @@
 export class Controls {
-    constructor(game, cursors, player, spaceKey, wKey, aKey, sKey, dKey, mouse, sheep) {
+    constructor(game, cursors, player, spaceKey, wKey, aKey, sKey, dKey, sheep) {
         this.game = game;
         this.cursors = cursors;
         this.player = player;
@@ -8,7 +8,6 @@ export class Controls {
         this.aKey = aKey;
         this.sKey = sKey;
         this.dKey = dKey;
-        this.mouse = mouse;
         this.sheep = sheep;
         this.barkRadius = 250;
     }
@@ -40,7 +39,14 @@ export class Controls {
                 console.log("bark");
                 this.sheep.children.iterate((child) => {
                     if (Math.sqrt(Math.pow(this.player.x - child.x, 2) + Math.pow(this.player.y - child.y, 2)) < this.barkRadius) {
-                        child.alert = true;
+                        child.dogAlert = true;
+                        this.game.time.addEvent({
+                            delay: 2000,
+                            loop: false,
+                            callback: () => {
+                                child.dogAlert = false;
+                            }
+                        })
                     }
                 })
             }
