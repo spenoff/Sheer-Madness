@@ -1,5 +1,5 @@
 export class Controls {
-    constructor(game, cursors, player, spaceKey, wKey, aKey, sKey, dKey, mouse, sheep) {
+    constructor(game, cursors, player, spaceKey, wKey, aKey, sKey, dKey, sheep) {
         this.game = game;
         this.cursors = cursors;
         this.player = player;
@@ -8,7 +8,6 @@ export class Controls {
         this.aKey = aKey;
         this.sKey = sKey;
         this.dKey = dKey;
-        this.mouse = mouse;
         this.sheep = sheep;
         this.barkRadius = 250;
     }
