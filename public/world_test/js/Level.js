@@ -27,6 +27,7 @@ export class Level extends GameScene {
         this.load.image('pond', 'assets/blue.png'); //replace when pond sprite is created
         this.load.image('finishSpace', 'assets/red.png'); //victory tile - replace if we make one?
         this.load.image('wolf', 'assets/262.png'); //wolf image - replace when created
+        this.load.image('lasso', 'assets/Lasso.png', {frameWidth: 32, frameHeight: 32}); 
     }
 
     create() {
@@ -45,6 +46,9 @@ export class Level extends GameScene {
         });
         this.wolf = this.physics.add.group({
             defaultKey: 'wolf'
+        });
+        this.lasso = this.physics.add.group({
+            defaultKey: "lasso"
         });
         this.fence = this.physics.add.staticGroup({
             defaultKey: "fence"
@@ -138,6 +142,10 @@ export class Level extends GameScene {
                     sheep.asset.angle = 90 + Math.atan2(sheep.asset.body.velocity.y, sheep.asset.body.velocity.x) * 180 / Math.PI;
                 }
             });
+
+            if(this.player.lassoTarget != null) {
+
+            }
 
             this.allWolves.forEach(function(wolf) {
                 wolf.update();
@@ -239,7 +247,7 @@ export class Level extends GameScene {
         var wolfAI = new Wolf(this.game, this.sheep, "IDLE", wolfObj);
         wolfAI.setPatrol(startVelocityX, startVelocityY, stepLimit)
         this.allWolves.push(wolfAI);
-        return wolfAI;
+        return wolfAI; 
     }
 
     removeWolf(wolf) {

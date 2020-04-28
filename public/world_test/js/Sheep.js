@@ -23,6 +23,7 @@ export class Sheep {
         this.dog = dog;
         this.state = state;
         this.asset = asset;
+        this.lassoAsset = null;
     }
 
     setState(state) {
@@ -33,11 +34,38 @@ export class Sheep {
         return this.state;
     }
 
+    dogFacingForward() {
+        return this.dog.angle == 0;
+    }
+
+    dogFacingBackward() {
+        return this.dog.angle == -180;
+    }
+
+    dogFacingLeft() {
+        return this.dog.angle == -90;
+    }
+
+    dogFacingRight() {
+        return this.dog.angle == 90;
+    }
+
+    setLassoAsset(lassoAsset) {
+        this.lassoAsset = lassoAsset;
+        this.lassoAsset.enableBody = false;
+        //this.lassoAsset.body.setCollisionGroup(this.game.physics.p2.createCollisionGroup());
+    }
+
     update() {
         var dogX = this.dog.x;
         var dogY = this.dog.y;
 
         if (!this.asset.lassoed) {
+
+            if(this.lassoAsset != null) {
+                this.lassoAsset.destroy();
+                this.lassoAsset = null;
+            }
 
             /*
             -Change this part so that sheep are set to alert (this.asset.alert) if within a range
@@ -68,8 +96,29 @@ export class Sheep {
             }
         }
         else {
+            if(this.dogFacingForward()) {
+                this.asset.x = this.dog.x;
+                this.asset.y = this.dog.y + 32;
+            }
+            else if(this.dogFacingBackward()) {
+                this.asset.x = this.dog.x;
+                this.asset.y = this.dog.y - 32;
+            }
+            else if(this.dogFacingLeft()) {
+                this.asset.x = this.dog.x + 32;
+                this.asset.y = this.dog.y;
+            }
+            else if(this.dogFacingRight()) {
+                this.asset.x = this.dog.x - 32;
+                this.asset.y = this.dog.y;
+            }
+            if(this.lassoAsset != null){
+                this.lassoAsset.x = this.asset.x;
+                this.lassoAsset.y = this.asset.y;
+            }
             this.asset.setVelocityX(this.dog.body.velocity.x);
             this.asset.setVelocityY(this.dog.body.velocity.y);
+           
         }
     }
 }
