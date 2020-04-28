@@ -151,10 +151,13 @@ export class Level extends GameScene {
             //figure out how to implement just straight up collision
             for (var i = 0; i < this.allFinishSpaces.length; i++) {
                 var space = this.allFinishSpaces[i];
+                //console.log(space.x - space.width/2, space.x + space.width/2, space.y - space.height/2, space.y + space.height/2);
                 for (var j = 0; j < this.allSheep.length; j++) {
-                    var sheep = this.allSheep[i].asset;
-                    if (sheep.x - sheep.width/2 >= space.x - space.width/2 && sheep.x + sheep.body.width/2 <= space.x + space.width/2 &&
-                        sheep.y - sheep.height/2 >= space.y - space.height/2 && sheep.y + sheep.body.height/2 <= space.y + space.height/2) {
+                    var sheep = this.allSheep[j].asset;
+                    //console.log(sheep);
+                    //console.log(sheep.x , sheep.y);
+                    if (sheep.x >= space.x - space.width/2 && sheep.x <= space.x + space.width/2 &&
+                        sheep.y >= space.y - space.height/2 && sheep.y <= space.y + space.height/2) {
                         console.log("scored");
                         this.score += this.sheepScore;
                         this.removeSheep(sheep);
@@ -215,6 +218,8 @@ export class Level extends GameScene {
         sheepObj.dogAlert = false;
         var sheepAI = new Sheep(this, this.player, "IDLE", sheepObj);
         this.allSheep.push(sheepAI);
+        //console.log(sheepObj);
+        //console.log(this.allSheep);
         return sheepAI;
     }
 

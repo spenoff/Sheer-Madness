@@ -9,6 +9,7 @@ export class Level5 extends Level {
     create() {
         super.create();
     
+        this.setRequiredScore(1000);
         this.setPlayerPosition(600, 900);
         this.createSheep(600, 1000);
         this.createSheep(500, 900);
