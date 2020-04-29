@@ -15,6 +15,7 @@ export class Level extends GameScene {
         this.score = 0;
         this.requiredScore = 500;
         this.sheepScore = 500;
+        this.numStartingSheep = 0;
     }
 
     preload() {
@@ -34,6 +35,7 @@ export class Level extends GameScene {
         super.create();
 
         this.status = 0; //0 = in progress, 1 = complete, 2 = fail, 3 = restart/change level
+        this.startTime = Date.now(); //epoch in ms
 
         var bgtile = this.add.tileSprite(0, 0, 1920*2, 1080*2, 'grass');
         bgtile.setDepth(-1);
@@ -65,13 +67,14 @@ export class Level extends GameScene {
         //Need to animate the dog
 
         this.player.body.collideWorldBounds = true;
+        this.player.body.setSize(11, 32);
 
         this.physics.add.collider(this.dog, this.fence);
         this.physics.add.collider(this.sheep, this.fence);
         this.physics.add.collider(this.sheep, this.sheep);
         this.physics.add.collider(this.dog, this.sheep);
         this.physics.add.collider(this.dog, this.pond, (dog, pond) => {
-            this.levelDoneSequence(2, 'Game over! {explanation for why?} Press R to restart the level');
+            this.levelDoneSequence(2, 'Game over! You are too tired from doggypaddling out of the lake that you cannot do your duties for the rest of the day. Press R to restart the level');
         });
         this.physics.add.collider(this.sheep, this.pond, (sheep, pond) => {
             this.removeSheep(sheep);
@@ -86,7 +89,7 @@ export class Level extends GameScene {
             this.removeWolf(wolf);
         }); //do I have an event? - weird interaction
         this.physics.add.collider(this.wolf, this.dog, (wolf, dog) => {
-            this.levelDoneSequence(2, "Game over! The wolf killed you!");
+            this.levelDoneSequence(2, "Game over! The wolf killed you! Press R to restart the level");
             this.player.destroy();
         }); //do I have an event? - weird interaction
         this.physics.add.collider(this.wolf, this.sheep, (wolf, sheep) => {
@@ -191,12 +194,15 @@ export class Level extends GameScene {
                 }
             }
 
-            if (this.score >= this.requiredScore) {
-                this.levelDoneSequence(1, 'Level complete!');
+            if (this.score >= this.numStartingSheep * this.sheepScore) {
+                var finishTime = Date.now();
+                this.score += Math.floor(1000 * 100 * this.score / (finishTime - this.startTime));
+                this.levelDoneSequence(1, 'Level complete! Your score is: ' + this.score);
+                console.log("SCORE: " + this.score);
             }
 
             if (this.allSheep.length == 0 && this.score < this.requiredScore) {
-                this.levelDoneSequence(2, 'Game over! {No more sheep?} Press R to restart the level');
+                this.levelDoneSequence(2, 'Game over! You did not herd enough sheep. Press R to restart the level');
             }
 
         }
@@ -213,6 +219,7 @@ export class Level extends GameScene {
         this.allWolves = [];
         this.allFinishSpaces = [];
         this.score = 0; 
+        this.numStartingSheep = 0;
     }
 
     levelDoneSequence(status, msg) {
@@ -244,8 +251,7 @@ export class Level extends GameScene {
         sheepObj.dogAlert = false;
         var sheepAI = new Sheep(this, this.player, "IDLE", sheepObj);
         this.allSheep.push(sheepAI);
-        //console.log(sheepObj);
-        //console.log(this.allSheep);
+        this.numStartingSheep++;
         return sheepAI;
     }
 
