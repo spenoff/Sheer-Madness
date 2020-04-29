@@ -65,6 +65,7 @@ export class Level extends GameScene {
         //Need to animate the dog
 
         this.player.body.collideWorldBounds = true;
+        this.player.body.setSize(11, 32);
 
         this.physics.add.collider(this.dog, this.fence);
         this.physics.add.collider(this.sheep, this.fence);
