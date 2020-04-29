@@ -20,7 +20,7 @@ export class Level extends GameScene {
     preload() {
         //Load images and assets
         this.load.spritesheet('dog', 'assets/Dog.png', {frameWidth: 32, frameHeight: 32}); //Need to add animation
-        this.load.image('sheep', 'assets/Sheep.png'); //Change the spritesheet and add animation?
+        this.load.image('sheep', 'assets/sheep.png'); //Change the spritesheet and add animation?
         this.load.spritesheet('fence', 'assets/Fence.png', {frameWidth: 32, frameHeight: 32});
         this.load.image('grass', 'assets/green.png'); //replace when grass sprite is created
         this.load.image('red', 'assets/red.png');
