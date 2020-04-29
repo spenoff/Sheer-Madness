@@ -8,6 +8,12 @@ export class Level5 extends Level {
 
     create() {
         super.create();
+
+        this.lvdone = false;
+
+        this.music = this.sound.add('lv5');
+        this.music.loop = true;
+        this.music.play();
     
         this.setRequiredScore(1000);
         this.setPlayerPosition(600, 900);
@@ -46,5 +52,8 @@ export class Level5 extends Level {
 
     update() {
         super.update();
+        if(this.lvdone){
+            this.music.stop();
+        }
     }
 }

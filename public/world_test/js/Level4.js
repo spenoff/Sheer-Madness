@@ -9,6 +9,12 @@ export class Level4 extends Level {
     create() {
         super.create();
 
+        this.lvdone = false;
+
+        this.music = this.sound.add('lv4');
+        this.music.loop = true;
+        this.music.play();
+
         this.createBoxOfFences(32, 32, 20, 30);
         this.createFinishSpace(32, 32, 672, 150);
 
@@ -23,5 +29,8 @@ export class Level4 extends Level {
 
     update() {
         super.update();
+        if(this.lvdone){
+            this.music.stop();
+        }
     }
 }

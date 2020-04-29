@@ -16,6 +16,7 @@ export class Level extends GameScene {
         this.requiredScore = 500;
         this.sheepScore = 500;
         this.numStartingSheep = 0;
+        this.lvdone = true;
     }
 
     preload() {
@@ -29,6 +30,13 @@ export class Level extends GameScene {
         this.load.image('finishSpace', 'assets/red.png'); //victory tile - replace if we make one?
         this.load.image('wolf', 'assets/262.png'); //wolf image - replace when created
         this.load.image('lasso', 'assets/Lasso.png', {frameWidth: 32, frameHeight: 32}); 
+
+        //load music
+        this.load.audio('lv1', 'music/Level1.mp3');
+        this.load.audio('lv2', 'music/Level2.mp3');
+        this.load.audio('lv3', 'music/Level3.mp3');
+        this.load.audio('lv4', 'music/Level4.mp3');
+        this.load.audio('lv5', 'music/Level5.mp3');
     }
 
     create() {
@@ -231,6 +239,7 @@ export class Level extends GameScene {
         this.allWolves.forEach((wolf) => {
             wolf.asset.setVelocity(0);
         })
+        this.lvdone = true;
         alert(msg);
     }
 

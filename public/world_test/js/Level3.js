@@ -7,6 +7,12 @@ export class Level3 extends Level {
 
     create() {
         super.create();
+
+        this.lvdone = false;
+
+        this.music = this.sound.add('lv3');
+        this.music.loop = true;
+        this.music.play();
     
         this.setRequiredScore(500);
         this.setPlayerPosition(368, 1000);
@@ -35,24 +41,24 @@ export class Level3 extends Level {
         }
 
         //right side
-        for(var i = 0; i < 9; i++) {
-            this.createPond(400 + (32 * i),216);
-            this.createPond(400 + (32 * i),248);
-            this.createPond(400 + (32 * i),280);
-            this.createPond(400 + (32 * i),312);
-            this.createPond(400 + (32 * i),344);
-            this.createPond(400 + (32 * i),376);
-            this.createPond(400 + (32 * i),408);
-            this.createPond(400 + (32 * i),440);
-            this.createPond(400 + (32 * i),472);
-            this.createPond(400 + (32 * i),504);
-            this.createPond(400 + (32 * i),536);
-            this.createPond(400 + (32 * i),568);
-            this.createPond(400 + (32 * i),600);
-            this.createPond(400 + (32 * i),632);
-            this.createPond(400 + (32 * i),664);
-            this.createPond(400 + (32 * i),696);
-            this.createPond(400 + (32 * i),728);
+        for(var i = 0; i < 8; i++) {
+            this.createPond(432 + (32 * i),216);
+            this.createPond(432 + (32 * i),248);
+            this.createPond(432 + (32 * i),280);
+            this.createPond(432 + (32 * i),312);
+            this.createPond(432 + (32 * i),344);
+            this.createPond(432 + (32 * i),376);
+            this.createPond(432 + (32 * i),408);
+            this.createPond(432 + (32 * i),440);
+            this.createPond(432 + (32 * i),472);
+            this.createPond(432 + (32 * i),504);
+            this.createPond(432 + (32 * i),536);
+            this.createPond(432 + (32 * i),568);
+            this.createPond(432 + (32 * i),600);
+            this.createPond(432 + (32 * i),632);
+            this.createPond(432 + (32 * i),664);
+            this.createPond(432 + (32 * i),696);
+            this.createPond(432 + (32 * i),728);
         }
 
 
@@ -62,5 +68,8 @@ export class Level3 extends Level {
 
     update() {
         super.update();
+        if(this.lvdone){
+            this.music.stop();
+        }
     }
 }
