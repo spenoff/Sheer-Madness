@@ -47,7 +47,7 @@ export class Level extends GameScene {
         this.wolf = this.physics.add.group({
             defaultKey: 'wolf'
         });
-        this.lasso = this.physics.add.group({
+        this.lasso = this.physics.add.staticGroup({
             defaultKey: "lasso"
         });
         this.fence = this.physics.add.staticGroup({
@@ -92,6 +92,7 @@ export class Level extends GameScene {
         this.physics.add.collider(this.wolf, this.sheep, (wolf, sheep) => {
             this.removeSheep(sheep);
         }); //do I have an event?
+        this.player.lassoAsset = null;
 
 
         var cursors = this.input.keyboard.createCursorKeys();
@@ -143,8 +144,25 @@ export class Level extends GameScene {
                 }
             });
 
-            if(this.player.lassoTarget != null) {
-
+            if(this.player.lassoTarget != null && this.player.lassoAsset == null) {
+                this.player.lassoAsset = this.lasso.create(this.player.lassoTarget.x, this.player.lassoTarget.y, undefined, 0);
+            } else if(this.player.lassoTarget == null && this.player.lassoAsset != null) {
+                this.player.lassoAsset.destroy();
+                this.player.lassoAsset = null;
+            } 
+            if(this.player.lassoAsset != null) {
+                this.player.lassoAsset.x = this.player.lassoTarget.x;
+                this.player.lassoAsset.y = this.player.lassoTarget.y;
+                this.player.lassoAsset.angle = this.player.lassoTarget.angle - 180;
+                if(this.player.lassoAsset.angle == -180){
+                    this.player.lassoAsset.y -= 16;
+                } else if(this.player.lassoAsset.angle == 0) {
+                    this.player.lassoAsset.y += 16;
+                } else if(this.player.lassoAsset.angle == 90) {
+                    this.player.lassoAsset.x -= 16;
+                } else if(this.player.lassoAsset.angle == -90) {
+                    this.player.lassoAsset.x += 16;
+                }
             }
 
             this.allWolves.forEach(function(wolf) {
