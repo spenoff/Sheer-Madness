@@ -36,7 +36,8 @@ export class Controls {
             }
 
             if (Phaser.Input.Keyboard.JustDown(this.spaceKey)) {
-                console.log("bark");
+                this.sf = this.game.sound.add('bark');
+                this.sf.play();
                 this.sheep.children.iterate((child) => {
                     if (Math.sqrt(Math.pow(this.player.x - child.x, 2) + Math.pow(this.player.y - child.y, 2)) < this.barkRadius) {
                         child.dogAlert = true;

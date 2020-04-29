@@ -37,6 +37,9 @@ export class Level extends GameScene {
         this.load.audio('lv3', 'music/Level3.mp3');
         this.load.audio('lv4', 'music/Level4.mp3');
         this.load.audio('lv5', 'music/Level5.mp3');
+
+        //load sfx
+        this.load.audio('bark', 'sfx/Bark.mp3');
     }
 
     create() {
