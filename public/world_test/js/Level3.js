@@ -13,6 +13,11 @@ export class Level3 extends Level {
         this.music = this.sound.add('lv3');
         this.music.loop = true;
         this.music.play();
+
+        let text = "Try runinng into the\nsheep and clicking";
+        let style = { font: "65px Arial", fill: "#ff0044", align: "center" };
+
+        var t = this.add.text(800, 800, text, style);
     
         this.setRequiredScore(500);
         this.setPlayerPosition(368, 1000);
