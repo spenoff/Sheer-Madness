@@ -38,7 +38,7 @@ class MainMenu extends GameScene {
         var about       = this.add.sprite(960, 810, 'buttons', 3).setInteractive();
 
         start.on('pointerdown', function(event) {
-            this.scene.start('Level0');
+            this.scene.start('Level1');
         }, this);
         levelsel.on('pointerdown', function(event) {
             this.scene.start('LevelSelectMenu')
@@ -106,6 +106,9 @@ class LevelSelectMenu extends GameScene {
         }, this);
         l4.on('pointerdown', function(event) {
             this.scene.start('Level4');
+        }, this);
+        l5.on('pointerdown', function(event) {
+            this.scene.start('Level5');
         }, this);
         lock.on('pointerdown', function(event) {
             this.scene.start('Level0');
@@ -190,12 +193,6 @@ class AboutMenu extends GameScene {
 
     update() {
         super.update();
-    }
-}
-
-class NewTestLevel extends Level {
-    constructor() {
-        super("NewTestLevel");
     }
 }
 

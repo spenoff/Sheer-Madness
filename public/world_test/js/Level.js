@@ -15,6 +15,7 @@ export class Level extends GameScene {
         this.score = 0;
         this.requiredScore = 500;
         this.sheepScore = 500;
+        this.numStartingSheep = 0;
     }
 
     preload() {
@@ -192,7 +193,7 @@ export class Level extends GameScene {
                 }
             }
 
-            if (this.score >= this.requiredScore) {
+            if (this.score >= this.numStartingSheep * this.sheepScore) {
                 this.levelDoneSequence(1, 'Level complete!');
             }
 
@@ -214,6 +215,7 @@ export class Level extends GameScene {
         this.allWolves = [];
         this.allFinishSpaces = [];
         this.score = 0; 
+        this.numStartingSheep = 0;
     }
 
     levelDoneSequence(status, msg) {
@@ -245,8 +247,7 @@ export class Level extends GameScene {
         sheepObj.dogAlert = false;
         var sheepAI = new Sheep(this, this.player, "IDLE", sheepObj);
         this.allSheep.push(sheepAI);
-        //console.log(sheepObj);
-        //console.log(this.allSheep);
+        this.numStartingSheep++;
         return sheepAI;
     }
 
