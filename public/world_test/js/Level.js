@@ -35,6 +35,7 @@ export class Level extends GameScene {
         super.create();
 
         this.status = 0; //0 = in progress, 1 = complete, 2 = fail, 3 = restart/change level
+        this.startTime = Date.now(); //epoch in ms
 
         var bgtile = this.add.tileSprite(0, 0, 1920*2, 1080*2, 'grass');
         bgtile.setDepth(-1);
@@ -194,7 +195,10 @@ export class Level extends GameScene {
             }
 
             if (this.score >= this.numStartingSheep * this.sheepScore) {
+                var finishTime = Date.now();
+                this.score += Math.floor(1000 * 100 * this.score / (finishTime - this.startTime));
                 this.levelDoneSequence(1, 'Level complete!');
+                console.log("SCORE: " + this.score);
             }
 
             if (this.allSheep.length == 0 && this.score < this.requiredScore) {
