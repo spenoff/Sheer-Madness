@@ -304,7 +304,7 @@ export class Level extends GameScene {
         var pf = this.play_filler();
         setTimeout(pf, 5000);
         this.add.text(600, 400, msg, {backgroundColor: "0x0000ff", fontSize: "36px", fixedWidth: 660, align: "center", "padding": {x: 20, y: 20}, "wordWrap": {"width": 660}});
-        alert(msg);
+        //alert(msg);
     }
 
 
