@@ -28,7 +28,7 @@ export class Level extends GameScene {
         this.load.image('red', 'assets/red.png');
         this.load.image('pond', 'assets/blue.png'); //replace when pond sprite is created
         this.load.image('finishSpace', 'assets/red.png'); //victory tile - replace if we make one?
-        this.load.spritesheet('wolf', 'assets/wolf.png', {frameWidth: 32, frameHeight: 32}); //wolf image - replace when created
+        this.load.spritesheet('wolf', 'assets/Wolf.png', {frameWidth: 32, frameHeight: 32}); //wolf image - replace when created
         this.load.image('lasso', 'assets/Lasso.png', {frameWidth: 32, frameHeight: 32}); 
         //this.load.image('igg', 'assets/InGameGUI.png');
 
@@ -247,7 +247,7 @@ export class Level extends GameScene {
                 console.log("SCORE: " + this.score);
             }
 
-            if (this.allSheep.length == 0 && this.score < this.requiredScore) {
+            if (this.allSheep.length * this.sheepScore + this.score < this.requiredScore) {
                 this.levelDoneSequence(2, 'Game over! You did not herd enough sheep.\nPress R to restart the level');
             }
 
