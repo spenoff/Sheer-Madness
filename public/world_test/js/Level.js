@@ -38,6 +38,8 @@ export class Level extends GameScene {
         this.load.audio('lv4', 'music/Level4.mp3');
         this.load.audio('lv5', 'music/Level5.mp3');
         this.load.audio('lv6', 'music/Level6.mp3');
+        this.load.audio('menu', 'music/menu.mp3');
+        this.load.audio('bell', 'sfx/Cowbell.mp3');
 
         //load sfx
         this.load.audio('bark', 'sfx/Bark.mp3');
@@ -252,7 +254,23 @@ export class Level extends GameScene {
             wolf.asset.setVelocity(0);
         })
         this.lvdone = true;
+
+        if(status == 1) {
+            this.res_sound = this.game.sound.add('win');
+        } else {
+            this.res_sound = this.game.sound.add('lose');
+        }
+        this.game.sound.stopAll();
+        this.res_sound.play();
+        setTimeout(this.play_filler(), 5000);
         alert(msg);
+    }
+
+    play_filler() {
+        setTimeout(function(){}, 10000);
+        this.filler = this.game.sound.add('menu');
+        this.filler.play();
+
     }
 
     setRequiredScore(s) {
