@@ -15,6 +15,7 @@ class MainMenu extends GameScene {
 
     constructor() {
         super('MainMenu');
+        this.music_started = false;
     }
 
     preload() {
@@ -22,11 +23,19 @@ class MainMenu extends GameScene {
         this.load.image('mainbackground', 'assets/Background.png');
         this.load.spritesheet('buttons', 'assets/Buttons.png', {frameWidth: 506, frameHeight: 105});
         this.load.spritesheet('titles', 'assets/Titles.png', {frameWidth: 801, frameHeight: 200});
+        this.load.audio('menu', 'music/menu.mp3');
+        
 
     }
 
     create() {
         super.create();
+        if(!this.music_started) {
+            this.music = this.sound.add('menu');
+            this.music.loop = true;
+            this.music.play();
+            this.music_started = true;
+        }
 
         var background = this.add.tileSprite(960, 540, 0, 0, 'mainbackground');
         background.setDepth(-1);

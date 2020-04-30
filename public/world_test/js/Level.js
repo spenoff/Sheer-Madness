@@ -41,6 +41,13 @@ export class Level extends GameScene {
 
         //load sfx
         this.load.audio('bark', 'sfx/Bark.mp3');
+        this.load.audio('baa', 'sfx/Baa.mp3');
+        this.load.audio('bite', 'sfx/Biting.mp3');
+        this.load.audio('drown', 'sfx/Bubbles.mp3');
+        this.load.audio('bell', 'sfx/Cowbell.mp3');
+        this.load.audio('pause', 'sfx/Pause.mp3');
+        this.load.audio('win', 'sfx/Win.mp3');
+        this.load.audio('lose', 'sfx/Lose.mp3');
     }
 
     create() {
