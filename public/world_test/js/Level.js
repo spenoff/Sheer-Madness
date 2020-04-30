@@ -28,7 +28,7 @@ export class Level extends GameScene {
         this.load.image('red', 'assets/red.png');
         this.load.image('pond', 'assets/blue.png'); //replace when pond sprite is created
         this.load.image('finishSpace', 'assets/red.png'); //victory tile - replace if we make one?
-        this.load.spritesheet('wolf', 'assets/wolf.png', {frameWidth: 32, frameHeight: 32}); //wolf image - replace when created
+        this.load.spritesheet('wolf', 'assets/Wolf.png', {frameWidth: 32, frameHeight: 32}); //wolf image - replace when created
         this.load.image('lasso', 'assets/Lasso.png', {frameWidth: 32, frameHeight: 32}); 
         //this.load.image('igg', 'assets/InGameGUI.png');
 
@@ -173,11 +173,13 @@ export class Level extends GameScene {
                 if (target != null) {
                     target.lassoed = true;
                     this.player.lassoTarget = target;
+                    //scale down player velocity
                 }
             }
             else {
                 this.player.lassoTarget.lassoed = false;
                 this.player.lassoTarget = null;
+                //scale back up player velocity if lower than amt
             }
         });
         
@@ -261,11 +263,11 @@ export class Level extends GameScene {
             if (this.score >= this.numStartingSheep * this.sheepScore) {
                 var finishTime = Date.now();
                 this.score += Math.floor(1000 * 100 * this.score / (finishTime - this.startTime));
-                this.levelDoneSequence(1, 'Level complete!\nYour score is: ' + this.score);
+                this.levelDoneSequence(1, 'Level complete!\nYour score is: ' + this.score + '\nPress N to go to the next level');
                 console.log("SCORE: " + this.score);
             }
 
-            if (this.allSheep.length == 0 && this.score < this.requiredScore) {
+            if (this.allSheep.length * this.sheepScore + this.score < this.requiredScore) {
                 this.levelDoneSequence(2, 'Game over! You did not herd enough sheep.\nPress R to restart the level');
             }
 

@@ -10,6 +10,7 @@ export class GameScene extends Phaser.Scene {
 
     create() {
         this.rKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+        this.nKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.N);
         this.zeroKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ZERO);
         this.oneKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);
         this.twoKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);
@@ -17,6 +18,8 @@ export class GameScene extends Phaser.Scene {
         this.fourKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FOUR);
         this.fiveKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FIVE);
         this.sixKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SIX);
+        this.sevenKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SEVEN);
+        this.eightKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.EIGHT);
         this.hKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
     }
 
@@ -52,6 +55,15 @@ export class GameScene extends Phaser.Scene {
         if (Phaser.Input.Keyboard.JustDown(this.sixKey)) {
             this.stopLevel();
             this.scene.start('Level6');   
+        }
+        if (Phaser.Input.Keyboard.JustDown(this.sevenKey)) {
+            //this.stopLevel();
+            //this.scene.start('Level6');  
+            alert("Level 7 is not yet available, but level 8 is available"); 
+        }
+        if (Phaser.Input.Keyboard.JustDown(this.eightKey)) {
+            this.stopLevel();
+            this.scene.start('Level8');   
         }
         if (Phaser.Input.Keyboard.JustDown(this.hKey)) {
             this.stopLevel();
