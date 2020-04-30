@@ -40,6 +40,7 @@ export class Level extends GameScene {
         this.load.audio('lv5', 'music/Level5.mp3');
         this.load.audio('lv6', 'music/Level6.mp3');
         this.load.audio('lv7', 'music/Level7.mp3');
+        this.load.audio('lv8', 'music/Level8.mp3');
         this.load.audio('menu', 'music/menu.mp3');
         this.load.audio('bell', 'sfx/Cowbell.mp3');
 

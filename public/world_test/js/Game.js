@@ -31,7 +31,7 @@ class MainMenu extends GameScene {
 
     create() {
         super.create();
-        if(!this.music_started) {
+        if(!MainMenu.music_started) {
             this.music = this.sound.add('menu');
             this.music.loop = true;
             this.music.play();

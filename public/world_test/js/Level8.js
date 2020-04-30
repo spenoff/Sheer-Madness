@@ -13,11 +13,11 @@ export class Level8 extends Level {
 
         this.lvdone = false;
 
-        /*
+        
         this.music = this.game.sound.add('lv8');
         this.music.loop = true;
         this.music.play();
-        */
+        
 
        let text = "Try pressing the space bar";
        let style = { font: "65px Arial", fill: "#ff0044", align: "center" };
