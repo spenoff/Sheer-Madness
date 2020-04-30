@@ -6,6 +6,7 @@ import { Level2 } from "./Level2.js";
 import { Level3 } from "./Level3.js";
 import { Level4 } from "./Level4.js";
 import { Level5 } from "./Level5.js";
+import { Level6 } from "./Level6.js";
 
 //CHANGE SCENE within scene class
 //this.scene.start('TestLevel2');
@@ -110,6 +111,9 @@ class LevelSelectMenu extends GameScene {
         l5.on('pointerdown', function(event) {
             this.scene.start('Level5');
         }, this);
+        l6.on('pointerdown', function(event) {
+            this.scene.start('Level6');
+        }, this);
         lock.on('pointerdown', function(event) {
             this.scene.start('Level0');
         }, this);
@@ -206,7 +210,7 @@ var config = {
             gravity: { y: 0 }
         }
     },
-    scene : [ MainMenu, LevelSelectMenu, AboutMenu, SettingMenu, Level0, Level1, Level2, Level3, Level4, Level5 ]
+    scene : [ MainMenu, LevelSelectMenu, AboutMenu, SettingMenu, Level0, Level1, Level2, Level3, Level4, Level5, Level6 ]
 };
 
 var game = new Phaser.Game(config);

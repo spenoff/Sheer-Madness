@@ -16,6 +16,7 @@ export class GameScene extends Phaser.Scene {
         this.threeKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE);
         this.fourKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FOUR);
         this.fiveKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FIVE);
+        this.sixKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SIX);
         this.hKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
     }
 
@@ -48,11 +49,16 @@ export class GameScene extends Phaser.Scene {
             this.stopLevel();
             this.scene.start('Level5');   
         }
+        if (Phaser.Input.Keyboard.JustDown(this.sixKey)) {
+            this.stopLevel();
+            this.scene.start('Level6');   
+        }
         if (Phaser.Input.Keyboard.JustDown(this.hKey)) {
             this.stopLevel();
             this.scene.start('MainMenu');
         }
     }
 
-    stopLevel() {}
+    stopLevel() {
+    }
 }
