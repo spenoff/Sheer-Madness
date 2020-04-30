@@ -136,6 +136,11 @@ class LevelSelectMenu extends GameScene {
             this.bell.play();
             this.scene.start('Level6');
         }, this);
+        l7.on('pointerdown', function(event) {
+            //this.bell.play();
+            //this.scene.start('Level7');
+            alert("Level 7 is not yet available, but level 8 is available");
+        }, this);
         l8.on('pointerdown', function(event) {
             this.bell.play();
             this.scene.start('Level8');
