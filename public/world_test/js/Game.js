@@ -16,6 +16,7 @@ class MainMenu extends GameScene {
     constructor() {
         super('MainMenu');
         this.music_started = false;
+        this.bell;
     }
 
     preload() {
@@ -24,8 +25,7 @@ class MainMenu extends GameScene {
         this.load.spritesheet('buttons', 'assets/Buttons.png', {frameWidth: 506, frameHeight: 105});
         this.load.spritesheet('titles', 'assets/Titles.png', {frameWidth: 801, frameHeight: 200});
         this.load.audio('menu', 'music/menu.mp3');
-        
-
+        this.load.audio('bell', 'sfx/Cowbell.mp3');
     }
 
     create() {
@@ -36,6 +36,7 @@ class MainMenu extends GameScene {
             this.music.play();
             this.music_started = true;
         }
+        this.bell = this.sound.add('bell');
 
         var background = this.add.tileSprite(960, 540, 0, 0, 'mainbackground');
         background.setDepth(-1);
@@ -48,15 +49,19 @@ class MainMenu extends GameScene {
         var about       = this.add.sprite(960, 810, 'buttons', 3).setInteractive();
 
         start.on('pointerdown', function(event) {
+            this.bell.play();
             this.scene.start('Level1');
         }, this);
         levelsel.on('pointerdown', function(event) {
+            this.bell.play();
             this.scene.start('LevelSelectMenu')
         }, this);
         setting.on('pointerdown', function(event) {
+            this.bell.play();
             this.scene.start('SettingMenu');
         }, this);
         about.on('pointerdown', function(event) {
+            this.bell.play();
             this.scene.start('AboutMenu');
         }, this);
     }
@@ -84,6 +89,7 @@ class LevelSelectMenu extends GameScene {
 
     create() {
         super.create();
+        this.bell = this.sound.add('bell');
 
         var background = this.add.tileSprite(960, 540, 0, 0, 'mainbackground');
         background.setDepth(-1);
@@ -106,28 +112,36 @@ class LevelSelectMenu extends GameScene {
         var back    = this.add.sprite(960, 1000, 'buttons', 7).setInteractive();
 
         l1.on('pointerdown', function(event) {
+            this.bell.play();
             this.scene.start('Level1');
         }, this);
         l2.on('pointerdown', function(event) {
+            this.bell.play();
             this.scene.start('Level2');
         }, this);
         l3.on('pointerdown', function(event) {
+            this.bell.play();
             this.scene.start('Level3');
         }, this);
         l4.on('pointerdown', function(event) {
+            this.bell.play();
             this.scene.start('Level4');
         }, this);
         l5.on('pointerdown', function(event) {
+            this.bell.play();
             this.scene.start('Level5');
         }, this);
         l6.on('pointerdown', function(event) {
+            this.bell.play();
             this.scene.start('Level6');
         }, this);
         lock.on('pointerdown', function(event) {
+            this.bell.play();
             this.scene.start('Level0');
         }, this);
 
         back.on('pointerdown', function(event) {
+            this.bell.play();
             this.scene.start('MainMenu');
         }, this);
     }
@@ -154,6 +168,7 @@ class SettingMenu extends GameScene {
 
     create() {
         super.create();
+        this.bell = this.sound.add('bell');
 
         var background = this.add.tileSprite(960, 540, 0, 0, 'mainbackground');
         background.setDepth(-1);
@@ -163,6 +178,7 @@ class SettingMenu extends GameScene {
         var back = this.add.sprite(960, 1000, 'buttons', 7).setInteractive();
 
         back.on('pointerdown', function(event) {
+            this.bell.play();
             this.scene.start('MainMenu');
         }, this);
         
@@ -190,6 +206,7 @@ class AboutMenu extends GameScene {
 
     create() {
         super.create();
+        this.bell = this.sound.add('bell');
         
         var background = this.add.tileSprite(960, 540, 0, 0, 'mainbackground');
         background.setDepth(-1);
@@ -199,6 +216,7 @@ class AboutMenu extends GameScene {
         var back = this.add.sprite(960, 1000, 'buttons', 7).setInteractive();
 
         back.on('pointerdown', function(event) {
+            this.bell.play();
             this.scene.start('MainMenu');
         }, this);
 
