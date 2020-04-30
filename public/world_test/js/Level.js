@@ -169,11 +169,13 @@ export class Level extends GameScene {
                 if (target != null) {
                     target.lassoed = true;
                     this.player.lassoTarget = target;
+                    //scale down player velocity
                 }
             }
             else {
                 this.player.lassoTarget.lassoed = false;
                 this.player.lassoTarget = null;
+                //scale back up player velocity if lower than amt
             }
         });
     }

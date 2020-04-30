@@ -1,0 +1,9 @@
+* The "world_test" directory is our test_directory
+* The "benchmark2" directory is the benchmark2 submission, but should be equivalent to the "world_tst" directory
+
+* Cheats:
+  * Keys:
+    * [num] : Go to Level [num]
+    * N key : This can actually be used to go to next level at the moment, regardless of level completion
+  * Other:
+    * Currently, the lasso mechanic has no drawbacks. We intend for the player's speed to be slower when lassoing.
