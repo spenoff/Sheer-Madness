@@ -8,6 +8,8 @@ export class Level3 extends Level {
     create() {
         super.create();
 
+        this.game.sound.stopAll();
+
         this.lvdone = false;
 
         this.music = this.sound.add('lv3');
