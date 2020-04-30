@@ -72,6 +72,16 @@ export class Wolf {
     }
 
     update() {
+        //update rotation
+        if(this.asset.body.velocity.x < 0) {
+            this.asset.angle = -90;
+        } else if(this.asset.body.velocity.x > 0) {
+            this.asset.angle = 90;
+        } else if(this.asset.body.velocity.y > 0) {
+            this.asset.angle = -180;
+        } else {
+            this.asset.angle = 0;
+        }
         /*
         if (this.stepCounter < this.stepLimit) {
             this.stepCounter++;
