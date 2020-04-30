@@ -304,6 +304,7 @@ export class Level extends GameScene {
             }, this);
             mainmenu.on('pointerdown', function(event) {
                 this.bell.play();
+                this.game.sound.stopAll();
                 this.filler.play();
                 this.scene.start('MainMenu'); 
                 this.stopLevel();
