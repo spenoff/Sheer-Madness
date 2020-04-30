@@ -77,8 +77,8 @@ export class Level3 extends Level {
         super.update();
         this.game.sound.context.resume();
         this.sound.context.resume();
-        if(this.lvdone){
-           // this.music.stop();
+        if (Phaser.Input.Keyboard.JustDown(this.nKey)) {
+            this.scene.start('Level4');
         }
     }
 }

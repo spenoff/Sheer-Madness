@@ -10,6 +10,7 @@ export class GameScene extends Phaser.Scene {
 
     create() {
         this.rKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+        this.nKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.N);
         this.zeroKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ZERO);
         this.oneKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);
         this.twoKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);

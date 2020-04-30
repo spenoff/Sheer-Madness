@@ -33,8 +33,8 @@ export class Level6 extends Level {
 
     update() {
         super.update();
-        if(this.lvdone){
-            //this.music.stop();
+        if (Phaser.Input.Keyboard.JustDown(this.nKey)) {
+            alert("Next level coming soon!");
         }
     }
 
