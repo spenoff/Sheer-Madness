@@ -22,7 +22,7 @@ export class Level3 extends Level {
         var t = this.add.text(800, 800, text, style);
     
         this.setRequiredScore(500);
-        this.setPlayerPosition(368, 1000);
+        this.setPlayerPosition(368, 970);
         this.createSheep(332, 968);
         this.createSheep(400, 968);
 
