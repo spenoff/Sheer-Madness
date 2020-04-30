@@ -67,6 +67,7 @@ export class GameScene extends Phaser.Scene {
         }
         if (Phaser.Input.Keyboard.JustDown(this.hKey)) {
             this.stopLevel();
+            this.scene.music_started = false;
             this.scene.start('MainMenu');
         }
     }
