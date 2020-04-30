@@ -38,6 +38,8 @@ export class Level extends GameScene {
         this.load.audio('lv4', 'music/Level4.mp3');
         this.load.audio('lv5', 'music/Level5.mp3');
         this.load.audio('lv6', 'music/Level6.mp3');
+        this.load.audio('menu', 'music/menu.mp3');
+        this.load.audio('bell', 'sfx/Cowbell.mp3');
 
         //load sfx
         this.load.audio('bark', 'sfx/Bark.mp3');
@@ -82,7 +84,11 @@ export class Level extends GameScene {
 
 
         this.player = this.dog.create(960, 540, undefined, 0);
-        //Need to animate the dog
+        // animate the dog
+        this.anims.create({
+            key: 'walk',
+            frames: this.anims.generateFrameNames('dog', {start: 1, end: 4})
+        });
 
         this.player.body.collideWorldBounds = true;
         this.player.body.setSize(11, 32);
@@ -95,6 +101,8 @@ export class Level extends GameScene {
             this.levelDoneSequence(2, 'Game over! You are too tired from doggypaddling out of the lake that you cannot do your duties for the rest of the day. Press R to restart the level');
         });
         this.physics.add.collider(this.sheep, this.pond, (sheep, pond) => {
+            this.drown = this.game.sound.add('drown');
+            this.drown.play();
             this.removeSheep(sheep);
             //Do we add something to let the player know the sheep drowned? sfx, anything else?
         });
@@ -107,10 +115,14 @@ export class Level extends GameScene {
             this.removeWolf(wolf);
         }); //do I have an event? - weird interaction
         this.physics.add.collider(this.wolf, this.dog, (wolf, dog) => {
+            this.bite = this.game.sound.add('bite');
+            this.bite.play();
             this.levelDoneSequence(2, "Game over! The wolf killed you! Press R to restart the level");
             this.player.destroy();
         }); //do I have an event? - weird interaction
         this.physics.add.collider(this.wolf, this.sheep, (wolf, sheep) => {
+            this.bite = this.game.sound.add('bite');
+            this.bite.play();
             this.removeSheep(sheep);
         }); //do I have an event?
         this.player.lassoAsset = null;
@@ -157,6 +169,11 @@ export class Level extends GameScene {
 
             if (this.player.body != null && (this.player.body.velocity.x != 0 || this.player.body.velocity.y != 0)) {
                 this.player.angle = 90 + Math.atan2(this.player.body.velocity.y, this.player.body.velocity.x) * 180 / Math.PI;
+            }
+
+            if(this.player.body.velocity.x != 0 && this.player.body.velocity.y != 0) {
+                console.log('walk');
+                this.player.play('walk');
             }
 
             this.allSheep.forEach(function(sheep) {
@@ -242,6 +259,11 @@ export class Level extends GameScene {
         this.numStartingSheep = 0;
     }
 
+    play_filler() {
+        this.filler = this.game.sound.add('menu');
+        this.filler.play();
+    }
+
     levelDoneSequence(status, msg) {
         this.status = status;
         this.player.setVelocity(0);
@@ -252,8 +274,19 @@ export class Level extends GameScene {
             wolf.asset.setVelocity(0);
         })
         this.lvdone = true;
+
+        if(status == 1) {
+            this.res_sound = this.game.sound.add('win');
+        } else {
+            this.res_sound = this.game.sound.add('lose');
+        }
+        this.game.sound.stopAll();
+        this.res_sound.play();
+        var pf = this.play_filler();
+        setTimeout(pf, 5000);
         alert(msg);
     }
+
 
     setRequiredScore(s) {
         this.requiredScore = s;
