@@ -97,6 +97,8 @@ export class Level extends GameScene {
             this.levelDoneSequence(2, 'Game over! You are too tired from doggypaddling out of the lake that you cannot do your duties for the rest of the day. Press R to restart the level');
         });
         this.physics.add.collider(this.sheep, this.pond, (sheep, pond) => {
+            this.drown = this.game.sound.add('drown');
+            this.drown.play();
             this.removeSheep(sheep);
             //Do we add something to let the player know the sheep drowned? sfx, anything else?
         });
@@ -109,10 +111,14 @@ export class Level extends GameScene {
             this.removeWolf(wolf);
         }); //do I have an event? - weird interaction
         this.physics.add.collider(this.wolf, this.dog, (wolf, dog) => {
+            this.bite = this.game.sound.add('bite');
+            this.bite.play();
             this.levelDoneSequence(2, "Game over! The wolf killed you! Press R to restart the level");
             this.player.destroy();
         }); //do I have an event? - weird interaction
         this.physics.add.collider(this.wolf, this.sheep, (wolf, sheep) => {
+            this.bite = this.game.sound.add('bite');
+            this.bite.play();
             this.removeSheep(sheep);
         }); //do I have an event?
         this.player.lassoAsset = null;
@@ -244,6 +250,11 @@ export class Level extends GameScene {
         this.numStartingSheep = 0;
     }
 
+    play_filler() {
+        this.filler = this.game.sound.add('menu');
+        this.filler.play();
+    }
+
     levelDoneSequence(status, msg) {
         this.status = status;
         this.player.setVelocity(0);
@@ -262,16 +273,11 @@ export class Level extends GameScene {
         }
         this.game.sound.stopAll();
         this.res_sound.play();
-        setTimeout(this.play_filler(), 5000);
+        var pf = this.play_filler();
+        setTimeout(pf, 5000);
         alert(msg);
     }
 
-    play_filler() {
-        setTimeout(function(){}, 10000);
-        this.filler = this.game.sound.add('menu');
-        this.filler.play();
-
-    }
 
     setRequiredScore(s) {
         this.requiredScore = s;
