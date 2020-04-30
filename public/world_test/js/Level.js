@@ -39,6 +39,7 @@ export class Level extends GameScene {
         this.load.audio('lv4', 'music/Level4.mp3');
         this.load.audio('lv5', 'music/Level5.mp3');
         this.load.audio('lv6', 'music/Level6.mp3');
+        this.load.audio('lv7', 'music/Level7.mp3');
         this.load.audio('menu', 'music/menu.mp3');
         this.load.audio('bell', 'sfx/Cowbell.mp3');
 
@@ -94,6 +95,11 @@ export class Level extends GameScene {
         this.anims.create({
             key: 'walk',
             frames: this.anims.generateFrameNames('dog', {start: 1, end: 4})
+        });
+        //wolf animation
+        this.anims.create({
+            key: 'wolf_walk',
+            frames: this.anims.generateFrameNames('wolf', {start: 1, end: 4})
         });
         //this.igg.create(960, 540, undefined, 0);
 
@@ -215,7 +221,12 @@ export class Level extends GameScene {
 
             this.allWolves.forEach(function(wolf) {
                 wolf.update();
+                if(wolf.asset.body.velocity.x != 0 || wolf.asset.body.velocity.y != 0) {
+                    const newLocal = 'wolf_walk';
+                    wolf.asset.play(newLocal);
+                }
                 /* //add in when wolf sprite created
+                //currently handled in wolf.update
                 if (wolf.asset.body.velocity.x != 0 || wolf.asset.body.velocity.y != 0) {
                     wolf.asset.angle = 90 + Math.atan2(wolf.asset.body.velocity.y, wolf.asset.body.velocity.x) * 180 / Math.PI; 
                 }
@@ -243,7 +254,7 @@ export class Level extends GameScene {
             if (this.score >= this.numStartingSheep * this.sheepScore) {
                 var finishTime = Date.now();
                 this.score += Math.floor(1000 * 100 * this.score / (finishTime - this.startTime));
-                this.levelDoneSequence(1, 'Level complete!\nYour score is: ' + this.score);
+                this.levelDoneSequence(1, 'Level complete!\nYour score is: ' + this.score + '\nPress N to go to the next level');
                 console.log("SCORE: " + this.score);
             }
 
@@ -294,7 +305,7 @@ export class Level extends GameScene {
         var pf = this.play_filler();
         setTimeout(pf, 5000);
         this.add.text(600, 400, msg, {backgroundColor: "0x0000ff", fontSize: "36px", fixedWidth: 660, align: "center", "padding": {x: 20, y: 20}, "wordWrap": {"width": 660}});
-        alert(msg);
+        //alert(msg);
     }
 
 
@@ -339,6 +350,7 @@ export class Level extends GameScene {
 
     createWolf(x, y, startVelocityX=0, startVelocityY=0, ms=0, startStep=0) {
         var wolfObj = this.wolf.create(x, y);
+        wolfObj.play('walk');
         wolfObj.body.collideWorldBounds = true;
         var wolfAI = new Wolf(this, this.sheep, "IDLE", wolfObj);
         wolfAI.setPatrol(startVelocityX, startVelocityY, ms, startStep);

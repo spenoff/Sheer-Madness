@@ -54,8 +54,8 @@ export class Level5 extends Level {
 
     update() {
         super.update();
-        if(this.lvdone){
-            //this.music.stop();
+        if (Phaser.Input.Keyboard.JustDown(this.nKey)) {
+            this.scene.start('Level6');
         }
     }
 }
