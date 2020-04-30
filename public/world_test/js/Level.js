@@ -95,6 +95,11 @@ export class Level extends GameScene {
             key: 'walk',
             frames: this.anims.generateFrameNames('dog', {start: 1, end: 4})
         });
+        //wolf animation
+        this.anims.create({
+            key: 'wolf_walk',
+            frames: this.anims.generateFrameNames('wolf', {start: 1, end: 4})
+        });
         //this.igg.create(960, 540, undefined, 0);
 
         this.player.body.collideWorldBounds = true;
@@ -215,7 +220,12 @@ export class Level extends GameScene {
 
             this.allWolves.forEach(function(wolf) {
                 wolf.update();
+                if(wolf.asset.body.velocity.x != 0 || wolf.asset.body.velocity.y != 0) {
+                    const newLocal = 'wolf_walk';
+                    wolf.asset.play(newLocal);
+                }
                 /* //add in when wolf sprite created
+                //currently handled in wolf.update
                 if (wolf.asset.body.velocity.x != 0 || wolf.asset.body.velocity.y != 0) {
                     wolf.asset.angle = 90 + Math.atan2(wolf.asset.body.velocity.y, wolf.asset.body.velocity.x) * 180 / Math.PI; 
                 }
@@ -338,6 +348,7 @@ export class Level extends GameScene {
 
     createWolf(x, y, startVelocityX=0, startVelocityY=0, ms=0, startStep=0) {
         var wolfObj = this.wolf.create(x, y);
+        wolfObj.play('walk');
         wolfObj.body.collideWorldBounds = true;
         var wolfAI = new Wolf(this, this.sheep, "IDLE", wolfObj);
         wolfAI.setPatrol(startVelocityX, startVelocityY, ms, startStep);
