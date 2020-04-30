@@ -24,6 +24,7 @@ export class Sheep {
         this.state = state;
         this.asset = asset;
         this.lassoAsset = null;
+        this.ready_to_baa = true;
     }
 
     setState(state) {
@@ -57,6 +58,7 @@ export class Sheep {
     }
 
     update() {
+        this.baa = this.game.sound.add('baa');
         var dogX = this.dog.x;
         var dogY = this.dog.y;
 
@@ -82,6 +84,10 @@ export class Sheep {
                this.asset.setVelocityY(this.dog.body.velocity.y);
            }
            else if (this.asset.alert || this.asset.dogAlert) {
+               if(this.ready_to_baa) {
+                   this.baa.play();
+                   this.ready_to_baa = false;
+               }
                 if (dogX < this.asset.x) {
                     this.asset.setVelocityX(140);
                 } 
@@ -99,6 +105,10 @@ export class Sheep {
             else {
                 this.asset.setVelocityX(0);
                 this.asset.setVelocityY(0);
+
+                if(!this.ready_to_baa){
+                    setTimeout(function(){this.ready_to_baa = true}, 10000);
+                }
             }
         }
         if(this.asset.lassoed) {
