@@ -19,6 +19,11 @@ export class Level8 extends Level {
         this.music.play();
         */
 
+       let text = "Try pressing the space bar";
+       let style = { font: "65px Arial", fill: "#ff0044", align: "center" };
+
+       var t = this.add.text(900, 800, text, style);
+
         this.createBoxOfFences(32, 32, 25, 30);
         this.createFinishSpace(32, 32, 672+160, 150);
 
