@@ -44,7 +44,6 @@ export class Level extends GameScene {
         this.load.audio('baa', 'sfx/Baa.mp3');
         this.load.audio('bite', 'sfx/Biting.mp3');
         this.load.audio('drown', 'sfx/Bubbles.mp3');
-        this.load.audio('bell', 'sfx/Cowbell.mp3');
         this.load.audio('pause', 'sfx/Pause.mp3');
         this.load.audio('win', 'sfx/Win.mp3');
         this.load.audio('lose', 'sfx/Lose.mp3');
@@ -154,6 +153,7 @@ export class Level extends GameScene {
     update() {
         if (this.status == 0) {
             this.controls.update();
+            this.baa = this.sound.add('baa');
 
             if (this.player.body != null && (this.player.body.velocity.x != 0 || this.player.body.velocity.y != 0)) {
                 this.player.angle = 90 + Math.atan2(this.player.body.velocity.y, this.player.body.velocity.x) * 180 / Math.PI;
@@ -208,6 +208,7 @@ export class Level extends GameScene {
                         sheep.y >= space.y - space.height/2 && sheep.y <= space.y + space.height/2) {
                         console.log("scored");
                         this.score += this.sheepScore;
+                        this.baa.play();
                         this.removeSheep(sheep);
                     }
                 }
