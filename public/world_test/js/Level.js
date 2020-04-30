@@ -264,7 +264,7 @@ export class Level extends GameScene {
                 }
             }
 
-            if (this.score >= this.numStartingSheep * this.sheepScore) {
+            if (this.score >= this.requiredScore) {
                 var finishTime = Date.now();
                 this.score += Math.floor(1000 * 100 * this.score / (finishTime - this.startTime));
                 this.levelDoneSequence(1, 'Level complete!\nYour score is: ' + this.score + '\nPress N to go to the next level');
