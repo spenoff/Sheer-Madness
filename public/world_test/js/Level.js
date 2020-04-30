@@ -84,7 +84,11 @@ export class Level extends GameScene {
 
 
         this.player = this.dog.create(960, 540, undefined, 0);
-        //Need to animate the dog
+        // animate the dog
+        this.anims.create({
+            key: 'walk',
+            frames: this.anims.generateFrameNames('dog', {start: 1, end: 4})
+        });
 
         this.player.body.collideWorldBounds = true;
         this.player.body.setSize(11, 32);
@@ -165,6 +169,11 @@ export class Level extends GameScene {
 
             if (this.player.body != null && (this.player.body.velocity.x != 0 || this.player.body.velocity.y != 0)) {
                 this.player.angle = 90 + Math.atan2(this.player.body.velocity.y, this.player.body.velocity.x) * 180 / Math.PI;
+            }
+
+            if(this.player.body.velocity.x != 0 && this.player.body.velocity.y != 0) {
+                console.log('walk');
+                this.player.play('walk');
             }
 
             this.allSheep.forEach(function(sheep) {
