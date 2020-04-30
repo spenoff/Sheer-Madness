@@ -58,7 +58,11 @@ export class GameScene extends Phaser.Scene {
         }
         if (Phaser.Input.Keyboard.JustDown(this.sevenKey)) {
             this.stopLevel();
+<<<<<<< Updated upstream
             this.scene.start('Level7');   
+=======
+            this.scene.start('Level7');
+>>>>>>> Stashed changes
         }
         if (Phaser.Input.Keyboard.JustDown(this.eightKey)) {
             this.stopLevel();
