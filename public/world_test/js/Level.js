@@ -51,6 +51,10 @@ export class Level extends GameScene {
         this.load.audio('pause', 'sfx/Pause.mp3');
         this.load.audio('win', 'sfx/Win.mp3');
         this.load.audio('lose', 'sfx/Lose.mp3');
+
+        //Pause Menu
+        this.load.spritesheet('buttons', 'assets/Buttons.png', {frameWidth: 506, frameHeight: 105});
+        this.load.spritesheet('titles', 'assets/Titles.png', {frameWidth: 801, frameHeight: 200});
     }
 
     create() {
@@ -176,6 +180,9 @@ export class Level extends GameScene {
                 this.player.lassoTarget = null;
             }
         });
+        
+        //Level Pausing
+        this.esckey = this.input.keyboard.addKey('ESC');
     }
 
     update() {
@@ -262,6 +269,33 @@ export class Level extends GameScene {
                 this.levelDoneSequence(2, 'Game over! You did not herd enough sheep.\nPress R to restart the level');
             }
 
+        }
+
+        //Level Pausing
+        if (Phaser.Input.Keyboard.JustDown(this.esckey)) {
+            //this.scene.pause(this.levelName);
+            this.status = 4;
+            
+            var pausetitle      = this.add.sprite(960, 150, 'titles', 4);
+            var resume          = this.add.sprite(960, 450, 'buttons', 5).setInteractive();
+            var levelsel        = this.add.sprite(960, 570, 'buttons', 1).setInteractive();
+            var mainmenu        = this.add.sprite(960, 690, 'buttons', 6).setInteractive();
+            
+            resume.on('pointerdown', function(event) {
+                this.status = 0;
+                pausetitle.destroy();
+                resume.destroy();
+                levelsel.destroy();
+                mainmenu.destroy(); 
+            }, this);
+            levelsel.on('pointerdown', function(event) {
+                this.scene.start('LevelSelectMenu'); 
+                this.stopLevel();
+            }, this);
+            mainmenu.on('pointerdown', function(event) {
+                this.scene.start('MainMenu'); 
+                this.stopLevel();
+            }, this);
         }
 
        super.update();
@@ -484,5 +518,4 @@ export class Level extends GameScene {
         var pond = this.pond.create(x, y);
         pond.setDepth(-1);
     }
-
 }
