@@ -30,6 +30,7 @@ export class Level extends GameScene {
         this.load.image('finishSpace', 'assets/red.png'); //victory tile - replace if we make one?
         this.load.spritesheet('wolf', 'assets/wolf.png', {frameWidth: 32, frameHeight: 32}); //wolf image - replace when created
         this.load.image('lasso', 'assets/Lasso.png', {frameWidth: 32, frameHeight: 32}); 
+        //this.load.image('igg', 'assets/InGameGUI.png');
 
         //load music
         this.load.audio('lv1', 'music/Level1.mp3');
@@ -53,8 +54,9 @@ export class Level extends GameScene {
 
     create() {
         super.create();
+        this.baa = this.sound.add('baa');
 
-        this.status = 0; //0 = in progress, 1 = complete, 2 = fail, 3 = restart/change level
+        this.status = 0; //0 = in progress, 1 = complete, 2 = fail, 3 = restart/change level, 4 = paused
         this.startTime = Date.now(); //epoch in ms
 
         var bgtile = this.add.tileSprite(0, 0, 1920*2, 1080*2, 'grass');
@@ -81,6 +83,10 @@ export class Level extends GameScene {
         this.finishSpace = this.physics.add.staticGroup({
             defaultKey: 'finishSpace'
         });
+        //this.igg = this.physics.add.staticGroup({
+        //    defaultKey: "igg"
+        //})
+
 
 
         this.player = this.dog.create(960, 540, undefined, 0);
@@ -89,6 +95,7 @@ export class Level extends GameScene {
             key: 'walk',
             frames: this.anims.generateFrameNames('dog', {start: 1, end: 4})
         });
+        //this.igg.create(960, 540, undefined, 0);
 
         this.player.body.collideWorldBounds = true;
         this.player.body.setSize(11, 32);
@@ -126,6 +133,9 @@ export class Level extends GameScene {
             this.removeSheep(sheep);
         }); //do I have an event?
         this.player.lassoAsset = null;
+
+        //var in_game_gui = this.add.sprite(200, 100, 'igg');
+        //in_game_gui.create();
 
 
         var cursors = this.input.keyboard.createCursorKeys();
@@ -165,7 +175,6 @@ export class Level extends GameScene {
     update() {
         if (this.status == 0) {
             this.controls.update();
-            this.baa = this.sound.add('baa');
 
             if (this.player.body != null && (this.player.body.velocity.x != 0 || this.player.body.velocity.y != 0)) {
                 this.player.angle = 90 + Math.atan2(this.player.body.velocity.y, this.player.body.velocity.x) * 180 / Math.PI;

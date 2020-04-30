@@ -25,6 +25,7 @@ export class Sheep {
         this.asset = asset;
         this.lassoAsset = null;
         this.ready_to_baa = true;
+        this.baa = this.game.sound.add('baa');
     }
 
     setState(state) {
@@ -58,7 +59,7 @@ export class Sheep {
     }
 
     update() {
-        this.baa = this.game.sound.add('baa');
+        
         var dogX = this.dog.x;
         var dogY = this.dog.y;
 

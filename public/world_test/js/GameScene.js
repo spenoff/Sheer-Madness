@@ -60,5 +60,7 @@ export class GameScene extends Phaser.Scene {
     }
 
     stopLevel() {
+        console.log("Stop all");
+        this.game.sound.stopAll();
     }
 }

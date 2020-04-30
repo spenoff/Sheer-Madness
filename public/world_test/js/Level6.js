@@ -12,7 +12,7 @@ export class Level6 extends Level {
 
         this.lvdone = false;
 
-        this.music = this.sound.add('lv6');
+        this.music = this.game.sound.add('lv6');
         this.music.loop = true;
         this.music.play();
     
@@ -34,7 +34,7 @@ export class Level6 extends Level {
     update() {
         super.update();
         if(this.lvdone){
-            this.music.stop();
+            //this.music.stop();
         }
     }
 
