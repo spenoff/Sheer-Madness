@@ -10,10 +10,11 @@ export class Level1 extends Level {
         super.create();
 
         this.game.sound.stopAll();
+        //this.game.sound.context.resume();
 
         this.lvdone = false;
 
-        this.music = this.sound.add('lv1');
+        this.music = this.game.sound.add('lv1');
         this.music.loop = true;
         this.music.play();
 
@@ -30,7 +31,7 @@ export class Level1 extends Level {
     update() {
         super.update();
         if(this.lvdone){
-            this.music.stop();
+            //this.music.stop();
         }
     }
 }
