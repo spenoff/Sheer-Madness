@@ -61,6 +61,9 @@ export class Level extends GameScene {
     create() {
         super.create();
         this.baa = this.sound.add('baa');
+        this.pause_sound = this.sound.add('pause');
+        this.bell = this.sound.add('bell');
+        this.filler = this.game.sound.add('menu');
 
         this.status = 0; //0 = in progress, 1 = complete, 2 = fail, 3 = restart/change level, 4 = paused
         this.startTime = Date.now(); //epoch in ms
@@ -277,7 +280,9 @@ export class Level extends GameScene {
         //Level Pausing
         if (Phaser.Input.Keyboard.JustDown(this.esckey)) {
             //this.scene.pause(this.levelName);
+            if(this.status == 4) { return; }
             this.status = 4;
+            this.pause_sound.play();
             
             var pausetitle      = this.add.sprite(960, 150, 'titles', 4);
             var resume          = this.add.sprite(960, 450, 'buttons', 5).setInteractive();
@@ -286,16 +291,20 @@ export class Level extends GameScene {
             
             resume.on('pointerdown', function(event) {
                 this.status = 0;
+                this.bell.play();
                 pausetitle.destroy();
                 resume.destroy();
                 levelsel.destroy();
                 mainmenu.destroy(); 
             }, this);
             levelsel.on('pointerdown', function(event) {
+                this.bell.play();
                 this.scene.start('LevelSelectMenu'); 
                 this.stopLevel();
             }, this);
             mainmenu.on('pointerdown', function(event) {
+                this.bell.play();
+                this.filler.play();
                 this.scene.start('MainMenu'); 
                 this.stopLevel();
             }, this);
@@ -317,7 +326,7 @@ export class Level extends GameScene {
     }
 
     play_filler() {
-        this.filler = this.game.sound.add('menu');
+        
         this.filler.play();
     }
 
