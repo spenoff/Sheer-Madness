@@ -34,7 +34,7 @@ export class Level6 extends Level {
     update() {
         super.update();
         if (Phaser.Input.Keyboard.JustDown(this.nKey)) {
-            this.scene.start("Level8");
+            this.scene.start("Level7");
         }
     }
 
