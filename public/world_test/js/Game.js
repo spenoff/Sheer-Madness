@@ -17,7 +17,6 @@ class MainMenu extends GameScene {
 
     constructor() {
         super('MainMenu');
-        this.music_started = false;
         this.bell;
     }
 
@@ -32,12 +31,10 @@ class MainMenu extends GameScene {
 
     create() {
         super.create();
-        if(!MainMenu.music_started) {
-            this.music = this.sound.add('menu');
-            this.music.loop = true;
-            this.music.play();
-            this.music_started = true;
+        if(!GameScene.in_menu) {
+            GameScene.menu_music_needed = true;
         }
+        GameScene.in_menu = true;
         this.bell = this.sound.add('bell');
 
         var background = this.add.tileSprite(960, 540, 0, 0, 'mainbackground');
@@ -81,6 +78,7 @@ class LevelSelectMenu extends GameScene {
     }
 
     preload() {
+        this.in_menu = true;
         
         this.load.image('mainbackground', 'assets/Background.png');
         this.load.spritesheet('titles', 'Titles.png', {frameWidth: 801, frameHeight: 200});
@@ -91,6 +89,10 @@ class LevelSelectMenu extends GameScene {
 
     create() {
         super.create();
+        if(!GameScene.in_menu) {
+            GameScene.menu_music_needed = true;
+        }
+        GameScene.in_menu = true;
         this.bell = this.sound.add('bell');
 
         var background = this.add.tileSprite(960, 540, 0, 0, 'mainbackground');
@@ -168,6 +170,7 @@ class SettingMenu extends GameScene {
     }
 
     preload() {
+        this.in_menu = true;
 
         this.load.image('mainbackground', 'assets/Background.png');
         this.load.spritesheet('titles', 'Titles.png', {frameWidth: 801, frameHeight: 200});
@@ -178,6 +181,10 @@ class SettingMenu extends GameScene {
 
     create() {
         super.create();
+        if(!GameScene.in_menu) {
+            GameScene.menu_music_needed = true;
+        }
+        GameScene.in_menu = true;
         this.bell = this.sound.add('bell');
 
         var background = this.add.tileSprite(960, 540, 0, 0, 'mainbackground');
@@ -216,6 +223,10 @@ class AboutMenu extends GameScene {
 
     create() {
         super.create();
+        if(!GameScene.in_menu) {
+            GameScene.menu_music_needed = true;
+        }
+        GameScene.in_menu = true;
         this.bell = this.sound.add('bell');
         
         var background = this.add.tileSprite(960, 540, 0, 0, 'mainbackground');

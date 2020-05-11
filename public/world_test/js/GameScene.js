@@ -1,11 +1,15 @@
 export class GameScene extends Phaser.Scene {
+    static in_menu;
+    static menu_music_needed;
 
     constructor(name) {
         super({key: name});
+        GameScene.in_menu = true;
+        GameScene.menu_music_needed = true;
     }
 
     preload() {
-
+        this.load.audio('menu', 'music/menu.mp3');
     }
 
     create() {
@@ -21,6 +25,9 @@ export class GameScene extends Phaser.Scene {
         this.sevenKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SEVEN);
         this.eightKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.EIGHT);
         this.hKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
+
+        this.music = this.sound.add('menu');
+        this.music.loop = true;
     }
 
     update() {
@@ -66,8 +73,16 @@ export class GameScene extends Phaser.Scene {
         }
         if (Phaser.Input.Keyboard.JustDown(this.hKey)) {
             this.stopLevel();
-            this.scene.music_started = false;
+            //this.scene.music_started = false;
             this.scene.start('MainMenu');
+        }
+        if(GameScene.in_menu) {
+            if(GameScene.menu_music_needed) {
+                console.log("here");
+                this.game.sound.stopAll();
+                this.music.play();
+                GameScene.menu_music_needed = false;
+            }
         }
     }
 

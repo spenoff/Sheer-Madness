@@ -60,6 +60,7 @@ export class Level extends GameScene {
 
     create() {
         super.create();
+        GameScene.in_menu = false;
         this.baa = this.sound.add('baa');
         this.pause_sound = this.sound.add('pause');
         this.bell = this.sound.add('bell');
