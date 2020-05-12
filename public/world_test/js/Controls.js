@@ -16,20 +16,20 @@ export class Controls {
         if (this.player.body != null) {
 
             if (this.cursors.left.isDown || this.aKey.isDown) {
-                this.player.setVelocityX(-160);
+                this.player.setVelocityX((this.player.lassoAsset != null)?-80:-160);
             }
             else if (this.cursors.right.isDown || this.dKey.isDown) {
-                this.player.setVelocityX(160);
+                this.player.setVelocityX((this.player.lassoAsset != null)?80:160);
             }
             else {
                 this.player.setVelocityX(0);
             }
 
             if (this.cursors.up.isDown || this.wKey.isDown) {
-                this.player.setVelocityY(-160);
+                this.player.setVelocityY((this.player.lassoAsset != null)?-80:-160);
             }
             else if (this.cursors.down.isDown || this.sKey.isDown) {
-                this.player.setVelocityY(160);
+                this.player.setVelocityY((this.player.lassoAsset != null)?80:160);
             }
             else {
                 this.player.setVelocityY(0);

@@ -100,6 +100,7 @@ export class Level extends GameScene {
 
 
         this.player = this.dog.create(960, 540, undefined, 0);
+        this.player.lassoAsset = null;
         // animate the dog
         this.anims.create({
             key: 'walk',
@@ -214,9 +215,11 @@ export class Level extends GameScene {
 
             if(this.player.lassoTarget != null && this.player.lassoAsset == null) {
                 this.player.lassoAsset = this.lasso.create(this.player.lassoTarget.x, this.player.lassoTarget.y, undefined, 0);
+//                this.player.setVelocity(this.player.body.velocity.x / 2, this.player.body.velocity.y / 2);
             } else if(this.player.lassoTarget == null && this.player.lassoAsset != null) {
                 this.player.lassoAsset.destroy();
                 this.player.lassoAsset = null;
+//                this.player.setVelocity(this.player.body.velocity.x * 2, this.player.body.velocity.y * 2);
             } 
             if(this.player.lassoAsset != null) {
                 this.player.lassoAsset.x = this.player.lassoTarget.x;
