@@ -30,7 +30,6 @@ export class Level extends GameScene {
         this.load.image('finishSpace', 'assets/red.png'); //victory tile - replace if we make one?
         this.load.spritesheet('wolf', 'assets/Wolf.png', {frameWidth: 32, frameHeight: 32}); //wolf image - replace when created
         this.load.image('lasso', 'assets/Lasso.png', {frameWidth: 32, frameHeight: 32}); 
-        //this.load.image('igg', 'assets/InGameGUI.png');
 
         //load music
         this.load.audio('lv1', 'music/Level1.mp3');
@@ -93,9 +92,6 @@ export class Level extends GameScene {
         this.finishSpace = this.physics.add.staticGroup({
             defaultKey: 'finishSpace'
         });
-        //this.igg = this.physics.add.staticGroup({
-        //    defaultKey: "igg"
-        //})
 
 
 
@@ -149,9 +145,6 @@ export class Level extends GameScene {
             this.removeSheep(sheep);
         }); //do I have an event?
         this.player.lassoAsset = null;
-
-        //var in_game_gui = this.add.sprite(200, 100, 'igg');
-        //in_game_gui.create();
 
 
         var cursors = this.input.keyboard.createCursorKeys();
@@ -215,11 +208,9 @@ export class Level extends GameScene {
 
             if(this.player.lassoTarget != null && this.player.lassoAsset == null) {
                 this.player.lassoAsset = this.lasso.create(this.player.lassoTarget.x, this.player.lassoTarget.y, undefined, 0);
-//                this.player.setVelocity(this.player.body.velocity.x / 2, this.player.body.velocity.y / 2);
             } else if(this.player.lassoTarget == null && this.player.lassoAsset != null) {
                 this.player.lassoAsset.destroy();
                 this.player.lassoAsset = null;
-//                this.player.setVelocity(this.player.body.velocity.x * 2, this.player.body.velocity.y * 2);
             } 
             if(this.player.lassoAsset != null) {
                 this.player.lassoAsset.x = this.player.lassoTarget.x;
@@ -273,10 +264,12 @@ export class Level extends GameScene {
                 this.score += Math.floor(1000 * 100 * this.score / (finishTime - this.startTime));
                 this.levelDoneSequence(1, 'Level complete!\nYour score is: ' + this.score + '\nPress N to go to the next level');
                 console.log("SCORE: " + this.score);
+                status = 1;
             }
 
             if (this.allSheep.length * this.sheepScore + this.score < this.requiredScore) {
                 this.levelDoneSequence(2, 'Game over! You did not herd enough sheep.\nPress R to restart the level');
+                status = 2;
             }
 
         }
@@ -284,7 +277,7 @@ export class Level extends GameScene {
         //Level Pausing
         if (Phaser.Input.Keyboard.JustDown(this.esckey)) {
             //this.scene.pause(this.levelName);
-            if(this.status == 4) { return; }
+            if(this.status == 4 || this.status == 1 || this.status == 2) { return; }
             this.status = 4;
             this.pause_sound.play();
             
