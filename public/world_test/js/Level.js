@@ -389,6 +389,7 @@ export class Level extends GameScene {
         if (this.player.lassoTarget == sheep) {
             this.player.lassoTarget = null;
         }
+        sheep.done = true;
         sheep.destroy();
     }
 

@@ -23,6 +23,10 @@ export class Sheep {
         this.dog = dog;
         this.state = state;
         this.asset = asset;
+        this.asset.in_bark_event = false;
+        this.asset.done = false;
+        this.asset.be_vx = 0;
+        this.asset.be_vy = 0;
         this.lassoAsset = null;
         this.ready_to_baa = true;
         this.baa = this.game.sound.add('baa');
@@ -58,7 +62,28 @@ export class Sheep {
         //this.lassoAsset.body.setCollisionGroup(this.game.physics.p2.createCollisionGroup());
     }
 
+    static barkEvent(asset, vx, vy) {
+        console.log("bark event");
+        asset.setVelocityX(140 *  vx);
+        asset.setVelocityY(-140 * vy);
+        asset.in_bark_event = true;
+        asset.be_vx = vx;
+        asset.be_vy = vy;
+    }
+
+    static endBarkEvent(asset) {
+        if(typeof asset === 'undefined') { return; }
+        if(asset == null) { return; }
+        if(asset.done) { return; }
+        asset.setVelocityX(0);
+        asset.setVelocityY(0);
+        asset.in_bark_event = false;
+    }
+
     update() {
+        if(typeof this.asset === 'undefined' || typeof this.dog === 'undefined') { return; }
+        if(this.asset == null || this.dog == null) { return; }
+        if(this.asset.done) { return; }
         
         var dogX = this.dog.x;
         var dogY = this.dog.y;
@@ -80,7 +105,12 @@ export class Sheep {
 
            this.asset.alert = Math.sqrt(Math.pow(dogX - this.asset.x, 2) + Math.pow(dogY - this.asset.y, 2)) <= 60;
 
-           if (this.asset.lassoed) {
+           if(this.asset.in_bark_event) {
+            console.log(this.asset.be_vy);
+            this.asset.setVelocityX(140 *  this.asset.be_vx);
+            this.asset.setVelocityY(-140 * this.asset.be_vy);
+           }
+           else if (this.asset.lassoed) {
                this.asset.setVelocityX(this.dog.body.velocity.x);
                this.asset.setVelocityY(this.dog.body.velocity.y);
            }
@@ -89,6 +119,15 @@ export class Sheep {
                    this.baa.play();
                    this.ready_to_baa = false;
                }
+            //    if(!this.alert_set) {
+            //        this.asset.setVelocityX(140 *  Math.sin(this.dog.rotation));
+            //        this.asset.setVelocityY(-140 * Math.cos(this.dog.rotation));
+            //        this.alert_set = true;
+            //        this.asset.barkedAt = false;
+            //    }
+            //    this.asset.x += this.alertX;
+            //    this.asset.y -= this.alertY;
+
                 if (dogX < this.asset.x) {
                     this.asset.setVelocityX(140);
                 } 
