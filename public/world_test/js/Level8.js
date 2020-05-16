@@ -3,7 +3,7 @@ import { Level } from "./Level.js";
 export class Level8 extends Level {
     constructor() {
         super('Level8');
-        this.setRequiredScore(1000);
+        this.setRequiredScore(500);
     }
 
     create() {
