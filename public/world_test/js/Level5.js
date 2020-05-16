@@ -17,7 +17,7 @@ export class Level5 extends Level {
         this.music.loop = true;
         this.music.play();
     
-        this.setRequiredScore(1000);
+        this.setRequiredScore(500);
         this.setPlayerPosition(600, 900);
         this.createSheep(600, 1000);
         this.createSheep(500, 900);
