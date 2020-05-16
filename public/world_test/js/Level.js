@@ -16,6 +16,8 @@ export class Level extends GameScene {
         this.requiredScore = 500;
         this.sheepScore = 500;
         this.numStartingSheep = 0;
+        this.sheepHerded = 0;
+        this.requiredSheepHerded = 1;
         this.lvdone = true;
     }
 
@@ -125,10 +127,12 @@ export class Level extends GameScene {
             this.removeSheep(sheep);
             //Do we add something to let the player know the sheep drowned? sfx, anything else?
         });
+        /*
         this.physics.add.collider(this.sheep, this.finishSpace, (sheep, space) => {
             this.score += this.sheepScore;
             this.removeSheep(sheep);
         });
+        */
         this.physics.add.collider(this.wolf, this.fence);
         this.physics.add.collider(this.wolf, this.pond, (wolf, pond) => {
             this.removeWolf(wolf);
@@ -252,16 +256,20 @@ export class Level extends GameScene {
                     if (sheep.x >= space.x - space.width/2 && sheep.x <= space.x + space.width/2 &&
                         sheep.y >= space.y - space.height/2 && sheep.y <= space.y + space.height/2) {
                         console.log("scored");
+                        var finishTime = Date.now();
                         this.score += this.sheepScore;
+                        this.score += Math.floor(1000 * 100 * this.score / (finishTime - this.startTime) / this.numStartingSheep); //balance needs to be checked
+                        this.sheepHerded += 1;
                         this.baa.play();
                         this.removeSheep(sheep);
                     }
                 }
             }
 
+            /*
             if (this.score >= this.requiredScore) {
                 var finishTime = Date.now();
-                this.score += Math.floor(1000 * 100 * this.score / (finishTime - this.startTime));
+                //this.score += Math.floor(1000 * 100 * this.score / (finishTime - this.startTime));
                 this.levelDoneSequence(1, 'Level complete!\nYour score is: ' + this.score + '\nPress N to go to the next level');
                 console.log("SCORE: " + this.score);
                 status = 1;
@@ -270,6 +278,19 @@ export class Level extends GameScene {
             if (this.allSheep.length * this.sheepScore + this.score < this.requiredScore) {
                 this.levelDoneSequence(2, 'Game over! You did not herd enough sheep.\nPress R to restart the level');
                 status = 2;
+            }
+            */
+
+            if (this.allSheep.length == 0) {
+                if (this.score >= this.requiredScore && this.sheepHerded >= this.requiredSheepHerded) {
+                    this.levelDoneSequence(1, 'Level complete!\nYour score is: ' + this.score + '\nPress N to go to the next level');
+                    console.log("SCORE: " + this.score);
+                    status = 1;
+                }
+                else {
+                    this.levelDoneSequence(2, 'Game over! You did not herd enough sheep.\nPress R to restart the level');
+                    status = 2;
+                }
             }
 
         }
@@ -321,6 +342,7 @@ export class Level extends GameScene {
         this.allFinishSpaces = [];
         this.score = 0; 
         this.numStartingSheep = 0;
+        this.sheepHerded = 0;
     }
 
     play_filler() {
