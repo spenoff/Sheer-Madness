@@ -19,6 +19,7 @@ export class Level extends GameScene {
         this.sheepHerded = 0;
         this.requiredSheepHerded = 1;
         this.lvdone = true;
+        this.scoreText = null;
     }
 
     preload() {
@@ -95,8 +96,6 @@ export class Level extends GameScene {
             defaultKey: 'finishSpace'
         });
 
-
-
         this.player = this.dog.create(960, 540, undefined, 0);
         this.player.lassoAsset = null;
         // animate the dog
@@ -150,6 +149,9 @@ export class Level extends GameScene {
         }); //do I have an event?
         this.player.lassoAsset = null;
 
+        this.scoreText = this.add.text(0, 0, "Score: 0, Sheep herded: 0", {fontSize: "36px", color: "black", align: "center", "padding": {x: 20, y: 20}});
+        this.scoreText.setX(1920 - this.scoreText.width);
+        //TODO: Need to set color, size and xy
 
         var cursors = this.input.keyboard.createCursorKeys();
         var spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -258,10 +260,11 @@ export class Level extends GameScene {
                         console.log("scored");
                         var finishTime = Date.now();
                         this.score += this.sheepScore;
-                        this.score += Math.floor(1000 * 100 * this.score / (finishTime - this.startTime) / this.numStartingSheep); //balance needs to be checked
+                        this.score += Math.floor(8000 *  1000 / (finishTime - this.startTime)); //balance needs to be checked
                         this.sheepHerded += 1;
                         this.baa.play();
                         this.removeSheep(sheep);
+                        this.updateScoreText();
                     }
                 }
             }
@@ -345,8 +348,7 @@ export class Level extends GameScene {
         this.sheepHerded = 0;
     }
 
-    play_filler() {
-        
+    play_filler() { 
         this.filler.play();
     }
 
@@ -550,5 +552,11 @@ export class Level extends GameScene {
     createPond(x, y) {
         var pond = this.pond.create(x, y);
         pond.setDepth(-1);
+    }
+
+    updateScoreText() {
+        this.scoreText.setText("Score: " + this.score + ", Sheep herded: " + this.sheepHerded);
+        this.scoreText.setX(1920 - this.scoreText.width);
+        //TODO: set xy
     }
 }
