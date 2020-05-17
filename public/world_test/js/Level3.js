@@ -16,7 +16,7 @@ export class Level3 extends Level {
         this.music.loop = true;
         this.music.play();
 
-        let text = "Try runinng into the\nsheep and clicking";
+        let text = "Try running into the\nsheep and clicking";
         let style = { font: "65px Arial", fill: "#ff0044", align: "center" };
 
         var t = this.add.text(800, 800, text, style);
