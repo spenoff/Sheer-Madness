@@ -47,7 +47,7 @@ export class Controls {
                 this.sheep.children.iterate((child) => {
                     if (Math.sqrt(Math.pow(this.player.x - child.x, 2) + Math.pow(this.player.y - child.y, 2)) < this.barkRadius) {
                         //child.dogAlert = true;
-                        console.log(this.player.angle);
+                        child.collided_with_fence = false;
                         if(this.player.angle == 0) {
                             Sheep.barkEvent(child, 0, 1)
                         } else if (this.player.angle == -180) {

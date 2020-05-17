@@ -2,7 +2,7 @@
  * This is a wrapper class for the sheep which can be herded by a dog.
  * 
  * This gives the sheep location and states to be used in the game.
- * Note that this is currently designed with the assumption that there is only onne dog in the game.
+ * Note that this is currently designed with the assumption that there is only one dog in the game.
  * 
  * @file This file defines the Sheep class.
  * @author Spencer Nisonoff
@@ -25,6 +25,8 @@ export class Sheep {
         this.asset = asset;
         this.asset.in_bark_event = false;
         this.asset.done = false;
+        this.asset.collided_with_fence = false;
+        this.asset.collided_fence = null;
         this.asset.be_vx = 0;
         this.asset.be_vy = 0;
         this.lassoAsset = null;
@@ -110,9 +112,95 @@ export class Sheep {
             this.asset.setVelocityX(140 *  this.asset.be_vx);
             this.asset.setVelocityY(-140 * this.asset.be_vy);
            }
-           else if (this.asset.lassoed) {
+            if (this.asset.lassoed) {
                this.asset.setVelocityX(this.dog.body.velocity.x);
                this.asset.setVelocityY(this.dog.body.velocity.y);
+           }
+           else if(this.asset.collided_with_fence) {
+               console.log("col");
+               if(this.asset.collided_fence == null) { return; }
+               console.log(this.asset.collided_fence.type);
+               switch(this.asset.collided_fence.type) {
+                   case 0: //horizontal
+                        console.log("horz");
+                        if(this.asset.collided_fence.y > this.asset.y) {
+                            //fence is below the sheep
+                            this.asset.setVelocityY(-16);
+                            console.log("t");
+                            if(Math.abs(this.asset.collided_fence.y - this.asset.y) > 64) {
+                                this.asset.collided_with_fence = false;
+                                this.asset.setVelocityY(0);
+                            }
+                        } else if(this.asset.collided_fence.y < this.asset.y) {
+                            //fence is above the sheep
+                            this.asset.setVelocityY(16);
+                            console.log("y");
+                            if(Math.abs(this.asset.collided_fence.y - this.asset.y) > 64) {
+                                this.asset.collided_with_fence = false;
+                                this.asset.setVelocityY(0);
+                            }
+                        }
+                        break;
+                   case 1: //vertical
+                       if(this.asset.collided_fence.x > this.asset.x) {
+                            //fence is below the sheep
+                            this.asset.setVelocityX(-16);
+                            console.log("t");
+                            if(Math.abs(this.asset.collided_fence.x - this.asset.x) > 64) {
+                                this.asset.collided_with_fence = false;
+                                this.asset.setVelocityX(0);
+                            }
+                        } else if(this.asset.collided_fence.x < this.asset.x) {
+                            //fence is above the sheep
+                            this.asset.setVelocityX(16);
+                            console.log("y");
+                            if(Math.abs(this.asset.collided_fence.x - this.asset.x) > 64) {
+                                this.asset.collided_with_fence = false;
+                                this.asset.setVelocityX(0);
+                             }
+                        }
+                        break;
+                   case 3: //L
+                       if(this.asset.collided_fence.y > this.asset.y) {
+                            //fence is below the sheep
+                            this.asset.setVelocityY(-16);
+                            if(Math.abs(this.asset.collided_fence.y - this.asset.y) > 64) {
+                                //this.asset.collided_with_fence = false;
+                                this.asset.setVelocityY(0);
+                            }
+                        } else if(this.asset.collided_fence.y < this.asset.y) {
+                            //fence is above the sheep
+                            this.asset.setVelocityY(16);
+                            if(Math.abs(this.asset.collided_fence.y - this.asset.y) > 64) {
+                                //this.asset.collided_with_fence = false;
+                                this.asset.setVelocityY(0);
+                            }
+                        }
+
+                        if(this.asset.collided_fence.x > this.asset.x) {
+                            //fence is below the sheep
+                            this.asset.setVelocityX(-16);
+                            console.log("t");
+                            if(Math.abs(this.asset.collided_fence.x - this.asset.x) > 64) {
+                                this.asset.collided_with_fence = false;
+                                this.asset.setVelocityX(0);
+                            }
+                        } else if(this.asset.collided_fence.x < this.asset.x) {
+                            //fence is above the sheep
+                            this.asset.setVelocityX(16);
+                            console.log("y");
+                            if(Math.abs(this.asset.collided_fence.x - this.asset.x) > 64) {
+                                this.asset.collided_with_fence = false;
+                                this.asset.setVelocityX(0);
+                             }
+                        }
+                        break;
+               }
+           }
+           else if(this.asset.in_bark_event) {
+            console.log(this.asset.be_vy);
+            this.asset.setVelocityX(140 *  this.asset.be_vx);
+            this.asset.setVelocityY(-140 * this.asset.be_vy);
            }
            else if (this.asset.alert || this.asset.dogAlert) {
                if(this.ready_to_baa) {
