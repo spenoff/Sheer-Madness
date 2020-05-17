@@ -117,6 +117,7 @@ export class Level extends GameScene {
         this.physics.add.collider(this.dog, this.fence);
         this.physics.add.collider(this.sheep, this.fence, (sheep, fence) => {
             sheep.in_bark_event = false;
+            sheep.wait_count = 0;
             sheep.setVelocityX(0);
             sheep.setVelocityY(0);
             sheep.collided_with_fence = true;

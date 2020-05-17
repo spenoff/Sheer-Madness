@@ -117,9 +117,11 @@ export class Sheep {
                this.asset.setVelocityY(this.dog.body.velocity.y);
            }
            else if(this.asset.collided_with_fence) {
-               console.log("col");
                if(this.asset.collided_fence == null) { return; }
-               console.log(this.asset.collided_fence.type);
+               if(this.asset.wait_count < 120) {
+                   this.asset.wait_count++;
+                   return;
+               }
                switch(this.asset.collided_fence.type) {
                    case 0: //horizontal
                         console.log("horz");
