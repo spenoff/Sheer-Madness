@@ -20,6 +20,7 @@ export class Level extends GameScene {
         this.requiredSheepHerded = 1;
         this.lvdone = true;
         this.scoreText = null;
+        this.timeText = null;
     }
 
     preload() {
@@ -158,7 +159,9 @@ export class Level extends GameScene {
 
         this.scoreText = this.add.text(0, 0, "Score: 0, Sheep herded: 0", {fontSize: "36px", color: "black", align: "center", "padding": {x: 20, y: 20}});
         this.scoreText.setX(1920 - this.scoreText.width);
-        //TODO: Need to set color, size and xy
+
+        this.timeText = this.add.text(0, 56, "0:00", {fontSize: "36px", color: "black", align: "center", "padding": {x: 20, y: 20}});
+        this.timeText.setX(1920 - this.timeText.width);
 
         var cursors = this.input.keyboard.createCursorKeys();
         var spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -303,6 +306,7 @@ export class Level extends GameScene {
                 }
             }
 
+            this.updateTimeText();
         }
 
         //Level Pausing
@@ -576,5 +580,17 @@ export class Level extends GameScene {
         this.scoreText.setText("Score: " + this.score + ", Sheep herded: " + this.sheepHerded);
         this.scoreText.setX(1920 - this.scoreText.width);
         //TODO: set xy
+    }
+
+    updateTimeText() {
+        var currTime = Date.now();
+        var totalSecondsPassed = Math.floor((currTime - this.startTime) / 1000);
+        var minutesPassedStr = (Math.floor(totalSecondsPassed / 60)).toString();
+        var secondsPassedStr = (totalSecondsPassed % 60).toString();
+        if (totalSecondsPassed % 60 < 10) {
+            secondsPassedStr = "0" + secondsPassedStr;
+        }
+        this.timeText.setText(minutesPassedStr + ":" + secondsPassedStr);
+        this.timeText.setX(1920 - this.timeText.width);
     }
 }
