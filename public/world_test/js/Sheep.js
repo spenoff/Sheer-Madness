@@ -120,6 +120,10 @@ export class Sheep {
                if(this.asset.collided_fence == null) { return; }
                if(this.asset.wait_count < 120) {
                    this.asset.wait_count++;
+                   if(this.asset.alert || this.asset.dogAlert) {
+                       this.asset.collided_with_fence = false;
+                       this.asset.wait_count = 0;
+                   }
                    return;
                }
                switch(this.asset.collided_fence.type) {
@@ -131,6 +135,7 @@ export class Sheep {
                             console.log("t");
                             if(Math.abs(this.asset.collided_fence.y - this.asset.y) > 64) {
                                 this.asset.collided_with_fence = false;
+                                this.asset.wait_count = 0;
                                 this.asset.setVelocityY(0);
                             }
                         } else if(this.asset.collided_fence.y < this.asset.y) {
@@ -139,6 +144,7 @@ export class Sheep {
                             console.log("y");
                             if(Math.abs(this.asset.collided_fence.y - this.asset.y) > 64) {
                                 this.asset.collided_with_fence = false;
+                                this.asset.wait_count = 0;
                                 this.asset.setVelocityY(0);
                             }
                         }
@@ -150,6 +156,7 @@ export class Sheep {
                             console.log("t");
                             if(Math.abs(this.asset.collided_fence.x - this.asset.x) > 64) {
                                 this.asset.collided_with_fence = false;
+                                this.asset.wait_count = 0;
                                 this.asset.setVelocityX(0);
                             }
                         } else if(this.asset.collided_fence.x < this.asset.x) {
@@ -158,6 +165,7 @@ export class Sheep {
                             console.log("y");
                             if(Math.abs(this.asset.collided_fence.x - this.asset.x) > 64) {
                                 this.asset.collided_with_fence = false;
+                                this.asset.wait_count = 0;
                                 this.asset.setVelocityX(0);
                              }
                         }
@@ -185,6 +193,7 @@ export class Sheep {
                             console.log("t");
                             if(Math.abs(this.asset.collided_fence.x - this.asset.x) > 64) {
                                 this.asset.collided_with_fence = false;
+                                this.asset.wait_count = 0;
                                 this.asset.setVelocityX(0);
                             }
                         } else if(this.asset.collided_fence.x < this.asset.x) {
@@ -193,6 +202,7 @@ export class Sheep {
                             console.log("y");
                             if(Math.abs(this.asset.collided_fence.x - this.asset.x) > 64) {
                                 this.asset.collided_with_fence = false;
+                                this.asset.wait_count = 0;
                                 this.asset.setVelocityX(0);
                              }
                         }
