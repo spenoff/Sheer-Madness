@@ -1,4 +1,5 @@
 import { Level } from "./Level.js"
+import { GameScene } from "./GameScene.js";
 
 export class Level3 extends Level {
     constructor() {
@@ -14,7 +15,8 @@ export class Level3 extends Level {
 
         this.music = this.game.sound.add('lv3');
         this.music.loop = true;
-        this.music.play();
+        //this.music.play();
+        GameScene.playMusic(this.music);
 
         let text = "Try running into the\nsheep and clicking";
         let style = { font: "65px Arial", fill: "#ff0044", align: "center" };

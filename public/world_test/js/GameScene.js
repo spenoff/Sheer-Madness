@@ -80,7 +80,8 @@ export class GameScene extends Phaser.Scene {
             if(GameScene.menu_music_needed) {
                 console.log("here");
                 this.game.sound.stopAll();
-                this.music.play();
+                //this.music.play();
+                GameScene.playMusic(this.music);
                 GameScene.menu_music_needed = false;
             }
         }
@@ -89,5 +90,16 @@ export class GameScene extends Phaser.Scene {
     stopLevel() {
         console.log("Stop all");
         this.game.sound.stopAll();
+    }
+
+    static playSound(sound) {
+        sound.volume = GameScene.sf_volume;
+        sound.play();
+    }
+
+    static playMusic(music) {
+        music.volume = GameScene.ms_volume;
+        GameScene.current_music = music;
+        music.play();
     }
 }
