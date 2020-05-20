@@ -70,6 +70,8 @@ export class Level extends GameScene {
         this.filler = this.sound.add('menu');
         this.drown = this.sound.add('drown');
         this.bite = this.sound.add('bite');
+        this.win = this.sound.add('win');
+        this.lose = this.sound.add('lose');
 
         this.status = 0; //0 = in progress, 1 = complete, 2 = fail, 3 = restart/change level, 4 = paused
         this.startTime = Date.now(); //epoch in ms
@@ -131,9 +133,8 @@ export class Level extends GameScene {
             this.levelDoneSequence(2, 'Game over! You are too tired from doggypaddling out of the lake that you cannot do your duties for the rest of the day.\nPress R to restart the level');
         });
         this.physics.add.collider(this.sheep, this.pond, (sheep, pond) => {
-            this.drown.play();
-            console.log("drown");
-            //GameScene.playSound(this.drown);
+            //this.drown.play();
+            GameScene.playSound(this.drown);
             this.removeSheep(sheep);
             //Do we add something to let the player know the sheep drowned? sfx, anything else?
         });
@@ -385,13 +386,15 @@ export class Level extends GameScene {
         this.lvdone = true;
 
         if(status == 1) {
-            this.res_sound = this.game.sound.add('win');
+            this.res_sound = this.win;
         } else {
-            this.res_sound = this.game.sound.add('lose');
+            this.res_sound = this.lose;
         }
+        GameScene.playMusic(this.res_sound);
+        pause(1500);
         this.game.sound.stopAll();
         //this.res_sound.play();
-        GameScene.playMusic(this.res_sound);
+        
         var pf = this.play_filler();
         setTimeout(pf, 5000);
         this.add.text(600, 400, msg, {backgroundColor: "0x0000ff", fontSize: "36px", fixedWidth: 660, align: "center", "padding": {x: 20, y: 20}, "wordWrap": {"width": 660}});
@@ -604,4 +607,16 @@ export class Level extends GameScene {
         this.timeText.setText(minutesPassedStr + ":" + secondsPassedStr);
         this.timeText.setX(1920 - this.timeText.width);
     }
+
+    
 }
+
+function pause(numberMillis) { 
+    var now = new Date(); 
+    var exitTime = now.getTime() + numberMillis; 
+    while (true) { 
+        now = new Date(); 
+        if (now.getTime() > exitTime) 
+            return; 
+    } 
+} 
