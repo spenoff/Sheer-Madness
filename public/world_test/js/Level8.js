@@ -1,4 +1,5 @@
 import { Level } from "./Level.js";
+import { GameScene } from "./GameScene.js";
 
 export class Level8 extends Level {
     constructor() {
@@ -16,7 +17,8 @@ export class Level8 extends Level {
         
         this.music = this.game.sound.add('lv8');
         this.music.loop = true;
-        this.music.play();
+        //this.music.play();
+        GameScene.playMusic(this.music);
         
 
        let text = "Try pressing the space bar";

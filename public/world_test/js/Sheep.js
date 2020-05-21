@@ -1,3 +1,5 @@
+import { GameScene } from "./GameScene.js";
+
 /**
  * This is a wrapper class for the sheep which can be herded by a dog.
  * 
@@ -216,7 +218,8 @@ export class Sheep {
            }
            else if (this.asset.alert || this.asset.dogAlert) {
                if(this.ready_to_baa) {
-                   this.baa.play();
+                   //this.baa.play();
+                   GameScene.playSound(this.baa);
                    this.ready_to_baa = false;
                }
             //    if(!this.alert_set) {

@@ -67,7 +67,11 @@ export class Level extends GameScene {
         this.baa = this.sound.add('baa');
         this.pause_sound = this.sound.add('pause');
         this.bell = this.sound.add('bell');
-        this.filler = this.game.sound.add('menu');
+        this.filler = this.sound.add('menu');
+        this.drown = this.sound.add('drown');
+        this.bite = this.sound.add('bite');
+        this.win = this.sound.add('win');
+        this.lose = this.sound.add('lose');
 
         this.status = 0; //0 = in progress, 1 = complete, 2 = fail, 3 = restart/change level, 4 = paused
         this.startTime = Date.now(); //epoch in ms
@@ -175,8 +179,8 @@ export class Level extends GameScene {
             this.levelDoneSequence(2, 'Game over! You are too tired from doggypaddling out of the lake that you cannot do your duties for the rest of the day.\nPress R to restart the level');
         });
         this.physics.add.collider(this.sheep, this.pond, (sheep, pond) => {
-            this.drown = this.game.sound.add('drown');
-            this.drown.play();
+            //this.drown.play();
+            GameScene.playSound(this.drown);
             this.removeSheep(sheep);
             //Do we add something to let the player know the sheep drowned? sfx, anything else?
         });
@@ -188,17 +192,18 @@ export class Level extends GameScene {
         */
         this.physics.add.collider(this.wolf, this.fence);
         this.physics.add.collider(this.wolf, this.pond, (wolf, pond) => {
+            GameScene.playSound(this.drown);
             this.removeWolf(wolf);
         }); //do I have an event? - weird interaction
         this.physics.add.collider(this.wolf, this.dog, (wolf, dog) => {
-            this.bite = this.game.sound.add('bite');
-            this.bite.play();
+            //this.bite.play();
+            GameScene.playSound(this.bite);
             this.levelDoneSequence(2, "Game over! The wolf killed you!\nPress R to restart the level");
             this.player.destroy();
         }); //do I have an event? - weird interaction
         this.physics.add.collider(this.wolf, this.sheep, (wolf, sheep) => {
-            this.bite = this.game.sound.add('bite');
-            this.bite.play();
+            //this.bite.play();
+            GameScene.playSound(this.bite);
             this.removeSheep(sheep);
         }); //do I have an event?
         this.player.lassoAsset = null;
@@ -257,7 +262,6 @@ export class Level extends GameScene {
             }
 
             if(this.player.body.velocity.x != 0 && this.player.body.velocity.y != 0) {
-                console.log('walk');
                 this.player.play('walk');
             }
 
@@ -318,7 +322,8 @@ export class Level extends GameScene {
                         this.score += this.sheepScore;
                         this.score += Math.floor(8000 *  1000 / (finishTime - this.startTime)); //balance needs to be checked
                         this.sheepHerded += 1;
-                        this.baa.play();
+                        //this.baa.play();
+                        GameScene.playSound(this.baa);
                         this.removeSheep(sheep);
                         this.updateScoreText();
                     }
@@ -360,7 +365,8 @@ export class Level extends GameScene {
             //this.scene.pause(this.levelName);
             if(this.status == 4 || this.status == 1 || this.status == 2) { return; }
             this.status = 4;
-            this.pause_sound.play();
+            //this.pause_sound.play();
+            GameScene.playSound(this.pause_sound);
             
             var pausetitle      = this.add.sprite(960, 150, 'titles', 4);
             var resume          = this.add.sprite(960, 450, 'buttons', 5).setInteractive();
@@ -369,21 +375,25 @@ export class Level extends GameScene {
             
             resume.on('pointerdown', function(event) {
                 this.status = 0;
-                this.bell.play();
+                //this.bell.play();
+                GameScene.playSound(this.bell);
                 pausetitle.destroy();
                 resume.destroy();
                 levelsel.destroy();
                 mainmenu.destroy(); 
             }, this);
             levelsel.on('pointerdown', function(event) {
-                this.bell.play();
+                //this.bell.play();
+                GameScene.playSound(this.bell);
                 this.scene.start('LevelSelectMenu'); 
                 this.stopLevel();
             }, this);
             mainmenu.on('pointerdown', function(event) {
-                this.bell.play();
+                //this.bell.play();
+                GameScene.playSound(this.bell);
                 this.game.sound.stopAll();
-                this.filler.play();
+                //this.filler.play();
+                GameSceme.playMusic(this.filler);
                 this.scene.start('MainMenu'); 
                 this.stopLevel();
             }, this);
@@ -406,11 +416,13 @@ export class Level extends GameScene {
     }
 
     play_filler() { 
-        this.filler.play();
+        //this.filler.play();
+        GameScene.playMusic(this.filler);
     }
 
     levelDoneSequence(status, msg) {
         this.status = status;
+        this.add.text(600, 400, msg, {backgroundColor: "0x0000ff", fontSize: "36px", fixedWidth: 660, align: "center", "padding": {x: 20, y: 20}, "wordWrap": {"width": 660}});
         this.player.setVelocity(0);
         this.allSheep.forEach((sheep) => {
             sheep.asset.setVelocity(0);
@@ -421,15 +433,18 @@ export class Level extends GameScene {
         this.lvdone = true;
 
         if(status == 1) {
-            this.res_sound = this.game.sound.add('win');
+            this.res_sound = this.win;
         } else {
-            this.res_sound = this.game.sound.add('lose');
+            this.res_sound = this.lose;
         }
+        
+        GameScene.playMusic(this.res_sound);
+        pause(1500);
         this.game.sound.stopAll();
-        this.res_sound.play();
+        //this.res_sound.play();
+        
         var pf = this.play_filler();
         setTimeout(pf, 5000);
-        this.add.text(600, 400, msg, {backgroundColor: "0x0000ff", fontSize: "36px", fixedWidth: 660, align: "center", "padding": {x: 20, y: 20}, "wordWrap": {"width": 660}});
         //alert(msg);
     }
 
@@ -639,4 +654,16 @@ export class Level extends GameScene {
         this.timeText.setText(minutesPassedStr + ":" + secondsPassedStr);
         this.timeText.setX(1920 - this.timeText.width);
     }
+
+    
 }
+
+function pause(numberMillis) { 
+    var now = new Date(); 
+    var exitTime = now.getTime() + numberMillis; 
+    while (true) { 
+        now = new Date(); 
+        if (now.getTime() > exitTime) 
+            return; 
+    } 
+} 
