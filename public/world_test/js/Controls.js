@@ -12,27 +12,53 @@ export class Controls {
         this.dKey = dKey;
         this.sheep = sheep;
         this.barkRadius = 250;
+        this.lassoed = false;
     }
 
     update() {
         if(this.player == undefined) { return; }
         if (this.player.body != null) {
+            var l = false;
+            this.sheep.children.iterate((child) => {
+                console.log(this.lassoed);
+                if(child.lassoed){
+                    l = true;
+                }
+            })
+            this.lassoed = l;
 
             if (this.cursors.left.isDown || this.aKey.isDown) {
-                this.player.setVelocityX(-160);
+                if(this.lassoed) {
+                    this.player.setVelocityX(-80);
+                }else{
+                    this.player.setVelocityX(-160);
+                }
+                
             }
             else if (this.cursors.right.isDown || this.dKey.isDown) {
-                this.player.setVelocityX(160);
+                if(this.lassoed) {
+                    this.player.setVelocityX(80);
+                } else {
+                    this.player.setVelocityX(160);
+                }
             }
             else {
                 this.player.setVelocityX(0);
             }
 
             if (this.cursors.up.isDown || this.wKey.isDown) {
-                this.player.setVelocityY(-160);
+                if(this.lassoed) {
+                    this.player.setVelocityY(-80);
+                } else {
+                    this.player.setVelocityY(-160);
+                }
             }
             else if (this.cursors.down.isDown || this.sKey.isDown) {
-                this.player.setVelocityY(160);
+                if(this.lassoed) {
+                    this.player.setVelocityY(80);
+                } else {
+                    this.player.setVelocityY(160);
+                }
             }
             else {
                 this.player.setVelocityY(0);

@@ -1,4 +1,5 @@
 import { Level } from "./Level.js"
+import { GameScene } from "./GameScene.js";
 
 export class Level7 extends Level {
     constructor() {
@@ -14,7 +15,8 @@ export class Level7 extends Level {
 
         this.music = this.game.sound.add('lv7');
         this.music.loop = true;
-        this.music.play();
+        //this.music.play();
+        GameScene.playMusic(this.music);
 
         this.createBoxOfFences(32, 32, 20, 30);
 

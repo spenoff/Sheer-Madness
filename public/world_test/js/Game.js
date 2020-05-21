@@ -13,10 +13,14 @@ import { Level8 } from "./Level8.js";
 //CHANGE SCENE within scene class
 //this.scene.start('TestLevel2');
 
+
 class MainMenu extends GameScene {
 
     constructor() {
         super('MainMenu');
+        GameScene.sf_volume = 1.0;
+        GameScene.ms_volume = 1.0;
+        GameScene.current_music = null;
         this.bell;
     }
 
@@ -42,6 +46,7 @@ class MainMenu extends GameScene {
 
     create() {
         super.create();
+        console.log(GameScene.sf_volume);
         if(!GameScene.in_menu) {
             GameScene.menu_music_needed = true;
         }
@@ -59,19 +64,23 @@ class MainMenu extends GameScene {
         var about       = this.add.sprite(960, 810, 'about').setInteractive();
 
         start.on('pointerdown', function(event) {
-            this.bell.play();
+            //this.bell.play();
+            GameScene.playSound(this.bell);
             this.scene.start('Level1');
         }, this);
         levelsel.on('pointerdown', function(event) {
-            this.bell.play();
+            //this.bell.play();
+            GameScene.playSound(this.bell);
             this.scene.start('LevelSelectMenu')
         }, this);
         setting.on('pointerdown', function(event) {
-            this.bell.play();
+            //this.bell.play();
+            GameScene.playSound(this.bell);
             this.scene.start('SettingMenu');
         }, this);
         about.on('pointerdown', function(event) {
-            this.bell.play();
+            //this.bell.play();
+            GameScene.playSound(this.bell);
             this.scene.start('AboutMenu');
         }, this);
     }
@@ -127,44 +136,54 @@ class LevelSelectMenu extends GameScene {
         var back    = this.add.sprite(960, 1000, 'buttons', 7).setInteractive();
 
         l1.on('pointerdown', function(event) {
-            this.bell.play();
+            //this.bell.play();
+            GameScene.playSound(this.bell);
             this.scene.start('Level1');
         }, this);
         l2.on('pointerdown', function(event) {
-            this.bell.play();
+            //this.bell.play();
+            GameScene.playSound(this.bell);
             this.scene.start('Level2');
         }, this);
         l3.on('pointerdown', function(event) {
-            this.bell.play();
+            //this.bell.play();
+            GameScene.playSound(this.bell);
             this.scene.start('Level3');
         }, this);
         l4.on('pointerdown', function(event) {
-            this.bell.play();
+            //this.bell.play();
+            GameScene.playSound(this.bell);
             this.scene.start('Level4');
         }, this);
         l5.on('pointerdown', function(event) {
-            this.bell.play();
+            //this.bell.play();
+            GameScene.playSound(this.bell);
             this.scene.start('Level5');
         }, this);
         l6.on('pointerdown', function(event) {
-            this.bell.play();
+            //this.bell.play();
+            GameScene.playSound(this.bell);
             this.scene.start('Level6');
         }, this);
         l7.on('pointerdown', function(event) {
-            this.bell.play();
+            //this.bell.play();
+            GameScene.playSound(this.bell);
             this.scene.start('Level7');
         }, this);
         l8.on('pointerdown', function(event) {
-            this.bell.play();
+            //this.bell.play();
+            GameScene.playSound(this.bell);
             this.scene.start('Level8');
         }, this);
         lock.on('pointerdown', function(event) {
-            this.bell.play();
+            //this.bell.play();
+            GameScene.playSound(this.bell);
             this.scene.start('Level0');
         }, this);
 
         back.on('pointerdown', function(event) {
-            this.bell.play();
+            //this.bell.play();
+            GameScene.playSound(this.bell);
             this.scene.start('MainMenu');
         }, this);
     }
@@ -188,6 +207,12 @@ class SettingMenu extends GameScene {
         this.load.spritesheet('buttons', 'assets/Buttons.png', {frameWidth: 506, frameHeight: 105});
         this.load.image('settings', 'assets/Settings.png');
 
+        this.load.scenePlugin({
+            key: 'rexuiplugin',
+            url: 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js',
+            sceneKey: 'rexUI'
+        });
+
     }
 
     create() {
@@ -203,10 +228,62 @@ class SettingMenu extends GameScene {
 
         var lstitle = this.add.sprite(960, 150, 'titles', 2);
         var settings = this.add.sprite(960, 600, 'settings');
+        const COLOR_LIGHT = 0x7b5e57;
+        const COLOR_DARK = 0x260e04;
+        //Sound Effect Volume
+        var sf_slider = this.rexUI.add.slider({
+            x: 1350,
+            y: 400,
+            width: 600,
+            height: 20,
+            orientation: 'x',
+            value: GameScene.sf_volume,
+
+            track: this.rexUI.add.roundRectangle(0, 0, 0, 0, 6, COLOR_DARK),
+            thumb: this.rexUI.add.roundRectangle(0, 0, 0, 0, 10, COLOR_LIGHT),
+
+            valuechangeCallback: function (value) {
+                GameScene.sf_volume = value;
+            },
+            space: {
+                top: 4,
+                bottom: 4
+            },
+            input: 'drag', // 'drag'|'click'
+        })
+            .layout();
+        var back = this.add.sprite(960, 1000, 'buttons', 7).setInteractive();
+
+        //Music Volume
+        var ms_slider = this.rexUI.add.slider({
+            x: 1350,
+            y: 600,
+            width: 600,
+            height: 20,
+            orientation: 'x',
+            value: GameScene.ms_volume,
+
+            track: this.rexUI.add.roundRectangle(0, 0, 0, 0, 6, COLOR_DARK),
+            thumb: this.rexUI.add.roundRectangle(0, 0, 0, 0, 10, COLOR_LIGHT),
+
+            valuechangeCallback: function (value) {
+                GameScene.ms_volume = value;
+            },
+            space: {
+                top: 4,
+                bottom: 4
+            },
+            input: 'drag', // 'drag'|'click'
+        })
+            .layout();
+
+        sf_slider.value = GameScene.sf_volume;
+        ms_slider.value = GameScene.ms_volume;
         var back = this.add.sprite(960, 1000, 'buttons', 7).setInteractive();
 
         back.on('pointerdown', function(event) {
-            this.bell.play();
+            //this.bell.play();
+            GameScene.playSound(this.bell);
             this.scene.start('MainMenu');
         }, this);
         
@@ -248,7 +325,8 @@ class AboutMenu extends GameScene {
         var back = this.add.sprite(960, 1000, 'buttons', 7).setInteractive();
 
         back.on('pointerdown', function(event) {
-            this.bell.play();
+            //this.bell.play();
+            GameScene.playSound(this.bell);
             this.scene.start('MainMenu');
         }, this);
 
