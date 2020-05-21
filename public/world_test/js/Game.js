@@ -336,7 +336,9 @@ class AboutMenu extends GameScene {
 
         //About Menu
         this.load.image('about', 'assets/AboutMenu.png');
-        this.load.spritesheet('buttons', 'assets/Buttons.png', {frameWidth: 506, frameHeight: 105});
+
+        //About Button
+        this.load.image('back', 'assets/Buttons/Back.png');
 
     }
 
@@ -353,7 +355,7 @@ class AboutMenu extends GameScene {
 
         var lstitle = this.add.sprite(960, 150, 'atitle');
         var about = this.add.sprite(960, 600, 'about');
-        var back = this.add.sprite(960, 1000, 'buttons', 7).setInteractive();
+        var back = this.add.sprite(960, 1000, 'back').setInteractive();
 
         back.on('pointerdown', function(event) {
             //this.bell.play();
