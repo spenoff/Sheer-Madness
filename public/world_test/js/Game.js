@@ -22,9 +22,20 @@ class MainMenu extends GameScene {
 
     preload() {
         
+        //Background Image
         this.load.image('mainbackground', 'assets/Background.png');
-        this.load.spritesheet('buttons', 'assets/Buttons.png', {frameWidth: 506, frameHeight: 105});
+
+        //Main Menu Title
+        this.load.image('mmtitle', 'assets/Titles/SheerMadnessTitle.png');
+
+        //Main Menu Buttons
+        this.load.image('play', 'assets/Buttons/Play.png');
+        this.load.image('levelselect', 'assets/Buttons/LevelSelect.png');
+        this.load.image('settings', 'assets/Buttons/Settings.png');
+        this.load.image('about', 'assets/Buttons/About.png');
+        
         this.load.spritesheet('titles', 'assets/Titles.png', {frameWidth: 801, frameHeight: 200});
+        //Main Menu Audio
         this.load.audio('menu', 'music/menu.mp3');
         this.load.audio('bell', 'sfx/Cowbell.mp3');
     }
@@ -40,12 +51,12 @@ class MainMenu extends GameScene {
         var background = this.add.tileSprite(960, 540, 0, 0, 'mainbackground');
         background.setDepth(-1);
 
-        var mmtitle     = this.add.sprite(960, 150, 'titles', 0);
+        var mmtitle     = this.add.sprite(960, 150, 'mmtitle');
 
-        var start       = this.add.sprite(960, 450, 'buttons', 0).setInteractive();
-        var levelsel    = this.add.sprite(960, 570, 'buttons', 1).setInteractive();
-        var setting     = this.add.sprite(960, 690, 'buttons', 2).setInteractive();
-        var about       = this.add.sprite(960, 810, 'buttons', 3).setInteractive();
+        var start       = this.add.sprite(960, 450, 'play').setInteractive();
+        var levelsel    = this.add.sprite(960, 570, 'levelselect').setInteractive();
+        var setting     = this.add.sprite(960, 690, 'settings').setInteractive();
+        var about       = this.add.sprite(960, 810, 'about').setInteractive();
 
         start.on('pointerdown', function(event) {
             this.bell.play();
@@ -217,7 +228,7 @@ class AboutMenu extends GameScene {
         this.load.image('mainbackground', 'assets/Background.png');
         this.load.spritesheet('titles', 'Titles.png', {frameWidth: 801, frameHeight: 200});
         this.load.spritesheet('buttons', 'assets/Buttons.png', {frameWidth: 506, frameHeight: 105});
-        this.load.image('about', 'assets/AboutV2.png');
+        this.load.image('about', 'assets/About.png');
 
     }
 
