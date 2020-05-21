@@ -376,6 +376,7 @@ export class Level extends GameScene {
 
     levelDoneSequence(status, msg) {
         this.status = status;
+        this.add.text(600, 400, msg, {backgroundColor: "0x0000ff", fontSize: "36px", fixedWidth: 660, align: "center", "padding": {x: 20, y: 20}, "wordWrap": {"width": 660}});
         this.player.setVelocity(0);
         this.allSheep.forEach((sheep) => {
             sheep.asset.setVelocity(0);
@@ -390,6 +391,7 @@ export class Level extends GameScene {
         } else {
             this.res_sound = this.lose;
         }
+        
         GameScene.playMusic(this.res_sound);
         pause(1500);
         this.game.sound.stopAll();
@@ -397,7 +399,6 @@ export class Level extends GameScene {
         
         var pf = this.play_filler();
         setTimeout(pf, 5000);
-        this.add.text(600, 400, msg, {backgroundColor: "0x0000ff", fontSize: "36px", fixedWidth: 660, align: "center", "padding": {x: 20, y: 20}, "wordWrap": {"width": 660}});
         //alert(msg);
     }
 
