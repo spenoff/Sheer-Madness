@@ -227,7 +227,7 @@ class SettingMenu extends GameScene {
         this.load.image('stitle', 'assets/Titles/SettingsTitle.png');
 
         //Settings Menu
-        this.load.image('settings', 'assets/SettingMenu.png');
+        this.load.image('settingMenu', 'assets/Menus/SettingMenu.png');
 
         //Settings Menu Button
         this.load.image('back', 'assets/Buttons/Back.png');
@@ -252,7 +252,7 @@ class SettingMenu extends GameScene {
         background.setDepth(-1);
 
         var stitle = this.add.sprite(960, 150, 'stitle');
-        var settings = this.add.sprite(960, 600, 'settings');
+        var settings = this.add.sprite(960, 600, 'settingMenu');
 
         const COLOR_LIGHT = 0x7b5e57;
         const COLOR_DARK = 0x260e04;
@@ -335,7 +335,7 @@ class AboutMenu extends GameScene {
         this.load.image('atitle', 'assets/Titles/AboutTitle.png');
 
         //About Menu
-        this.load.image('about', 'assets/AboutMenu.png');
+        this.load.image('aboutMenu', 'assets/Menus/AboutMenu.png');
 
         //About Button
         this.load.image('back', 'assets/Buttons/Back.png');
@@ -354,7 +354,7 @@ class AboutMenu extends GameScene {
         background.setDepth(-1);
 
         var lstitle = this.add.sprite(960, 150, 'atitle');
-        var about = this.add.sprite(960, 600, 'about');
+        var about = this.add.sprite(960, 600, 'aboutMenu');
         var back = this.add.sprite(960, 1000, 'back').setInteractive();
 
         back.on('pointerdown', function(event) {
