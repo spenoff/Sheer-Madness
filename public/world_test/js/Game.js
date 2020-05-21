@@ -100,10 +100,28 @@ class LevelSelectMenu extends GameScene {
     preload() {
         this.in_menu = true;
         
+        //Background Image
         this.load.image('mainbackground', 'assets/Background.png');
-        this.load.spritesheet('titles', 'Titles.png', {frameWidth: 801, frameHeight: 200});
-        this.load.spritesheet('buttons', 'assets/Buttons.png', {frameWidth: 506, frameHeight: 105});
-        this.load.spritesheet('levelselectbuttons', 'assets/Levels.png', {frameWidth: 105, frameHeight: 105});
+
+        //Level Select Title
+        this.load.image('lstitle', 'assets/Titles/LevelSelectTitle.png');
+
+        //Level Select Level Buttons
+        this.load.image('l1', 'assets/Levels/Level1.png');
+        this.load.image('l2', 'assets/Levels/Level2.png');
+        this.load.image('l3', 'assets/Levels/Level3.png');
+        this.load.image('l4', 'assets/Levels/Level4.png');
+        this.load.image('l5', 'assets/Levels/Level5.png');
+        this.load.image('l6', 'assets/Levels/Level6.png');
+        this.load.image('l7', 'assets/Levels/Level7.png');
+        this.load.image('l8', 'assets/Levels/Level8.png');
+        this.load.image('l9', 'assets/Levels/Level9.png');
+        this.load.image('l10', 'assets/Levels/Level10.png');
+        this.load.image('l11', 'assets/Levels/Level11.png');
+        this.load.image('ll', 'assets/Levels/LevelLock.png');
+
+        //Level Select Buttons
+        this.load.image('back', 'assets/Buttons/Back.png');
 
     }
 
@@ -118,22 +136,22 @@ class LevelSelectMenu extends GameScene {
         var background = this.add.tileSprite(960, 540, 0, 0, 'mainbackground');
         background.setDepth(-1);
 
-        var lstitle = this.add.sprite(960, 150, 'titles', 1);
+        var lstitle = this.add.sprite(960, 150, 'lstitle');
 
-        var l1      = this.add.sprite(585, 450, 'levelselectbuttons', 0).setInteractive();
-        var l2      = this.add.sprite(735, 450, 'levelselectbuttons', 1).setInteractive();
-        var l3      = this.add.sprite(885, 450, 'levelselectbuttons', 2).setInteractive();
-        var l4      = this.add.sprite(1035, 450, 'levelselectbuttons', 3).setInteractive();
-        var l5      = this.add.sprite(1185, 450, 'levelselectbuttons', 4).setInteractive();
-        var l6      = this.add.sprite(1335, 450, 'levelselectbuttons', 5).setInteractive();
-        var l7      = this.add.sprite(585, 600, 'levelselectbuttons', 6).setInteractive();
-        var l8      = this.add.sprite(735, 600, 'levelselectbuttons', 7).setInteractive();
-        var l9      = this.add.sprite(885, 600, 'levelselectbuttons', 8).setInteractive();
-        var l10     = this.add.sprite(1035, 600, 'levelselectbuttons', 9).setInteractive();
-        var l11     = this.add.sprite(1185, 600, 'levelselectbuttons', 10).setInteractive();
-        var lock    = this.add.sprite(1335, 600, 'levelselectbuttons', 11).setInteractive();
+        var l1      = this.add.sprite(585, 450,     'l1').setInteractive();
+        var l2      = this.add.sprite(735, 450,     'l2').setInteractive();
+        var l3      = this.add.sprite(885, 450,     'l3').setInteractive();
+        var l4      = this.add.sprite(1035, 450,    'l4').setInteractive();
+        var l5      = this.add.sprite(1185, 450,    'l5').setInteractive();
+        var l6      = this.add.sprite(1335, 450,    'l6').setInteractive();
+        var l7      = this.add.sprite(585, 600,     'l7').setInteractive();
+        var l8      = this.add.sprite(735, 600,     'l8').setInteractive();
+        var l9      = this.add.sprite(885, 600,     'l9').setInteractive();
+        var l10     = this.add.sprite(1035, 600,    'l10').setInteractive();
+        var l11     = this.add.sprite(1185, 600,    'l11').setInteractive();
+        var lock    = this.add.sprite(1335, 600,    'll').setInteractive();
 
-        var back    = this.add.sprite(960, 1000, 'buttons', 7).setInteractive();
+        var back    = this.add.sprite(960, 1000, 'back').setInteractive();
 
         l1.on('pointerdown', function(event) {
             //this.bell.play();
@@ -202,10 +220,17 @@ class SettingMenu extends GameScene {
     preload() {
         this.in_menu = true;
 
+        //Background Image
         this.load.image('mainbackground', 'assets/Background.png');
-        this.load.spritesheet('titles', 'Titles.png', {frameWidth: 801, frameHeight: 200});
-        this.load.spritesheet('buttons', 'assets/Buttons.png', {frameWidth: 506, frameHeight: 105});
-        this.load.image('settings', 'assets/Settings.png');
+
+        //Settings Title
+        this.load.image('stitle', 'assets/Titles/SettingsTitle.png');
+
+        //Settings Menu
+        this.load.image('settings', 'assets/SettingMenu.png');
+
+        //Settings Menu Button
+        this.load.image('back', 'assets/Buttons/Back.png');
 
         this.load.scenePlugin({
             key: 'rexuiplugin',
@@ -226,8 +251,9 @@ class SettingMenu extends GameScene {
         var background = this.add.tileSprite(960, 540, 0, 0, 'mainbackground');
         background.setDepth(-1);
 
-        var lstitle = this.add.sprite(960, 150, 'titles', 2);
+        var stitle = this.add.sprite(960, 150, 'stitle');
         var settings = this.add.sprite(960, 600, 'settings');
+
         const COLOR_LIGHT = 0x7b5e57;
         const COLOR_DARK = 0x260e04;
         //Sound Effect Volume
@@ -252,7 +278,6 @@ class SettingMenu extends GameScene {
             input: 'drag', // 'drag'|'click'
         })
             .layout();
-        var back = this.add.sprite(960, 1000, 'buttons', 7).setInteractive();
 
         //Music Volume
         var ms_slider = this.rexUI.add.slider({
@@ -279,7 +304,8 @@ class SettingMenu extends GameScene {
 
         sf_slider.value = GameScene.sf_volume;
         ms_slider.value = GameScene.ms_volume;
-        var back = this.add.sprite(960, 1000, 'buttons', 7).setInteractive();
+
+        var back = this.add.sprite(960, 1000, 'back').setInteractive();
 
         back.on('pointerdown', function(event) {
             //this.bell.play();
@@ -302,10 +328,15 @@ class AboutMenu extends GameScene {
 
     preload() {
 
+        //Background Image
         this.load.image('mainbackground', 'assets/Background.png');
-        this.load.spritesheet('titles', 'Titles.png', {frameWidth: 801, frameHeight: 200});
+
+        //About Title
+        this.load.image('atitle', 'assets/Titles/AboutTitle.png');
+
+        //About Menu
+        this.load.image('about', 'assets/AboutMenu.png');
         this.load.spritesheet('buttons', 'assets/Buttons.png', {frameWidth: 506, frameHeight: 105});
-        this.load.image('about', 'assets/About.png');
 
     }
 
@@ -320,7 +351,7 @@ class AboutMenu extends GameScene {
         var background = this.add.tileSprite(960, 540, 0, 0, 'mainbackground');
         background.setDepth(-1);
 
-        var lstitle = this.add.sprite(960, 150, 'titles', 3);
+        var lstitle = this.add.sprite(960, 150, 'atitle');
         var about = this.add.sprite(960, 600, 'about');
         var back = this.add.sprite(960, 1000, 'buttons', 7).setInteractive();
 
