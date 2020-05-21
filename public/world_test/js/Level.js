@@ -28,11 +28,11 @@ export class Level extends GameScene {
         this.load.spritesheet('dog', 'assets/Dog.png', {frameWidth: 32, frameHeight: 32}); //Need to add animation
         this.load.image('sheep', 'assets/sheep.png'); //Change the spritesheet and add animation?
         this.load.spritesheet('fence', 'assets/Fence.png', {frameWidth: 32, frameHeight: 32});
-        this.load.image('grass', 'assets/green.png'); //replace when grass sprite is created
+        this.load.image('grass', 'assets/GrassTiles.png');
         this.load.image('red', 'assets/red.png');
-        this.load.image('pond', 'assets/blue.png'); //replace when pond sprite is created
+        this.load.image('pond', 'assets/blue.png'); //replace when pond sprite is created?
         this.load.image('finishSpace', 'assets/red.png'); //victory tile - replace if we make one?
-        this.load.spritesheet('wolf', 'assets/Wolf.png', {frameWidth: 32, frameHeight: 32}); //wolf image - replace when created
+        this.load.spritesheet('wolf', 'assets/Wolf.png', {frameWidth: 32, frameHeight: 32});
         this.load.image('lasso', 'assets/Lasso.png', {frameWidth: 32, frameHeight: 32}); 
 
         //load music
@@ -72,8 +72,54 @@ export class Level extends GameScene {
         this.status = 0; //0 = in progress, 1 = complete, 2 = fail, 3 = restart/change level, 4 = paused
         this.startTime = Date.now(); //epoch in ms
 
+        /*
         var bgtile = this.add.tileSprite(0, 0, 1920*2, 1080*2, 'grass');
         bgtile.setDepth(-1);
+        */
+       
+        var bgTileSize = 30;
+
+        var levelTiles = [];
+        console.log("hi");
+        for (var y = 0; y < 1080; y += bgTileSize) {
+            var row = [];
+            for (var x = 0; x < 1920; x += bgTileSize) {
+                //console.log(x,y);
+                var frameKey = 6;
+                //special cases for edges and corners
+                if (x == 0 && y == 0) {
+                    frameKey = 0;
+                }
+                else if (x == 0 && y == 1050) {
+                    frameKey = 10;
+                }
+                else if (x == 1890 && y == 0) {
+                    frameKey = 2;
+                }
+                else if (x == 1890 && y == 1050) {
+                    frameKey = 12;
+                }
+                else if (y == 0) {
+                    frameKey = 1;
+                }
+                else if (x == 0) {
+                    frameKey = 5;
+                }
+                else if (x == 1890) {
+                    frameKey = 7;
+                }
+                else if (y == 1050) {
+                    console.log("bottom");
+                    frameKey = 11;
+                }
+                row.push(frameKey);
+            }
+            levelTiles.push(row);
+        }
+        var map = this.make.tilemap({data: levelTiles, tileWidth: bgTileSize, tileHeight: bgTileSize});
+        var tiles = map.addTilesetImage('grass');
+        var layer = map.createStaticLayer(0, tiles, 0, 0);
+        layer.setDepth(-1);
 
         this.dog = this.physics.add.group({
             defaultKey: "dog"
