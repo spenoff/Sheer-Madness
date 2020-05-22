@@ -21,6 +21,8 @@ export class Level extends GameScene {
         this.lvdone = true;
         this.scoreText = null;
         this.timeText = null;
+        this.pausedTime = 0;
+        this.pauseStart = 0;
     }
 
     preload() {
@@ -330,7 +332,7 @@ export class Level extends GameScene {
                         console.log("scored");
                         var finishTime = Date.now();
                         this.score += this.sheepScore;
-                        this.score += Math.floor(8000 *  1000 / (finishTime - this.startTime)); //balance needs to be checked
+                        this.score += Math.floor(8000 *  1000 / (finishTime - this.startTime - this.pausedTime)); //balance needs to be checked
                         this.sheepHerded += 1;
                         //this.baa.play();
                         GameScene.playSound(this.baa);
@@ -375,6 +377,7 @@ export class Level extends GameScene {
             //this.scene.pause(this.levelName);
             if(this.status == 4 || this.status == 1 || this.status == 2) { return; }
             this.status = 4;
+            this.pauseStart = Date.now();
             //this.pause_sound.play();
             GameScene.playSound(this.pause_sound);
             
@@ -391,6 +394,7 @@ export class Level extends GameScene {
                 resume.destroy();
                 levelsel.destroy();
                 mainmenu.destroy(); 
+                this.pausedTime += (Date.now() - this.pauseStart);
             }, this);
             levelsel.on('pointerdown', function(event) {
                 //this.bell.play();
@@ -656,7 +660,7 @@ export class Level extends GameScene {
 
     updateTimeText() {
         var currTime = Date.now();
-        var totalSecondsPassed = Math.floor((currTime - this.startTime) / 1000);
+        var totalSecondsPassed = Math.floor((currTime - this.startTime - this.pausedTime) / 1000);
         var minutesPassedStr = (Math.floor(totalSecondsPassed / 60)).toString();
         var secondsPassedStr = (totalSecondsPassed % 60).toString();
         if (totalSecondsPassed % 60 < 10) {
