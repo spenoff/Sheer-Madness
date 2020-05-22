@@ -24,6 +24,7 @@ export class GameScene extends Phaser.Scene {
         this.sixKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SIX);
         this.sevenKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SEVEN);
         this.eightKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.EIGHT);
+        this.nineKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.NINE);
         this.hKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
 
         this.music = this.sound.add('menu');
@@ -70,6 +71,10 @@ export class GameScene extends Phaser.Scene {
         if (Phaser.Input.Keyboard.JustDown(this.eightKey)) {
             this.stopLevel();
             this.scene.start('Level8');   
+        }
+        if (Phaser.Input.Keyboard.JustDown(this.nineKey)) {
+            this.stopLevel();
+            this.scene.start('Level9');   
         }
         if (Phaser.Input.Keyboard.JustDown(this.hKey)) {
             this.stopLevel();
