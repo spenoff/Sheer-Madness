@@ -264,6 +264,12 @@ export class Level extends GameScene {
             if (this.player.body != null && (this.player.body.velocity.x != 0 || this.player.body.velocity.y != 0)) {
                 this.player.angle = 90 + Math.atan2(this.player.body.velocity.y, this.player.body.velocity.x) * 180 / Math.PI;
             }
+            if (this.player.angle % 90 == 0) {
+                this.player.body.setSize(32, 11);
+            }
+            else {
+                this.player.body.setSize(11, 32);
+            }
 
             if(this.player.body.velocity.x != 0 && this.player.body.velocity.y != 0) {
                 this.player.play('walk');
