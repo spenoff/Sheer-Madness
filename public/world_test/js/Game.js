@@ -256,7 +256,9 @@ class SettingMenu extends GameScene {
         var stitle = this.add.sprite(960, 150, 'stitle');
         var settings = this.add.sprite(960, 600, 'settingMenu');
         var volume = this.add.sprite(1050, 510, 'icons', 0);
+        this.add.text(1100, 480, ": VOLUME", { fontFamily: 'font1', fontSize: "44px", color: '#000'});
         var music = this.add.sprite(1050, 650, 'icons', 2);
+        this.add.text(1100, 620, ": MUSIC", { fontFamily: 'font1', fontSize: "44px", color: '#000'});
 
 
         const COLOR_LIGHT = 0x7b5e57;
