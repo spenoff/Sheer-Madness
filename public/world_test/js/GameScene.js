@@ -38,46 +38,57 @@ export class GameScene extends Phaser.Scene {
         }
         if (Phaser.Input.Keyboard.JustDown(this.zeroKey)) {
             this.stopLevel();
+            pause(200);
             this.scene.start('Level0');  
         }
         if (Phaser.Input.Keyboard.JustDown(this.oneKey)) {
             this.stopLevel();
+            pause(200);
             this.scene.start('Level1');   
         }
         if (Phaser.Input.Keyboard.JustDown(this.twoKey)) {
             this.stopLevel();
+            pause(200);
             this.scene.start('Level2');   
         }
         if (Phaser.Input.Keyboard.JustDown(this.threeKey)) {
             this.stopLevel();
+            pause(200);
             this.scene.start('Level3');   
         }
         if (Phaser.Input.Keyboard.JustDown(this.fourKey)) {
             this.stopLevel();
+            pause(200);
             this.scene.start('Level4');   
         }
         if (Phaser.Input.Keyboard.JustDown(this.fiveKey)) {
             this.stopLevel();
+            pause(200);
             this.scene.start('Level5');   
         }
         if (Phaser.Input.Keyboard.JustDown(this.sixKey)) {
             this.stopLevel();
+            pause(200);
             this.scene.start('Level6');   
         }
         if (Phaser.Input.Keyboard.JustDown(this.sevenKey)) {
             this.stopLevel();
+            pause(200);
             this.scene.start('Level7');
         }
         if (Phaser.Input.Keyboard.JustDown(this.eightKey)) {
             this.stopLevel();
+            pause(200);
             this.scene.start('Level8');   
         }
         if (Phaser.Input.Keyboard.JustDown(this.nineKey)) {
             this.stopLevel();
+            pause(200);
             this.scene.start('Level9');   
         }
         if (Phaser.Input.Keyboard.JustDown(this.hKey)) {
             this.stopLevel();
+            pause(200);
             //this.scene.music_started = false;
             this.scene.start('MainMenu');
         }
@@ -107,4 +118,16 @@ export class GameScene extends Phaser.Scene {
         GameScene.current_music = music;
         music.play();
     }
+
+    
+}
+
+function pause(numberMillis) { 
+    var now = new Date(); 
+    var exitTime = now.getTime() + numberMillis; 
+    while (true) { 
+        now = new Date(); 
+        if (now.getTime() > exitTime) 
+            return; 
+    } 
 }
