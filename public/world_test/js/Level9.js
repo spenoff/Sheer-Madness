@@ -84,7 +84,7 @@ export class Level9 extends Level {
         this.game.sound.context.resume();
         this.sound.context.resume();
         if (Phaser.Input.Keyboard.JustDown(this.nKey)) {
-            this.scene.start('Level4');
+            this.scene.start('Congratulation');
         }
     }
 }
