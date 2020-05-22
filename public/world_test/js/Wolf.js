@@ -9,6 +9,7 @@ export class Wolf {
         this.startVelocityY = 0;
         this.stepCounter = 0;
         this.startStep = 0;
+        this.respondToBark = false;
     }
 
     setPatrol(startVelocityX, startVelocityY, ms, startStep=0) {

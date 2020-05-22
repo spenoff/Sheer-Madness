@@ -23,7 +23,8 @@ export class Level6 extends Level {
         this.createSheep(600, 1000);
         this.createSheep(500, 900);
         this.createSheep(500, 1000);
-        this.createFinishSpace(550, 0, 300, 32);
+        this.createBoxOfFences(20, 10, 58, 32);
+        this.createFinishSpace(550, 25, 300, 32);
 
         //Wolf 1
         this.createWolf(680, 628, 100, 100, 3600);

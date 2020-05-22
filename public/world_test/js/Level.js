@@ -117,7 +117,7 @@ export class Level extends GameScene {
                     frameKey = 7;
                 }
                 else if (y == 1050) {
-                    console.log("bottom");
+                    //console.log("bottom");
                     frameKey = 11;
                 }
                 row.push(frameKey);
@@ -614,7 +614,7 @@ export class Level extends GameScene {
 
         this.createLFence(startX, startY, 90);
         this.createLFence(startX, startY + 32 * (numVerticFences + 1), 0);
-        this.createLFence(startX + 32 * (numHorizFences + 1), 32, 180);
+        this.createLFence(startX + 32 * (numHorizFences + 1), startY, 180);
         this.createLFence(startX + 32 * (numHorizFences + 1), startY + 32 * (numVerticFences + 1), -90);
     }
 

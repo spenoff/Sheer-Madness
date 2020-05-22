@@ -20,7 +20,7 @@ export class Controls {
         if (this.player.body != null) {
             var l = false;
             this.sheep.children.iterate((child) => {
-                console.log(this.lassoed);
+                //console.log(this.lassoed);
                 if(child.lassoed){
                     l = true;
                 }
