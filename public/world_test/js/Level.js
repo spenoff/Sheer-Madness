@@ -171,6 +171,10 @@ export class Level extends GameScene {
             key: 'drown',
             frames: this.anims.generateFrameNames('dog', {start: 9, end: 11})
         });
+        this.anims.create({
+            key: 'die',
+            frames: this.anims.generateFrameNames('dog', {start: 12, end: 12})
+        });
         //this.igg.create(960, 540, undefined, 0);
 
         this.player.body.collideWorldBounds = true;
@@ -234,9 +238,15 @@ export class Level extends GameScene {
         }); //do I have an event? - weird interaction
         this.physics.add.collider(this.wolf, this.dog, (wolf, dog) => {
             //this.bite.play();
-            GameScene.playSound(this.bite);
-            this.levelDoneSequence(2, "Game over! The wolf killed you!\nPress R to restart the level");
-            this.player.destroy();
+            dog.play("die");
+            var doSomething = () => {
+                if(dog.ac) { return; }
+                dog.ac = true;
+                GameScene.playSound(this.bite);
+                this.levelDoneSequence(2, "Game over! The wolf killed you!\nPress R to restart the level");
+                //this.player.destroy();
+            }
+            dog.on('animationcomplete', doSomething);
         }); //do I have an event? - weird interaction
         this.physics.add.collider(this.wolf, this.sheep, (wolf, sheep) => {
             //this.bite.play();
