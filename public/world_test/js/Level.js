@@ -28,7 +28,7 @@ export class Level extends GameScene {
     preload() {
         //Load images and assets
         this.load.spritesheet('dog', 'assets/Dog.png', {frameWidth: 32, frameHeight: 32}); //Need to add animation
-        this.load.image('sheep', 'assets/sheep.png'); //Change the spritesheet and add animation?
+        this.load.spritesheet('sheep', 'assets/sheep.png', {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet('fence', 'assets/Fence.png', {frameWidth: 32, frameHeight: 32});
         this.load.image('grass', 'assets/GrassTiles.png');
         this.load.image('red', 'assets/red.png');
@@ -496,7 +496,7 @@ export class Level extends GameScene {
     }
 
     createSheep(x, y) {
-        var sheepObj = this.sheep.create(x, y);
+        var sheepObj = this.sheep.create(x, y, undefined, 0);
         sheepObj.body.collideWorldBounds = true;
         sheepObj.lassoed = false;
         sheepObj.alert = false;
