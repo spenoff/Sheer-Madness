@@ -26,17 +26,17 @@ export class Level9 extends Level {
 
         //Left side
         for(var i = 0; i < 9; i++) {
-            this.createPond(742 + (32 * i),408);
-            this.createPond(742 + (32 * i),440);
-            this.createPond(742 + (32 * i),472);
-            this.createPond(742 + (32 * i),504);
-            this.createPond(742 + (32 * i),536);
-            this.createPond(742 + (32 * i),568);
-            this.createPond(742 + (32 * i),600);
-            this.createPond(742 + (32 * i),632);
-            this.createPond(742 + (32 * i),664);
-            this.createPond(742 + (32 * i),696);
-            this.createPond(742 + (32 * i),728);
+            this.createPond(742 + (32 * i),408+256);
+            this.createPond(742 + (32 * i),440+256);
+            this.createPond(742 + (32 * i),472+256);
+            this.createPond(742 + (32 * i),504+256);
+            this.createPond(742 + (32 * i),536+256);
+            this.createPond(742 + (32 * i),568+256);
+            this.createPond(742 + (32 * i),600+256);
+            this.createPond(742 + (32 * i),632+256);
+            this.createPond(742 + (32 * i),664+256);
+            this.createPond(742 + (32 * i),696+256);
+            this.createPond(742 + (32 * i),728+256);
         }
 
         //right side
@@ -54,10 +54,14 @@ export class Level9 extends Level {
             this.createPond(1088 + (32 * i),728);
         }
 
-        this.createWolf(296, 768, -120, 0, 1800);
+        //Bottom Wolf
+        this.createWolf(80, 768, 120, 0, 5000);
+        //Middle Wolf
         this.createWolf(488, 640, -120, 0, 1800);
-        this.createWolf(680, 512, -120, 0, 1800);
-        this.createWolf(680, 416, 0, -120, 1800);
+        //Top Wolf
+        this.createWolf(670, 512, -120, 0, 5000);
+        //Vertical Wolf
+        this.createWolf(700, 350, 0, 120, 2800);
 
         this.createVerticalFences(742, 344, 5, -1, false, true);
         this.createHorizontalFences(742 + (32*7), 184+32, 8, -1, false, true);

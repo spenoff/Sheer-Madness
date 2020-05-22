@@ -23,8 +23,8 @@ export class Level5 extends Level {
         this.setPlayerPosition(600, 900);
         this.createSheep(600, 975);
         this.createSheep(500, 900);
-        this.createBoxOfFences(32, 32, 38, 30);
-        this.createFinishSpace(32, 25, 1248, 48);
+        this.createBoxOfFences(127, 32, 31, 30);
+        this.createFinishSpace(127, 25, 1022, 60);
         
         //Pond 1
         for(var i = 0; i <= 4; i++){
@@ -48,14 +48,10 @@ export class Level5 extends Level {
         this.createWolf(850, 728, 100, 0, 2400);
 
         //Wolf 2
-        this.createWolf(630, 376, 0, 100, 3800);
+        this.createWolf(530, 476, 100, 0, 2400);
 
         //Wolf 3
-        this.createWolf(350, 114, 0, 100, 3600);
-
-        this.createVerticalFences(127, 119, 7);
-        this.createVerticalFences(127, 376, 7);
-        this.createVerticalFences(127, 629, 7);
+        this.createWolf(170, 214, 100, 0, 2400);
 
         this.createVerticalFences(458, 119, 7);
         this.createVerticalFences(458, 376, 7);
@@ -64,10 +60,6 @@ export class Level5 extends Level {
         this.createVerticalFences(802, 119, 7);
         this.createVerticalFences(802, 376, 7);
         this.createVerticalFences(802, 629, 7);
-
-        this.createVerticalFences(1159, 119, 7);
-        this.createVerticalFences(1159, 376, 7);
-        this.createVerticalFences(1159, 629, 7);
 
     }
 
