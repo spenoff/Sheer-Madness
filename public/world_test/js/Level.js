@@ -165,6 +165,11 @@ export class Level extends GameScene {
             key: 'wolf_walk',
             frames: this.anims.generateFrameNames('wolf', {start: 1, end: 4})
         });
+        //Dog drowning
+        this.anims.create({
+            key: 'drown',
+            frames: this.anims.generateFrameNames('dog', {start: 9, end: 11})
+        });
         //this.igg.create(960, 540, undefined, 0);
 
         this.player.body.collideWorldBounds = true;
@@ -182,6 +187,12 @@ export class Level extends GameScene {
         this.physics.add.collider(this.sheep, this.sheep);
         this.physics.add.collider(this.dog, this.sheep);
         this.physics.add.collider(this.dog, this.pond, (dog, pond) => {
+            if(dog.drowned) { return; }
+            //dog.play('drown');
+            GameScene.playSound(this.drown);
+            dog.drowned = true;
+            dog.x = pond.x;
+            dog.y = pond.y;
             this.levelDoneSequence(2, 'Game over! You are too tired from doggypaddling out of the lake that you cannot do your duties for the rest of the day.\nPress R to restart the level');
         });
         this.physics.add.collider(this.sheep, this.pond, (sheep, pond) => {
@@ -213,6 +224,8 @@ export class Level extends GameScene {
             this.removeSheep(sheep);
         }); //do I have an event?
         this.player.lassoAsset = null;
+        this.player.moving = false;
+        this.player.drowned = false;
 
         this.scoreText = this.add.text(0, 0, "Score: 0, Sheep herded: 0", {fontSize: "36px", color: "black", align: "center", "padding": {x: 20, y: 20}});
         this.scoreText.setX(1920 - this.scoreText.width);
@@ -438,7 +451,7 @@ export class Level extends GameScene {
 
     levelDoneSequence(status, msg) {
         this.status = status;
-        this.add.text(600, 400, msg, {backgroundColor: "0x0000ff", fontSize: "36px", fixedWidth: 660, align: "center", "padding": {x: 20, y: 20}, "wordWrap": {"width": 660}});
+        
         this.player.setVelocity(0);
         this.allSheep.forEach((sheep) => {
             sheep.asset.setVelocity(0);
@@ -455,9 +468,13 @@ export class Level extends GameScene {
         }
         
         GameScene.playMusic(this.res_sound);
+        if(this.player.drowned) {
+            this.player.play("drown");
+        }
         pause(1500);
         this.game.sound.stopAll();
         //this.res_sound.play();
+        this.add.text(600, 400, msg, {backgroundColor: "0x0000ff", fontSize: "36px", fixedWidth: 660, align: "center", "padding": {x: 20, y: 20}, "wordWrap": {"width": 660}});
         
         var pf = this.play_filler();
         setTimeout(pf, 5000);

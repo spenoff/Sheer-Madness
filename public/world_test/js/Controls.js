@@ -27,13 +27,16 @@ export class Controls {
             })
             this.lassoed = l;
 
+            var moving_x = false;
+
             if (this.cursors.left.isDown || this.aKey.isDown) {
                 if(this.lassoed) {
                     this.player.setVelocityX(-80);
                 }else{
                     this.player.setVelocityX(-160);
                 }
-                
+                this.player.moving = true;
+                moving_x = true;
             }
             else if (this.cursors.right.isDown || this.dKey.isDown) {
                 if(this.lassoed) {
@@ -41,9 +44,12 @@ export class Controls {
                 } else {
                     this.player.setVelocityX(160);
                 }
+                this.player.moving = true;
+                moving_x = true;
             }
             else {
                 this.player.setVelocityX(0);
+                this.player.moving = false;
             }
 
             if (this.cursors.up.isDown || this.wKey.isDown) {
@@ -52,6 +58,7 @@ export class Controls {
                 } else {
                     this.player.setVelocityY(-160);
                 }
+                this.player.moving = true;
             }
             else if (this.cursors.down.isDown || this.sKey.isDown) {
                 if(this.lassoed) {
@@ -59,9 +66,13 @@ export class Controls {
                 } else {
                     this.player.setVelocityY(160);
                 }
+                this.player.moving = true;
             }
             else {
                 this.player.setVelocityY(0);
+                if(!moving_x) {
+                    this.player.moving = false;
+                }
             }
 
             if (Phaser.Input.Keyboard.JustDown(this.spaceKey)) {
