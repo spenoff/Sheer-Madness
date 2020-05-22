@@ -182,6 +182,16 @@ export class Level extends GameScene {
             sheep.wait_count = 0;
             sheep.setVelocityX(0);
             sheep.setVelocityY(0);
+            if(fence.x < sheep.x) {
+                sheep.x++;
+            } else if (fence.x > sheep.x) {
+                sheep.x--;
+            }
+            if(fence.y < sheep.y) {
+                sheep.y++;
+            } else if (fence.y > sheep.y) {
+                sheep.y--;
+            }
             sheep.collided_with_fence = true;
             sheep.collided_fence = fence;
         });
@@ -421,6 +431,22 @@ export class Level extends GameScene {
             this.status = 4;
             this.pauseStart = Date.now();
             //this.pause_sound.play();
+
+            this.allWolves.forEach(function(wolf) {
+                wolf.storedX = wolf.asset.body.velocity.x;
+                wolf.storedY = wolf.asset.body.velocity.y;
+                wolf.asset.setVelocityX(0);
+                wolf.asset.setVelocityY(0);
+                
+                if (wolf.event) {
+                    //console.log(wolf.event);
+                    //wolf.event.pause();
+                    wolf.event.paused = true;
+                }
+                
+            });
+            
+
             GameScene.playSound(this.pause_sound);
             
             var pausetitle      = this.add.sprite(960, 150, 'ptitle');
@@ -437,6 +463,17 @@ export class Level extends GameScene {
                 levelsel.destroy();
                 mainmenu.destroy(); 
                 this.pausedTime += (Date.now() - this.pauseStart);
+                this.allWolves.forEach(function(wolf) {
+                    wolf.asset.setVelocityX(wolf.storedX);
+                    wolf.asset.setVelocityY(wolf.storedY);
+                    
+                    if (wolf.event) {
+                        //wolf.event.resume();
+                        wolf.event.paused = false;
+                    }
+                    
+                });
+
             }, this);
             levelsel.on('pointerdown', function(event) {
                 //this.bell.play();
@@ -485,6 +522,7 @@ export class Level extends GameScene {
         });
         this.allWolves.forEach((wolf) => {
             wolf.asset.setVelocity(0);
+            wolf.event.paused = true;
         })
         this.lvdone = true;
 

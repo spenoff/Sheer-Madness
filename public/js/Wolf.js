@@ -21,7 +21,7 @@ export class Wolf {
         if(!(startVelocityX != 0 && startVelocityY != 0)){
             this.asset.setVelocityX(startVelocityX);
             this.asset.setVelocityY(startVelocityY);
-            this.game.time.addEvent({delay: ms, 
+            this.event = this.game.time.addEvent({delay: ms, 
                 callback: () => {
                     if (this.asset.body) { //Can I remove this after wolf dies?
                         this.asset.body.velocity.x *= -1;
@@ -37,7 +37,7 @@ export class Wolf {
             //2 - move right
             //3 - move down
             var p_stage = 0;
-            this.game.time.addEvent({delay: ms, 
+            this.event = this.game.time.addEvent({delay: ms, 
                 callback: () => {
                     if (this.asset.body) { //Can I remove this after wolf dies?
                         switch(p_stage) {

@@ -522,6 +522,7 @@ export class Level extends GameScene {
         });
         this.allWolves.forEach((wolf) => {
             wolf.asset.setVelocity(0);
+            wolf.event.paused = true;
         })
         this.lvdone = true;
 
