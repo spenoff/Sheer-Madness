@@ -28,6 +28,7 @@ export class Sheep {
         this.asset.in_bark_event = false;
         this.asset.done = false;
         this.asset.collided_with_fence = false;
+        this.asset.collided_with_fence_waiting_response = false;
         this.asset.collided_fence = null;
         this.asset.be_vx = 0;
         this.asset.be_vy = 0;
@@ -253,6 +254,8 @@ export class Sheep {
                     setTimeout(function(){this.ready_to_baa = true}, 10000);
                 }
             }
+        } else if(this.asset.collided_with_fence_waiting_response) {
+            this.asset.collided_with_fence = true;
         }
         if(this.asset.lassoed) {
             if(this.dogFacingForward()) {
