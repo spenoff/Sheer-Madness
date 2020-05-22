@@ -19,18 +19,18 @@ export class Level6 extends Level {
         GameScene.playMusic(this.music);
     
         this.setRequiredScore(500);
-        this.setPlayerPosition(600, 900);
-        this.createSheep(600, 1000);
-        this.createSheep(500, 900);
-        this.createSheep(500, 1000);
-        this.createBoxOfFences(20, 10, 58, 32);
-        this.createFinishSpace(550, 25, 300, 32);
+        this.setPlayerPosition(498, 880);
+        this.createSheep(498, 980);
+        this.createSheep(398, 880);
+        this.createSheep(398, 980);
+        this.createBoxOfFences(32, 32, 27, 30);
+        this.createFinishSpace(32, 25, 896, 48);
 
         //Wolf 1
-        this.createWolf(680, 628, 100, 100, 3600);
+        this.createWolf(280, 448, 180, 150, 2000);
 
         //Wolf 2
-        this.createWolf(680, 296, 100, 100, 3600);
+        this.createWolf(280, 116, 180, 150, 2000);
 
     }
 

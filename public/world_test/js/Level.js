@@ -225,7 +225,7 @@ export class Level extends GameScene {
         this.aKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.sKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.dKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-        this.controls = new Controls(this, cursors, this.player, spaceKey, this.wKey, this.aKey, this.sKey, this.dKey, this.sheep);
+        this.controls = new Controls(this, cursors, this.player, spaceKey, this.wKey, this.aKey, this.sKey, this.dKey, this.sheep, this.wolf);
 
         //Is it possible to move this to controls? Likely not, since setting an event
         //Lasso needs to be improved
@@ -497,6 +497,7 @@ export class Level extends GameScene {
         var wolfObj = this.wolf.create(x, y);
         wolfObj.play('walk');
         wolfObj.body.collideWorldBounds = true;
+        wolfObj.respondToBark = false;
         var wolfAI = new Wolf(this, this.sheep, "IDLE", wolfObj);
         wolfAI.setPatrol(startVelocityX, startVelocityY, ms, startStep);
         this.allWolves.push(wolfAI);
