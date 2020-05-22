@@ -311,9 +311,14 @@ export class Level extends GameScene {
                 if (sheep.asset.body.velocity.x != 0 || sheep.asset.body.velocity.y != 0) {
                     sheep.asset.angle = 90 + Math.atan2(sheep.asset.body.velocity.y, sheep.asset.body.velocity.x) * 180 / Math.PI;
                 }
-                if (sheep.asset.angle % 90 == 0) {
-                    sheep.asset.body.setSize(11, 11);
+                if (sheep.asset.angle % 180 == 0) {
+                    sheep.asset.body.setSize(22, 22);
                 }
+                
+                else if (sheep.asset.angle % 90 == 0) {
+                    sheep.asset.body.setSize(22, 22);
+                }
+                
                 else {
                     sheep.asset.body.setSize();
                 }
@@ -523,7 +528,7 @@ export class Level extends GameScene {
         sheepObj.lassoed = false;
         sheepObj.alert = false;
         sheepObj.dogAlert = false;
-        sheepObj.body.setSize(11, 11);
+        sheepObj.body.setSize(22, 22);
         var sheepAI = new Sheep(this, this.player, "IDLE", sheepObj);
         this.allSheep.push(sheepAI);
         this.numStartingSheep++;
