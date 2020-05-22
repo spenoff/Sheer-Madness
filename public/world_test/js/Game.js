@@ -38,7 +38,6 @@ class MainMenu extends GameScene {
         this.load.image('settings', 'assets/Buttons/Settings.png');
         this.load.image('about', 'assets/Buttons/About.png');
         
-        this.load.spritesheet('titles', 'assets/Titles.png', {frameWidth: 801, frameHeight: 200});
         //Main Menu Audio
         this.load.audio('menu', 'music/menu.mp3');
         this.load.audio('bell', 'sfx/Cowbell.mp3');
@@ -232,6 +231,9 @@ class SettingMenu extends GameScene {
         //Settings Menu Button
         this.load.image('back', 'assets/Buttons/Back.png');
 
+        //Settings Icons
+        this.load.spritesheet('icons', 'assets/Icons.png', {frameWidth: 64, frameHeight: 64});
+
         this.load.scenePlugin({
             key: 'rexuiplugin',
             url: 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js',
@@ -253,13 +255,16 @@ class SettingMenu extends GameScene {
 
         var stitle = this.add.sprite(960, 150, 'stitle');
         var settings = this.add.sprite(960, 600, 'settingMenu');
+        var volume = this.add.sprite(1050, 510, 'icons', 0);
+        var music = this.add.sprite(1050, 650, 'icons', 2);
+
 
         const COLOR_LIGHT = 0x7b5e57;
         const COLOR_DARK = 0x260e04;
         //Sound Effect Volume
         var sf_slider = this.rexUI.add.slider({
             x: 1350,
-            y: 400,
+            y: 560,
             width: 600,
             height: 20,
             orientation: 'x',
@@ -282,7 +287,7 @@ class SettingMenu extends GameScene {
         //Music Volume
         var ms_slider = this.rexUI.add.slider({
             x: 1350,
-            y: 600,
+            y: 700,
             width: 600,
             height: 20,
             orientation: 'x',

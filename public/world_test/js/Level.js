@@ -30,7 +30,7 @@ export class Level extends GameScene {
         this.load.spritesheet('fence', 'assets/Fence.png', {frameWidth: 32, frameHeight: 32});
         this.load.image('grass', 'assets/GrassTiles.png');
         this.load.image('red', 'assets/red.png');
-        this.load.image('pond', 'assets/blue.png'); //replace when pond sprite is created?
+        this.load.image('pond', 'assets/WaterTile.png'); //replace when pond sprite is created?
         this.load.image('finishSpace', 'assets/red.png'); //victory tile - replace if we make one?
         this.load.spritesheet('wolf', 'assets/Wolf.png', {frameWidth: 32, frameHeight: 32});
         this.load.image('lasso', 'assets/Lasso.png', {frameWidth: 32, frameHeight: 32}); 
@@ -57,8 +57,12 @@ export class Level extends GameScene {
         this.load.audio('lose', 'sfx/Lose.mp3');
 
         //Pause Menu
-        this.load.spritesheet('buttons', 'assets/Buttons.png', {frameWidth: 506, frameHeight: 105});
-        this.load.spritesheet('titles', 'assets/Titles.png', {frameWidth: 801, frameHeight: 200});
+        //Pause Title
+        this.load.image('ptitle', 'assets/Titles/PauseTitle.png');
+        //Pause Buttons
+        this.load.image('resume', 'assets/Buttons/Resume.png');
+        this.load.image('levelsel', 'assets/Buttons/LevelSelect.png');
+        this.load.image('mainmenu', 'assets/Buttons/MainMenu.png');
     }
 
     create() {
@@ -368,10 +372,10 @@ export class Level extends GameScene {
             //this.pause_sound.play();
             GameScene.playSound(this.pause_sound);
             
-            var pausetitle      = this.add.sprite(960, 150, 'titles', 4);
-            var resume          = this.add.sprite(960, 450, 'buttons', 5).setInteractive();
-            var levelsel        = this.add.sprite(960, 570, 'buttons', 1).setInteractive();
-            var mainmenu        = this.add.sprite(960, 690, 'buttons', 6).setInteractive();
+            var pausetitle      = this.add.sprite(960, 150, 'ptitle');
+            var resume          = this.add.sprite(960, 450, 'resume').setInteractive();
+            var levelsel        = this.add.sprite(960, 570, 'levelsel').setInteractive();
+            var mainmenu        = this.add.sprite(960, 690, 'mainmenu').setInteractive();
             
             resume.on('pointerdown', function(event) {
                 this.status = 0;
@@ -393,7 +397,7 @@ export class Level extends GameScene {
                 GameScene.playSound(this.bell);
                 this.game.sound.stopAll();
                 //this.filler.play();
-                GameSceme.playMusic(this.filler);
+                GameScene.playMusic(this.filler);
                 this.scene.start('MainMenu'); 
                 this.stopLevel();
             }, this);
