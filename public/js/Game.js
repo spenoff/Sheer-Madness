@@ -378,6 +378,44 @@ class AboutMenu extends GameScene {
     }
 }
 
+class Congratulation extends GameScene {
+    constructor() {
+        super('Congratulation');
+        
+    }
+
+    preload() {
+
+        //Main Background
+        this.load.image('mainbackground', 'asset/Background.png');
+
+        //Congratulation
+        this.load.image('congratulation', 'assets/Congratulation.png');
+
+        //Congratuation Button
+        this.load.image('mainmenu', 'assets/Buttons/MainMenu.png');
+    }
+
+    create() {
+        super.create();
+
+        var background = this.add.tileSprite(960, 540, 0, 0, 'mainbackground');
+        background.setDepth(-1);
+
+        var congratulation = this.add.sprite(960, 500, 'congratulation');
+        var mainmenu = this.add.sprite(960, 1000, 'mainmenu').setInteractive();
+
+        mainmenu.on('pointerdown', function(event) {
+            this.scene.start('MainMenu');
+        }, this);
+    }
+
+    update() {
+        super.update();
+    }
+
+}
+
 var config = {
     type: Phaser.AUTO,
     width: 1920,
@@ -392,7 +430,7 @@ var config = {
             gravity: { y: 0 }
         }
     },
-    scene : [ MainMenu, LevelSelectMenu, AboutMenu, SettingMenu, Level0, Level1, Level2, Level3, Level4, Level5, Level6, Level7, Level8, Level9 ]
+    scene : [ MainMenu, LevelSelectMenu, AboutMenu, SettingMenu, Congratulation, Level0, Level1, Level2, Level3, Level4, Level5, Level6, Level7, Level8, Level9 ]
 };
 
 var game = new Phaser.Game(config);

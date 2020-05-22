@@ -65,6 +65,8 @@ export class Level extends GameScene {
         this.load.image('resume', 'assets/Buttons/Resume.png');
         this.load.image('levelsel', 'assets/Buttons/LevelSelect.png');
         this.load.image('mainmenu', 'assets/Buttons/MainMenu.png');
+        
+        this.lose_in_update = false;
     }
 
     create() {
@@ -90,7 +92,6 @@ export class Level extends GameScene {
         var bgTileSize = 30;
 
         var levelTiles = [];
-        console.log("hi");
         for (var y = 0; y < 1080; y += bgTileSize) {
             var row = [];
             for (var x = 0; x < 1920; x += bgTileSize) {
@@ -188,12 +189,21 @@ export class Level extends GameScene {
         this.physics.add.collider(this.dog, this.sheep);
         this.physics.add.collider(this.dog, this.pond, (dog, pond) => {
             if(dog.drowned) { return; }
-            //dog.play('drown');
-            GameScene.playSound(this.drown);
+            dog.play('drown');
+            dog.ac = false;
             dog.drowned = true;
             dog.x = pond.x;
             dog.y = pond.y;
-            this.levelDoneSequence(2, 'Game over! You are too tired from doggypaddling out of the lake that you cannot do your duties for the rest of the day.\nPress R to restart the level');
+            dog.pond = pond;
+            var doSomething = () => {
+                if(dog.ac) { return; }
+                dog.ac = true;
+                GameScene.playSound(this.drown);
+                this.levelDoneSequence(2, 'Game over! You are too tired from doggypaddling out of the lake that you cannot do your duties for the rest of the day.\nPress R to restart the level');
+            }
+            dog.on('animationcomplete', doSomething);
+
+            
         });
         this.physics.add.collider(this.sheep, this.pond, (sheep, pond) => {
             //this.drown.play();
@@ -470,12 +480,18 @@ export class Level extends GameScene {
         } else {
             this.res_sound = this.lose;
         }
+
+        if(this.player.drowned) {
+            if(this.player.x != this.player.pond.x) {
+                return;
+            }
+            if(this.player.y != this.player.pond.y) {
+                return;
+            }
+        }
         
         GameScene.playMusic(this.res_sound);
-        if(this.player.drowned) {
-            this.player.play("drown");
-        }
-        pause(1500);
+        pause(1600);
         this.game.sound.stopAll();
         //this.res_sound.play();
         this.add.text(600, 400, msg, {backgroundColor: "0x0000ff", fontSize: "36px", fixedWidth: 660, align: "center", "padding": {x: 20, y: 20}, "wordWrap": {"width": 660}});
