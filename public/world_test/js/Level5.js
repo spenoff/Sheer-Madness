@@ -21,37 +21,37 @@ export class Level5 extends Level {
     
         this.setRequiredScore(500);
         this.setPlayerPosition(600, 900);
-        this.createSheep(600, 1000);
+        this.createSheep(600, 975);
         this.createSheep(500, 900);
-        this.createBoxOfFences(20, 10, 58, 32);
-        this.createFinishSpace(550, 25, 300, 32);
+        this.createBoxOfFences(32, 32, 38, 30);
+        this.createFinishSpace(32, 25, 1248, 48);
         
         //Pond 1
         for(var i = 0; i <= 4; i++){
             for(var j = 0; j <= 4; j++)
-                this.createPond(272 + (32 * i), 728 - (32 * j));
+                this.createPond(222 + (32 * i), 728 - (32 * j));
         }
 
         //Pond 2
         for(var i = 0; i <= 4; i++){
             for(var j = 0; j <= 4; j++)
-                this.createPond(960 + (32 * i), 524 - (32 * j));
+                this.createPond(910 + (32 * i), 524 - (32 * j));
         }
 
         //Pond 3
         for(var i = 0; i <= 4; i++){
             for(var j = 0; j <= 4; j++)
-                this.createPond(648 + (32 * i), 242 + 25 - (32 * j));
+                this.createPond(598 + (32 * i), 242 + 25 - (32 * j));
         }
 
         //Wolf 1
-        this.createWolf(992, 728, 100, 0, 3600);
+        this.createWolf(922, 728, 100, 0, 2400);
 
         //Wolf 2
-        this.createWolf(680, 396, 0, 100, 3600);
+        this.createWolf(630, 376, 0, 100, 3800);
 
         //Wolf 3
-        this.createWolf(400, 114, 0, 100, 3600);
+        this.createWolf(350, 114, 0, 100, 3600);
 
     }
 
