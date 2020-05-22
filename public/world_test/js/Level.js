@@ -544,7 +544,6 @@ export class Level extends GameScene {
             f = this.fence.create(startX, startY, undefined, 0);
             f.angle += 90;
             f.type = 0;
-            f.body.setCircle(32);
         }
         else {
             var incrementer = dir * 32;
@@ -553,19 +552,16 @@ export class Level extends GameScene {
                     f = this.fence.create(startX + incrementer * i, startY, undefined, 2);
                     f.angle -= 90 * dir;
                     f.type = 0;
-                    f.body.setCircle(32);
                 }
                 else if (i == num - 1 && endTerminate) {
                     f = this.fence.create(startX + incrementer * i, startY, undefined, 2);
                     f.angle += 90 * dir;
                     f.type = 0;
-                    f.body.setCircle(32);
                 }
                 else {
                     f = this.fence.create(startX + incrementer * i, startY, undefined, 0);
                     f.angle += 90;
                     f.type = 0;
-                    f.body.setCircle(32);
                 }
             }
         }
@@ -576,7 +572,6 @@ export class Level extends GameScene {
         if (num == 1) {
             f = this.fence.create(startX, startY, undefined, 0);
             f.type = 1;
-            f.body.setCircle(32);
         }
         else {
             var incrementer = dir * 32;
@@ -587,7 +582,6 @@ export class Level extends GameScene {
                         f.angle += 180;
                     }
                     f.type = 1;
-                    f.body.setCircle(32);
                 }
                 else if (i == num - 1 && endTerminate) {
                     f = this.fence.create(startX, startY + incrementer * i, undefined, 2);
@@ -595,12 +589,10 @@ export class Level extends GameScene {
                         f.angle += 180;
                     }
                     f.type = 1;
-                    f.body.setCircle(32);
                 }
                 else {
                     f = this.fence.create(startX, startY + incrementer * i, undefined, 0);
                     f.type = 1;
-                    f.body.setCircle(32);
                 }
             }
         }
@@ -610,20 +602,17 @@ export class Level extends GameScene {
         var f = this.fence.create(x, y, undefined, 3);
         f.angle += angle;
         f.type = 2;
-        f.body.setCircle(32);
     }
 
     createLFence(x, y, angle) {
         var f = this.fence.create(x, y, undefined, 1);
         f.angle += 180 + angle;
         f.type = 3;
-        f.body.setCircle(32);
     }   
 
     createPlusFence(x, y) {
         var f = this.fence.create(x, y, undefined, 4);
         f.type = 4;
-        f.body.setCircle(32);
     }
 
     /*
