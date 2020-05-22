@@ -182,6 +182,16 @@ export class Level extends GameScene {
             sheep.wait_count = 0;
             sheep.setVelocityX(0);
             sheep.setVelocityY(0);
+            if(fence.x < sheep.x) {
+                sheep.x++;
+            } else if (fence.x > sheep.x) {
+                sheep.x--;
+            }
+            if(fence.y < sheep.y) {
+                sheep.y++;
+            } else if (fence.y > sheep.y) {
+                sheep.y--;
+            }
             sheep.collided_with_fence = true;
             sheep.collided_fence = fence;
         });
@@ -558,7 +568,6 @@ export class Level extends GameScene {
         sheepObj.alert = false;
         sheepObj.dogAlert = false;
         sheepObj.body.setSize(22, 22);
-        //sheepObj.body.setCircle(11);
         var sheepAI = new Sheep(this, this.player, "IDLE", sheepObj);
         this.allSheep.push(sheepAI);
         this.numStartingSheep++;
