@@ -168,7 +168,7 @@ export class Level extends GameScene {
         //this.igg.create(960, 540, undefined, 0);
 
         this.player.body.collideWorldBounds = true;
-        this.player.body.setSize(11, 32);
+        //this.player.body.setSize(11, 32);
 
         this.physics.add.collider(this.dog, this.fence);
         this.physics.add.collider(this.sheep, this.fence, (sheep, fence) => {
@@ -267,12 +267,16 @@ export class Level extends GameScene {
                 this.player.angle = 90 + Math.atan2(this.player.body.velocity.y, this.player.body.velocity.x) * 180 / Math.PI;
             }
             
-            if (this.player.angle % 90 == 0) {
+            if (this.player.angle % 180 == 0) {
+                this.player.body.setSize(11, 32);
+            }
+            else if (this.player.angle % 90 == 0) {
                 this.player.body.setSize(32, 8);
             }
             else {
-                this.player.body.setSize(11, 32);
+                this.player.body.setSize();
             }
+            
             
 
             if(this.player.body.velocity.x != 0 && this.player.body.velocity.y != 0) {
