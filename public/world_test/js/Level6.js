@@ -27,11 +27,12 @@ export class Level6 extends Level {
         this.createFinishSpace(32, 25, 896, 48);
 
         //Wolf 1
-        this.createWolf(280, 448, 180, 150, 2000);
+        this.createWolf(280, 448, 180, 180, 1500);
+        this.createBoxOfFences(332, 500, 4, 4);
 
         //Wolf 2
-        this.createWolf(280, 116, 180, 150, 2000);
-
+        this.createWolf(280, 116, 180, 180, 1500);
+        this.createBoxOfFences(332, 168, 4, 4);
     }
 
     update() {
@@ -39,6 +40,11 @@ export class Level6 extends Level {
         if (Phaser.Input.Keyboard.JustDown(this.nKey)) {
             this.scene.start("Level7");
         }
+        /*
+        this.wolf.children.iterate((child) => {
+            console.log(child.x);
+        });
+        */
     }
 
 }
