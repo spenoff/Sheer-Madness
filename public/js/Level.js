@@ -311,6 +311,7 @@ export class Level extends GameScene {
                 if (sheep.asset.body.velocity.x != 0 || sheep.asset.body.velocity.y != 0) {
                     sheep.asset.angle = 90 + Math.atan2(sheep.asset.body.velocity.y, sheep.asset.body.velocity.x) * 180 / Math.PI;
                 }
+                /*
                 if (sheep.asset.angle % 180 == 0) {
                     sheep.asset.body.setSize(22, 22);
                 }
@@ -322,6 +323,7 @@ export class Level extends GameScene {
                 else {
                     sheep.asset.body.setSize();
                 }
+                */
             });
 
             if(this.player.lassoTarget != null && this.player.lassoAsset == null) {
