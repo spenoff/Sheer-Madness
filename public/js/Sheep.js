@@ -20,7 +20,7 @@ export class Sheep {
      * @param {String} state Represents the curent state of the sheep.
      * @param {GameObject} asset The game object to reference
      */
-    constructor(game, dog, state, asset) {
+    constructor(game, dog, wolves, state, asset) {
         this.game = game;
         this.dog = dog;
         this.state = state;
@@ -35,6 +35,7 @@ export class Sheep {
         this.lassoAsset = null;
         this.ready_to_baa = true;
         this.baa = this.game.sound.add('baa');
+        this.wolves = wolves;
     }
 
     setState(state) {
@@ -94,7 +95,6 @@ export class Sheep {
         var dogY = this.dog.y;
 
         if (!this.asset.lassoed) {
-
             if(this.lassoAsset != null) {
                 this.lassoAsset.destroy();
                 this.lassoAsset = null;
@@ -108,7 +108,15 @@ export class Sheep {
                Do we have an alert timer or something?
             */
 
-           this.asset.alert = Math.sqrt(Math.pow(dogX - this.asset.x, 2) + Math.pow(dogY - this.asset.y, 2)) <= 60;
+            this.asset.alert = Math.sqrt(Math.pow(dogX - this.asset.x, 2) + Math.pow(dogY - this.asset.y, 2)) <= 60;
+            this.asset.wolfWatch = null;
+            this.wolves.children.iterate((wolf) => {
+                if (Math.sqrt(Math.pow(wolf.x - this.asset.x, 2) + Math.pow(wolf.y - this.asset.y, 2)) <= 100) {
+                    if (this.asset.wolfWatch == null || Math.sqrt(Math.pow(wolf.x - this.asset.x, 2) + Math.pow(wolf.y - this.asset.y, 2)) < Math.sqrt(Math.pow(this.asset.wolfWatch.x - this.asset.x, 2) + Math.pow(this.asset.wolfWatch.y - this.asset.y, 2))) {
+                        this.asset.wolfWatch = wolf;
+                    }
+                }
+            });
 
            if(this.asset.in_bark_event) {
             console.log(this.asset.be_vy);
@@ -244,6 +252,21 @@ export class Sheep {
                 } 
                 else if (dogY > this.asset.y) {
                     this.asset.setVelocityY(-140);
+                }
+            }
+            else if (this.asset.wolfWatch) {
+                if (this.asset.wolfWatch.x < this.asset.x) {
+                    this.asset.setVelocityX(160);
+                }
+                else if (this.asset.wolfWatch.x > this.asset.x) {
+                    this.asset.setVelocityX(-160);
+                }
+ 
+                if (this.asset.wolfWatch.y < this.asset.y) {
+                    this.asset.setVelocityY(160);
+                }
+                else if (this.asset.wolfWatch.y > this.asset.y) {
+                    this.asset.setVelocityY(-160);
                 }
             }
             else {

@@ -81,7 +81,6 @@ export class Level extends GameScene {
         this.win = this.sound.add('win');
         this.lose = this.sound.add('lose');
 
-        this.status = 0; //0 = in progress, 1 = complete, 2 = fail, 3 = restart/change level, 4 = paused
         this.startTime = Date.now(); //epoch in ms
 
         /*
@@ -301,6 +300,8 @@ export class Level extends GameScene {
         
         //Level Pausing
         this.esckey = this.input.keyboard.addKey('ESC');
+
+        this.status = 0; //0 = in progress, 1 = complete, 2 = fail, 3 = restart/change level, 4 = paused
     }
 
     update() {
@@ -605,7 +606,7 @@ export class Level extends GameScene {
         sheepObj.alert = false;
         sheepObj.dogAlert = false;
         sheepObj.body.setSize(22, 22);
-        var sheepAI = new Sheep(this, this.player, "IDLE", sheepObj);
+        var sheepAI = new Sheep(this, this.player, this.wolf, "IDLE", sheepObj);
         this.allSheep.push(sheepAI);
         this.numStartingSheep++;
         return sheepAI;
