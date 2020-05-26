@@ -124,17 +124,17 @@ class LevelSelectMenu extends GameScene {
         this.load.image('lstitle', 'assets/Titles/LevelSelectTitle.png');
 
         //Level Select Level Buttons
-        this.load.image('l1', 'assets/Levels/Level1.png');
-        this.load.image('l2', 'assets/Levels/Level2.png');
-        this.load.image('l3', 'assets/Levels/Level3.png');
-        this.load.image('l4', 'assets/Levels/Level4.png');
-        this.load.image('l5', 'assets/Levels/Level5.png');
-        this.load.image('l6', 'assets/Levels/Level6.png');
-        this.load.image('l7', 'assets/Levels/Level7.png');
-        this.load.image('l8', 'assets/Levels/Level8.png');
-        this.load.image('l9', 'assets/Levels/Level9.png');
-        this.load.image('l10', 'assets/Levels/Level10.png');
-        this.load.image('l11', 'assets/Levels/Level11.png');
+        this.load.spritesheet('l1', 'assets/Levels/Level1.png', {frameWidth: 105, frameHeight: 105});
+        this.load.spritesheet('l2', 'assets/Levels/Level2.png', {frameWidth: 105, frameHeight: 105});
+        this.load.spritesheet('l3', 'assets/Levels/Level3.png', {frameWidth: 105, frameHeight: 105});
+        this.load.spritesheet('l4', 'assets/Levels/Level4.png', {frameWidth: 105, frameHeight: 105});
+        this.load.spritesheet('l5', 'assets/Levels/Level5.png', {frameWidth: 105, frameHeight: 105});
+        this.load.spritesheet('l6', 'assets/Levels/Level6.png', {frameWidth: 105, frameHeight: 105});
+        this.load.spritesheet('l7', 'assets/Levels/Level7.png', {frameWidth: 105, frameHeight: 105});
+        this.load.spritesheet('l8', 'assets/Levels/Level8.png', {frameWidth: 105, frameHeight: 105});
+        this.load.spritesheet('l9', 'assets/Levels/Level9.png', {frameWidth: 105, frameHeight: 105});
+        this.load.spritesheet('l10', 'assets/Levels/Level10.png', {frameWidth: 105, frameHeight: 105});
+        this.load.spritesheet('l11', 'assets/Levels/Level11.png', {frameWidth: 105, frameHeight: 105});
         this.load.image('ll', 'assets/Levels/LevelLock.png');
 
         //Level Select Buttons
@@ -155,18 +155,62 @@ class LevelSelectMenu extends GameScene {
 
         var lstitle = this.add.sprite(960, 150, 'lstitle');
 
-        var l1      = this.add.sprite(585, 450,     'l1').setInteractive();
-        var l2      = this.add.sprite(735, 450,     'l2').setInteractive();
-        var l3      = this.add.sprite(885, 450,     'l3').setInteractive();
-        var l4      = this.add.sprite(1035, 450,    'l4').setInteractive();
-        var l5      = this.add.sprite(1185, 450,    'l5').setInteractive();
-        var l6      = this.add.sprite(1335, 450,    'l6').setInteractive();
-        var l7      = this.add.sprite(585, 600,     'l7').setInteractive();
-        var l8      = this.add.sprite(735, 600,     'l8').setInteractive();
-        var l9      = this.add.sprite(885, 600,     'l9').setInteractive();
-        var l10     = this.add.sprite(1035, 600,    'l10').setInteractive();
-        var l11     = this.add.sprite(1185, 600,    'l11').setInteractive();
-        var lock    = this.add.sprite(1335, 600,    'll').setInteractive();
+        //Level 1 Button
+        var l1 = this.add.sprite(585, 450, 'l1')
+        .setInteractive({ useHandCursor: true })
+        .on('pointerover', () => l1.setFrame(1))
+        .on("pointerout", () => l1.setFrame(0));
+        //Level 2 Button
+        var l2 = this.add.sprite(735, 450, 'l2')
+        .setInteractive({ useHandCursor: true })
+        .on('pointerover', () => l2.setFrame(1))
+        .on("pointerout", () => l2.setFrame(0));
+        //Level 3 Button
+        var l3 = this.add.sprite(885, 450, 'l3')
+        .setInteractive({ useHandCursor: true })
+        .on('pointerover', () => l3.setFrame(1))
+        .on("pointerout", () => l3.setFrame(0));
+        //Level 4 Button
+        var l4 = this.add.sprite(1035, 450, 'l4')
+        .setInteractive({ useHandCursor: true })
+        .on('pointerover', () => l4.setFrame(1))
+        .on("pointerout", () => l4.setFrame(0));
+        //Level 5 Button
+        var l5 = this.add.sprite(1185, 450, 'l5')
+        .setInteractive({ useHandCursor: true })
+        .on('pointerover', () => l5.setFrame(1))
+        .on("pointerout", () => l5.setFrame(0));
+        //Level 6 Button
+        var l6 = this.add.sprite(1335, 450, 'l6')
+        .setInteractive({ useHandCursor: true })
+        .on('pointerover', () => l6.setFrame(1))
+        .on("pointerout", () => l6.setFrame(0));
+        //Level 7 Button
+        var l7 = this.add.sprite(585, 600, 'l7')
+        .setInteractive({ useHandCursor: true })
+        .on('pointerover', () => l7.setFrame(1))
+        .on("pointerout", () => l7.setFrame(0));
+        //Level 8 Button
+        var l8 = this.add.sprite(735, 600, 'l8')
+        .setInteractive({ useHandCursor: true })
+        .on('pointerover', () => l8.setFrame(1))
+        .on("pointerout", () => l8.setFrame(0));
+        //Level 9 Button
+        var l9 = this.add.sprite(885, 600, 'l9')
+        .setInteractive({ useHandCursor: true })
+        .on('pointerover', () => l9.setFrame(1))
+        .on("pointerout", () => l9.setFrame(0));
+        //Level 10 Button
+        var l10 = this.add.sprite(1035, 600, 'l10')
+        .setInteractive({ useHandCursor: true })
+        .on('pointerover', () => l10.setFrame(1))
+        .on("pointerout", () => l10.setFrame(0));
+        //Level 11 Button
+        var l11 = this.add.sprite(1185, 600, 'l11')
+        .setInteractive({ useHandCursor: true })
+        .on('pointerover', () => l11.setFrame(1))
+        .on("pointerout", () => l11.setFrame(0));
+        var lock = this.add.sprite(1335, 600, 'll').setInteractive();
 
         //Back Button
         var back = this.add.sprite(960, 1000, 'back')
