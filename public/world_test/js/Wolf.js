@@ -83,6 +83,10 @@ export class Wolf {
         } else {
             this.asset.angle = 0;
         }
+        if(this.asset.body.velocity.x != 0 || this.asset.body.velocity.y != 0) {
+            const newLocal = 'wolf_walk';
+            this.asset.play(newLocal);
+        }
         /*
         if (this.stepCounter < this.stepLimit) {
             this.stepCounter++;
