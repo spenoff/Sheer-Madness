@@ -62,9 +62,9 @@ export class Level extends GameScene {
         //Pause Title
         this.load.image('ptitle', 'assets/Titles/PauseTitle.png');
         //Pause Buttons
-        this.load.image('resume', 'assets/Buttons/Resume.png');
-        this.load.image('levelsel', 'assets/Buttons/LevelSelect.png');
-        this.load.image('mainmenu', 'assets/Buttons/MainMenu.png');
+        this.load.spritesheet('resume', 'assets/Buttons/Resume.png', {frameWidth: 506, frameHeight: 105});
+        this.load.spritesheet('levelsel', 'assets/Buttons/LevelSelect.png', {frameWidth: 506, frameHeight: 105});
+        this.load.spritesheet('mainmenu', 'assets/Buttons/MainMenu.png', {frameWidth: 506, frameHeight: 105});
         
         this.lose_in_update = false;
     }
@@ -460,9 +460,21 @@ export class Level extends GameScene {
             GameScene.playSound(this.pause_sound);
             
             var pausetitle      = this.add.sprite(960, 150, 'ptitle');
-            var resume          = this.add.sprite(960, 450, 'resume').setInteractive();
-            var levelsel        = this.add.sprite(960, 570, 'levelsel').setInteractive();
-            var mainmenu        = this.add.sprite(960, 690, 'mainmenu').setInteractive();
+            //Resume Button
+            var resume = this.add.sprite(960, 450, 'resume')
+            .setInteractive({ useHandCursor: true })
+            .on('pointerover', () => resume.setFrame(1))
+            .on('pointerout', () => resume.setFrame(0));
+            //Level Select Button
+            var levelsel = this.add.sprite(960, 570, 'levelselect')
+            .setInteractive({ useHandCursor: true })
+            .on('pointerover', () => levelsel.setFrame(1))
+            .on('pointerout', () => levelsel.setFrame(0));
+            //Main Menu Button
+            var mainmenu = this.add.sprite(960, 690, 'mainmenu')
+            .setInteractive({ useHandCursor: true })
+            .on('pointerover', () => mainmenu.setFrame(1))
+            .on('pointerout', () => mainmenu.setFrame(0));
             
             resume.on('pointerdown', function(event) {
                 this.status = 0;

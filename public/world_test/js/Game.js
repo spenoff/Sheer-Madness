@@ -34,10 +34,10 @@ class MainMenu extends GameScene {
         this.load.image('mmtitle', 'assets/Titles/SheerMadnessTitle.png');
 
         //Main Menu Buttons
-        this.load.image('play', 'assets/Buttons/Play.png');
-        this.load.image('levelselect', 'assets/Buttons/LevelSelect.png');
-        this.load.image('settings', 'assets/Buttons/Settings.png');
-        this.load.image('about', 'assets/Buttons/About.png');
+        this.load.spritesheet('play', 'assets/Buttons/Play.png', {frameWidth: 506, frameHeight: 105});
+        this.load.spritesheet('levelselect', 'assets/Buttons/LevelSelect.png', {frameWidth: 506, frameHeight: 105});
+        this.load.spritesheet('settings', 'assets/Buttons/Settings.png', {frameWidth: 506, frameHeight: 105});
+        this.load.spritesheet('about', 'assets/Buttons/About.png', {frameWidth: 506, frameHeight: 105});
         
         //Main Menu Audio
         this.load.audio('menu', 'music/menu.mp3');
@@ -56,12 +56,29 @@ class MainMenu extends GameScene {
         var background = this.add.tileSprite(960, 540, 0, 0, 'mainbackground');
         background.setDepth(-1);
 
+        //Main Menu Title
         var mmtitle     = this.add.sprite(960, 150, 'mmtitle');
 
-        var start       = this.add.sprite(960, 450, 'play').setInteractive();
-        var levelsel    = this.add.sprite(960, 570, 'levelselect').setInteractive();
-        var setting     = this.add.sprite(960, 690, 'settings').setInteractive();
-        var about       = this.add.sprite(960, 810, 'about').setInteractive();
+        //Play Button
+        var start = this.add.sprite(960, 450, 'play')
+        .setInteractive({ useHandCursor: true })
+        .on('pointerover', () => start.setFrame(1))
+        .on('pointerout', () => start.setFrame(0));
+        //Level Select Button
+        var levelsel = this.add.sprite(960, 570, 'levelselect')
+        .setInteractive({ useHandCursor: true })
+        .on('pointerover', () => levelsel.setFrame(1))
+        .on('pointerout', () => levelsel.setFrame(0));
+        //Settings Button
+        var setting = this.add.sprite(960, 690, 'settings')
+        .setInteractive({ useHandCursor: true })
+        .on('pointerover', () => setting.setFrame(1))
+        .on('pointerout', () => setting.setFrame(0));
+        //About Button
+        var about = this.add.sprite(960, 810, 'about')
+        .setInteractive({ useHandCursor: true })
+        .on('pointerover', () => about.setFrame(1))
+        .on('pointerout', () => about.setFrame(0));
 
         start.on('pointerdown', function(event) {
             //this.bell.play();
@@ -121,7 +138,7 @@ class LevelSelectMenu extends GameScene {
         this.load.image('ll', 'assets/Levels/LevelLock.png');
 
         //Level Select Buttons
-        this.load.image('back', 'assets/Buttons/Back.png');
+        this.load.spritesheet('back', 'assets/Buttons/Back.png', {frameWidth: 506, frameHeight: 105});
 
     }
 
@@ -151,7 +168,11 @@ class LevelSelectMenu extends GameScene {
         var l11     = this.add.sprite(1185, 600,    'l11').setInteractive();
         var lock    = this.add.sprite(1335, 600,    'll').setInteractive();
 
-        var back    = this.add.sprite(960, 1000, 'back').setInteractive();
+        //Back Button
+        var back = this.add.sprite(960, 1000, 'back')
+        .setInteractive({ useHandCursor: true })
+        .on('pointerover', () => back.setFrame(1))
+        .on('pointerout', () => back.setFrame(0));
 
         l1.on('pointerdown', function(event) {
             //this.bell.play();
@@ -193,6 +214,11 @@ class LevelSelectMenu extends GameScene {
             GameScene.playSound(this.bell);
             this.scene.start('Level8');
         }, this);
+        l9.on('pointerdown', function(event) {
+            //this.bell.play();
+            GameScene.playSound(this.bell);
+            this.scene.start('Level9');
+        }, this);
         lock.on('pointerdown', function(event) {
             //this.bell.play();
             GameScene.playSound(this.bell);
@@ -230,7 +256,7 @@ class SettingMenu extends GameScene {
         this.load.image('settingMenu', 'assets/Menus/SettingMenu.png');
 
         //Settings Menu Button
-        this.load.image('back', 'assets/Buttons/Back.png');
+        this.load.spritesheet('back', 'assets/Buttons/Back.png', {frameWidth: 506, frameHeight: 105});
 
         //Settings Icons
         this.load.spritesheet('icons', 'assets/Icons.png', {frameWidth: 64, frameHeight: 64});
@@ -313,7 +339,11 @@ class SettingMenu extends GameScene {
         sf_slider.value = GameScene.sf_volume;
         ms_slider.value = GameScene.ms_volume;
 
-        var back = this.add.sprite(960, 1000, 'back').setInteractive();
+        //Back Button
+        var back = this.add.sprite(960, 1000, 'back')
+        .setInteractive({ useHandCursor: true })
+        .on('pointerover', () => back.setFrame(1))
+        .on('pointerout', () => back.setFrame(0));
 
         back.on('pointerdown', function(event) {
             //this.bell.play();
@@ -346,7 +376,7 @@ class AboutMenu extends GameScene {
         this.load.image('aboutMenu', 'assets/Menus/AboutMenu.png');
 
         //About Button
-        this.load.image('back', 'assets/Buttons/Back.png');
+        this.load.spritesheet('back', 'assets/Buttons/Back.png', {frameWidth: 506, frameHeight: 105});
 
     }
 
@@ -363,7 +393,12 @@ class AboutMenu extends GameScene {
 
         var lstitle = this.add.sprite(960, 150, 'atitle');
         var about = this.add.sprite(960, 600, 'aboutMenu');
-        var back = this.add.sprite(960, 1000, 'back').setInteractive();
+
+        //Back Button
+        var back = this.add.sprite(960, 1000, 'back')
+        .setInteractive({ useHandCursor: true })
+        .on('pointerover', () => back.setFrame(1))
+        .on('pointerout', () => back.setFrame(0));
 
         back.on('pointerdown', function(event) {
             //this.bell.play();
@@ -403,7 +438,11 @@ class Congratulation extends GameScene {
         background.setDepth(-1);
 
         var congratulation = this.add.sprite(960, 500, 'congratulation');
-        var mainmenu = this.add.sprite(960, 1000, 'mainmenu').setInteractive();
+        //Main Menu Button
+        var mainmenu = this.add.sprite(960, 1000, 'mainmenu')
+        .setInteractive({ useHandCursor: true })
+        .on('pointerover', () => mainmenu.setFrame(1))
+        .on('pointerout', () => mainmenu.setFrame(0));;
 
         mainmenu.on('pointerdown', function(event) {
             this.scene.start('MainMenu');
