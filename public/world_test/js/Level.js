@@ -27,14 +27,14 @@ export class Level extends GameScene {
 
     preload() {
         //Load images and assets
-        this.load.spritesheet('dog', 'assets/Dog.png', {frameWidth: 32, frameHeight: 32}); //Need to add animation
-        this.load.spritesheet('sheep', 'assets/sheep.png', {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet('dog', 'assets/Dog.png', {frameWidth: 64, frameHeight: 64}); //Need to add animation
+        this.load.spritesheet('sheep', 'assets/sheep.png', {frameWidth: 64, frameHeight: 63});
         this.load.spritesheet('fence', 'assets/Fence.png', {frameWidth: 32, frameHeight: 32});
         this.load.image('grass', 'assets/GrassTiles.png');
         this.load.image('red', 'assets/red.png');
         this.load.image('pond', 'assets/WaterTile.png'); //replace when pond sprite is created?
         this.load.image('finishSpace', 'assets/red.png'); //victory tile - replace if we make one?
-        this.load.spritesheet('wolf', 'assets/Wolf.png', {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet('wolf', 'assets/Wolf.png', {frameWidth: 64, frameHeight: 64});
         this.load.image('lasso', 'assets/Lasso.png', {frameWidth: 32, frameHeight: 32}); 
 
         //load music
@@ -312,10 +312,10 @@ export class Level extends GameScene {
             }
             
             if (this.player.angle % 180 == 0) {
-                this.player.body.setSize(11, 32);
+                this.player.body.setSize(22, 64);
             }
             else if (this.player.angle % 90 == 0) {
-                this.player.body.setSize(32, 8);
+                this.player.body.setSize(64, 16);
             }
             else {
                 this.player.body.setSize();
