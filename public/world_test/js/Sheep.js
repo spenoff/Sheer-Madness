@@ -114,6 +114,9 @@ export class Sheep {
                 if (Math.sqrt(Math.pow(wolf.x - this.asset.x, 2) + Math.pow(wolf.y - this.asset.y, 2)) <= 100) {
                     if (this.asset.wolfWatch == null || Math.sqrt(Math.pow(wolf.x - this.asset.x, 2) + Math.pow(wolf.y - this.asset.y, 2)) < Math.sqrt(Math.pow(this.asset.wolfWatch.x - this.asset.x, 2) + Math.pow(this.asset.wolfWatch.y - this.asset.y, 2))) {
                         this.asset.wolfWatch = wolf;
+                        if(!wolf.sheep_in_range.includes(this.asset)) {
+                            console.log(wolf.sheep_in_range.push(this.asset));
+                        }
                     }
                 }
             });
