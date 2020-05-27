@@ -105,13 +105,13 @@ export class Wolf {
         }
         */
        // check if sheep are in range
-       console.log(this.state);
-       console.log(this.event.paused);
+       //console.log(this.state);
+       //console.log(this.event.paused);
        switch(this.state) {
            case "PATROL":
                //Check if we should switch to the "HUNT" state
                if(this.asset.sheep_in_range.length > 0) {
-                   console.log("Now hunt");
+                   //console.log("Now hunt");
                    this.event.paused = true;
                    this.state = "HUNT";
 
@@ -122,12 +122,12 @@ export class Wolf {
                if(!(this.asset.sheep_in_range.length > 0)) {
                     this.game.physics.accelerateTo(this.asset, this.startPositionX, this.startPositionY, 140, 140);
                     if(this.asset.x === this.startPositionX && this.asset.y === this.startPositionY) {
-                        console.log("Now patrol");
+                        //console.log("Now patrol");
                         this.event.paused = false;
                         this.state = "PATROL";
                     }
                } else {
-                   console.log("accelerating to sheep");
+                   //console.log("accelerating to sheep");
                    var eyed_sheep = this.asset.sheep_in_range[0];
                    this.game.physics.accelerateToObject(this.asset, eyed_sheep, 100, 240);
                }
