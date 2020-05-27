@@ -21,7 +21,7 @@ export class Level extends GameScene {
         this.lvdone = true;
         this.scoreText = null;
         this.timeText = null;
-        this.pausedTime = 0;
+        this.Time = 0;
         this.pauseStart = 0;
     }
 
@@ -465,7 +465,9 @@ export class Level extends GameScene {
                 if (wolf.event) {
                     //console.log(wolf.event);
                     //wolf.event.pause();
-                    wolf.event.paused = true;
+                    if(wolf.state === "PATROL") {
+                        wolf.event.paused = true;
+                    }
                 }
                 
             });
@@ -505,7 +507,9 @@ export class Level extends GameScene {
                     
                     if (wolf.event) {
                         //wolf.event.resume();
-                        wolf.event.paused = false;
+                        if(wolf.state === "PATROL") {
+                            wolf.event.paused = false;
+                        }
                     }
                     
                 });
@@ -635,7 +639,7 @@ export class Level extends GameScene {
         wolfObj.play('walk');
         wolfObj.body.collideWorldBounds = true;
         wolfObj.respondToBark = false;
-        var wolfAI = new Wolf(this, this.sheep, "IDLE", wolfObj);
+        var wolfAI = new Wolf(this, this.sheep, "PATROL", wolfObj);
         wolfAI.setPatrol(startVelocityX, startVelocityY, ms, startStep);
         this.allWolves.push(wolfAI);
         return wolfAI; 

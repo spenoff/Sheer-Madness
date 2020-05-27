@@ -95,18 +95,11 @@ export class Sheep {
         var dogY = this.dog.y;
 
         if (!this.asset.lassoed) {
+            var randomFactor = 10;
             if(this.lassoAsset != null) {
                 this.lassoAsset.destroy();
                 this.lassoAsset = null;
             }
-
-            /*
-            -Change this part so that sheep are set to alert (this.asset.alert) if within a range
-            -Set sheep to not be alert if not within range
-            -If sheep is alert, then it moves away from the dog
-            -How do we conjoin this with bark? If sheep is not in range for natural alert, but is in range for bark alert, sheep will only move once for bark
-               Do we have an alert timer or something?
-            */
 
             this.asset.alert = Math.sqrt(Math.pow(dogX - this.asset.x, 2) + Math.pow(dogY - this.asset.y, 2)) <= 60;
             this.asset.wolfWatch = null;
@@ -227,6 +220,8 @@ export class Sheep {
             console.log(this.asset.be_vy);
             this.asset.setVelocityX(140 *  this.asset.be_vx);
             this.asset.setVelocityY(-140 * this.asset.be_vy);
+            this.asset.body.velocity.x += Math.floor((Math.random() * randomFactor * 2 + 1)) - randomFactor;
+            this.asset.body.velocity.y += Math.floor((Math.random() * randomFactor * 2 + 1)) - randomFactor;
            }
            else if (this.asset.alert || this.asset.dogAlert) {
                if(this.ready_to_baa) {
@@ -234,14 +229,6 @@ export class Sheep {
                    GameScene.playSound(this.baa);
                    this.ready_to_baa = false;
                }
-            //    if(!this.alert_set) {
-            //        this.asset.setVelocityX(140 *  Math.sin(this.dog.rotation));
-            //        this.asset.setVelocityY(-140 * Math.cos(this.dog.rotation));
-            //        this.alert_set = true;
-            //        this.asset.barkedAt = false;
-            //    }
-            //    this.asset.x += this.alertX;
-            //    this.asset.y -= this.alertY;
 
                 if (dogX < this.asset.x) {
                     this.asset.setVelocityX(140);
@@ -256,6 +243,9 @@ export class Sheep {
                 else if (dogY > this.asset.y) {
                     this.asset.setVelocityY(-140);
                 }
+
+                this.asset.body.velocity.x += Math.floor((Math.random() * randomFactor * 2 + 1)) - randomFactor;
+                this.asset.body.velocity.y += Math.floor((Math.random() * randomFactor * 2 + 1)) - randomFactor;
             }
             else if (this.asset.wolfWatch) {
                 if (this.asset.wolfWatch.x < this.asset.x) {
@@ -272,6 +262,9 @@ export class Sheep {
                     this.asset.setVelocityY(-160);
                 }
             }
+
+            //somehow add slight randomization of velocities to above cases not lassoing or fence collide
+
             else {
                 this.asset.setVelocityX(0);
                 this.asset.setVelocityY(0);
