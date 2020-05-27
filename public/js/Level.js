@@ -21,7 +21,7 @@ export class Level extends GameScene {
         this.lvdone = true;
         this.scoreText = null;
         this.timeText = null;
-        this.pausedTime = 0;
+        this.Time = 0;
         this.pauseStart = 0;
     }
 
@@ -62,9 +62,9 @@ export class Level extends GameScene {
         //Pause Title
         this.load.image('ptitle', 'assets/Titles/PauseTitle.png');
         //Pause Buttons
-        this.load.image('resume', 'assets/Buttons/Resume.png');
-        this.load.image('levelsel', 'assets/Buttons/LevelSelect.png');
-        this.load.image('mainmenu', 'assets/Buttons/MainMenu.png');
+        this.load.spritesheet('resume', 'assets/Buttons/Resume.png', {frameWidth: 506, frameHeight: 105});
+        this.load.spritesheet('levelsel', 'assets/Buttons/LevelSelect.png', {frameWidth: 506, frameHeight: 105});
+        this.load.spritesheet('mainmenu', 'assets/Buttons/MainMenu.png', {frameWidth: 506, frameHeight: 105});
         
         this.lose_in_update = false;
     }
@@ -81,7 +81,6 @@ export class Level extends GameScene {
         this.win = this.sound.add('win');
         this.lose = this.sound.add('lose');
 
-        this.status = 0; //0 = in progress, 1 = complete, 2 = fail, 3 = restart/change level, 4 = paused
         this.startTime = Date.now(); //epoch in ms
 
         /*
@@ -153,6 +152,7 @@ export class Level extends GameScene {
         this.finishSpace = this.physics.add.staticGroup({
             defaultKey: 'finishSpace'
         });
+        this.walls = this.add.group();
 
         this.player = this.dog.create(960, 540, undefined, 0);
         this.player.lassoAsset = null;
@@ -300,6 +300,8 @@ export class Level extends GameScene {
         
         //Level Pausing
         this.esckey = this.input.keyboard.addKey('ESC');
+
+        this.status = 0; //0 = in progress, 1 = complete, 2 = fail, 3 = restart/change level, 4 = paused
     }
 
     update() {
@@ -317,7 +319,7 @@ export class Level extends GameScene {
                 this.player.body.setSize(32, 8);
             }
             else {
-                this.player.body.setSize();
+                this.player.body.setSize(25, 25);
             }
             
             
@@ -431,6 +433,18 @@ export class Level extends GameScene {
                 }
             }
 
+
+            this.sheep.children.iterate((sheep) => {
+               this.fence.children.iterate((wall) => {
+                   if (Math.sqrt(Math.pow(wall.x - sheep.x, 2) + Math.pow(wall.y - sheep.y, 2)) < sheep.body.width + wall.body.width) {
+                       if (((wall.x - sheep.x < 0) == (sheep.body.velocity.x < 0)) && ((wall.y - sheep.y < 0) == (sheep.body.velocity.y < 0))) { //if moving towards fence 
+                           sheep.setVelocity(0);
+                       }
+                   }
+               })
+            });
+
+
             this.updateTimeText();
         }
 
@@ -451,7 +465,9 @@ export class Level extends GameScene {
                 if (wolf.event) {
                     //console.log(wolf.event);
                     //wolf.event.pause();
-                    wolf.event.paused = true;
+                    if(wolf.state === "PATROL") {
+                        wolf.event.paused = true;
+                    }
                 }
                 
             });
@@ -460,9 +476,21 @@ export class Level extends GameScene {
             GameScene.playSound(this.pause_sound);
             
             var pausetitle      = this.add.sprite(960, 150, 'ptitle');
-            var resume          = this.add.sprite(960, 450, 'resume').setInteractive();
-            var levelsel        = this.add.sprite(960, 570, 'levelsel').setInteractive();
-            var mainmenu        = this.add.sprite(960, 690, 'mainmenu').setInteractive();
+            //Resume Button
+            var resume = this.add.sprite(960, 450, 'resume')
+            .setInteractive({ useHandCursor: true })
+            .on('pointerover', () => resume.setFrame(1))
+            .on('pointerout', () => resume.setFrame(0));
+            //Level Select Button
+            var levelsel = this.add.sprite(960, 570, 'levelselect')
+            .setInteractive({ useHandCursor: true })
+            .on('pointerover', () => levelsel.setFrame(1))
+            .on('pointerout', () => levelsel.setFrame(0));
+            //Main Menu Button
+            var mainmenu = this.add.sprite(960, 690, 'mainmenu')
+            .setInteractive({ useHandCursor: true })
+            .on('pointerover', () => mainmenu.setFrame(1))
+            .on('pointerout', () => mainmenu.setFrame(0));
             
             resume.on('pointerdown', function(event) {
                 this.status = 0;
@@ -479,7 +507,9 @@ export class Level extends GameScene {
                     
                     if (wolf.event) {
                         //wolf.event.resume();
-                        wolf.event.paused = false;
+                        if(wolf.state === "PATROL") {
+                            wolf.event.paused = false;
+                        }
                     }
                     
                 });
@@ -575,11 +605,12 @@ export class Level extends GameScene {
     createSheep(x, y) {
         var sheepObj = this.sheep.create(x, y, undefined, 0);
         sheepObj.body.collideWorldBounds = true;
+        sheepObj.body.immovable = true;
         sheepObj.lassoed = false;
         sheepObj.alert = false;
         sheepObj.dogAlert = false;
         sheepObj.body.setSize(22, 22);
-        var sheepAI = new Sheep(this, this.player, "IDLE", sheepObj);
+        var sheepAI = new Sheep(this, this.player, this.wolf, "IDLE", sheepObj);
         this.allSheep.push(sheepAI);
         this.numStartingSheep++;
         return sheepAI;
@@ -608,7 +639,7 @@ export class Level extends GameScene {
         wolfObj.play('walk');
         wolfObj.body.collideWorldBounds = true;
         wolfObj.respondToBark = false;
-        var wolfAI = new Wolf(this, this.sheep, "IDLE", wolfObj);
+        var wolfAI = new Wolf(this, this.sheep, "PATROL", wolfObj);
         wolfAI.setPatrol(startVelocityX, startVelocityY, ms, startStep);
         this.allWolves.push(wolfAI);
         return wolfAI; 
@@ -636,12 +667,15 @@ export class Level extends GameScene {
         startTerminate: end the fence line at start
         endTerminate: end the fence line at end
     */
-    createHorizontalFences(startX, startY, num, dir=1, startTerminate=true, endTerminate=true) {
+    createHorizontalFences(startX, startY, num, dir=1, startTerminate=true, endTerminate=true, wall=false) {
         var f;
         if (num == 1) {
             f = this.fence.create(startX, startY, undefined, 0);
             f.angle += 90;
             f.type = 0;
+            if (wall) {
+                this.walls.add(f);
+            }
         }
         else {
             var incrementer = dir * 32;
@@ -661,15 +695,21 @@ export class Level extends GameScene {
                     f.angle += 90;
                     f.type = 0;
                 }
+                if (wall) {
+                    this.walls.add(f);
+                }
             }
         }
     }
 
-    createVerticalFences(startX, startY, num, dir=1, startTerminate=true, endTerminate=true) {
+    createVerticalFences(startX, startY, num, dir=1, startTerminate=true, endTerminate=true, wall=false) {
         var f;
         if (num == 1) {
             f = this.fence.create(startX, startY, undefined, 0);
             f.type = 1;
+            if (wall) {
+                this.walls.add(f);
+            }
         }
         else {
             var incrementer = dir * 32;
@@ -692,41 +732,53 @@ export class Level extends GameScene {
                     f = this.fence.create(startX, startY + incrementer * i, undefined, 0);
                     f.type = 1;
                 }
+                if (wall) {
+                    this.walls.add(f);
+                }
             }
         }
     }
 
-    createTFence(x, y, angle) {
+    createTFence(x, y, angle, wall=false) {
         var f = this.fence.create(x, y, undefined, 3);
         f.angle += angle;
         f.type = 2;
+        if (wall) {
+            this.walls.add(f);
+        }
     }
 
-    createLFence(x, y, angle) {
+    createLFence(x, y, angle, wall=false) {
         var f = this.fence.create(x, y, undefined, 1);
         f.angle += 180 + angle;
         f.type = 3;
+        if (wall) {
+            this.walls.add(f);
+        }
     }   
 
-    createPlusFence(x, y) {
+    createPlusFence(x, y, wall=false) {
         var f = this.fence.create(x, y, undefined, 4);
         f.type = 4;
+        if (wall) {
+            this.walls.add(f);
+        }
     }
 
     /*
     numHorizonFences = number of horizontal fences between the corners
     numVerticFences = number of vertical fences between the corners
     */
-    createBoxOfFences(startX, startY, numHorizFences, numVerticFences) {
-        this.createVerticalFences(startX, startY + 32, numVerticFences, 1, false, false);
-        this.createVerticalFences(startX + 32 * (numHorizFences + 1), startY + 32, numVerticFences, 1, false, false);
-        this.createHorizontalFences(startX + 32, startY, numHorizFences, 1, false, false);
-        this.createHorizontalFences(startX + 32, startY + 32 * (numVerticFences + 1), numHorizFences, 1, false, false);
+    createBoxOfFences(startX, startY, numHorizFences, numVerticFences, walls=true) {
+        this.createVerticalFences(startX, startY + 32, numVerticFences, 1, false, false, walls);
+        this.createVerticalFences(startX + 32 * (numHorizFences + 1), startY + 32, numVerticFences, 1, false, false, walls);
+        this.createHorizontalFences(startX + 32, startY, numHorizFences, 1, false, false, walls);
+        this.createHorizontalFences(startX + 32, startY + 32 * (numVerticFences + 1), numHorizFences, 1, false, false, walls);
 
-        this.createLFence(startX, startY, 90);
-        this.createLFence(startX, startY + 32 * (numVerticFences + 1), 0);
-        this.createLFence(startX + 32 * (numHorizFences + 1), startY, 180);
-        this.createLFence(startX + 32 * (numHorizFences + 1), startY + 32 * (numVerticFences + 1), -90);
+        this.createLFence(startX, startY, 90, walls);
+        this.createLFence(startX, startY + 32 * (numVerticFences + 1), 0, walls);
+        this.createLFence(startX + 32 * (numHorizFences + 1), startY, 180, walls);
+        this.createLFence(startX + 32 * (numHorizFences + 1), startY + 32 * (numVerticFences + 1), -90, walls);
     }
 
     //Create finish area starting at (x,y) with width and height

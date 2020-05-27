@@ -21,7 +21,7 @@ export class Level extends GameScene {
         this.lvdone = true;
         this.scoreText = null;
         this.timeText = null;
-        this.pausedTime = 0;
+        this.Time = 0;
         this.pauseStart = 0;
     }
 
@@ -81,7 +81,6 @@ export class Level extends GameScene {
         this.win = this.sound.add('win');
         this.lose = this.sound.add('lose');
 
-        this.status = 0; //0 = in progress, 1 = complete, 2 = fail, 3 = restart/change level, 4 = paused
         this.startTime = Date.now(); //epoch in ms
 
         /*
@@ -301,6 +300,8 @@ export class Level extends GameScene {
         
         //Level Pausing
         this.esckey = this.input.keyboard.addKey('ESC');
+
+        this.status = 0; //0 = in progress, 1 = complete, 2 = fail, 3 = restart/change level, 4 = paused
     }
 
     update() {
@@ -318,7 +319,7 @@ export class Level extends GameScene {
                 this.player.body.setSize(64, 16);
             }
             else {
-                this.player.body.setSize();
+                this.player.body.setSize(25, 25);
             }
             
             
@@ -464,7 +465,9 @@ export class Level extends GameScene {
                 if (wolf.event) {
                     //console.log(wolf.event);
                     //wolf.event.pause();
-                    wolf.event.paused = true;
+                    if(wolf.state === "PATROL") {
+                        wolf.event.paused = true;
+                    }
                 }
                 
             });
@@ -504,7 +507,9 @@ export class Level extends GameScene {
                     
                     if (wolf.event) {
                         //wolf.event.resume();
-                        wolf.event.paused = false;
+                        if(wolf.state === "PATROL") {
+                            wolf.event.paused = false;
+                        }
                     }
                     
                 });
@@ -605,7 +610,7 @@ export class Level extends GameScene {
         sheepObj.alert = false;
         sheepObj.dogAlert = false;
         sheepObj.body.setSize(22, 22);
-        var sheepAI = new Sheep(this, this.player, "IDLE", sheepObj);
+        var sheepAI = new Sheep(this, this.player, this.wolf, "IDLE", sheepObj);
         this.allSheep.push(sheepAI);
         this.numStartingSheep++;
         return sheepAI;
@@ -634,7 +639,7 @@ export class Level extends GameScene {
         wolfObj.play('walk');
         wolfObj.body.collideWorldBounds = true;
         wolfObj.respondToBark = false;
-        var wolfAI = new Wolf(this, this.sheep, "IDLE", wolfObj);
+        var wolfAI = new Wolf(this, this.sheep, "PATROL", wolfObj);
         wolfAI.setPatrol(startVelocityX, startVelocityY, ms, startStep);
         this.allWolves.push(wolfAI);
         return wolfAI; 
