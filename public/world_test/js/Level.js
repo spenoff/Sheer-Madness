@@ -319,7 +319,7 @@ export class Level extends GameScene {
                 this.player.body.setSize(64, 16);
             }
             else {
-                this.player.body.setSize(25, 25);
+                this.player.body.setSize(60, 60);
             }
             
             
