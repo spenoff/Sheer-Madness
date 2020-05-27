@@ -119,7 +119,7 @@ export class Wolf {
                break;
            case "HUNT":
                //Check if we should switch to the  "PATROL" state
-               if(!(this.asset.sheep_in_range.lenth > 0)) {
+               if(!(this.asset.sheep_in_range.length > 0)) {
                     this.game.physics.accelerateTo(this.asset, this.startPositionX, this.startPositionY, 140, 140);
                     if(this.asset.x === this.startPositionX && this.asset.y === this.startPositionY) {
                         console.log("Now patrol");

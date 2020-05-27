@@ -21,7 +21,7 @@ export class Level extends GameScene {
         this.lvdone = true;
         this.scoreText = null;
         this.timeText = null;
-        this.pausedTime = 0;
+        this.Time = 0;
         this.pauseStart = 0;
     }
 
