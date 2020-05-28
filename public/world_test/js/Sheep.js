@@ -111,6 +111,11 @@ export class Sheep {
                         if(!wolf.sheep_in_range.includes(this.asset)) {
                             console.log(wolf.sheep_in_range.push(this.asset));
                         }
+                    } else {
+                        if(wolf.sheep_in_range.includes(this.asset)) {
+                            remove(wolf.sheep_in_range(this.asset));
+                            console.log(wolf.sheep_in_range.length);
+                        }
                     }
                 }
             });
@@ -301,6 +306,15 @@ export class Sheep {
             this.asset.setVelocityX(this.dog.body.velocity.x);
             this.asset.setVelocityY(this.dog.body.velocity.y);
            
+        }
+    }
+}
+
+function remove(arr, element) {
+    var i;
+    for(i = 0; i < arr.length; i++) {
+        if(arr[i] === element) {
+            arr.splice(i, 1);
         }
     }
 }

@@ -79,6 +79,20 @@ export class Wolf {
         }
     }
 
+    moveTo(x, y) {
+        if(x > this.asset.x) {
+            this.asset.setVelocityX(100);
+        } else if(x < this.asset.x) {
+            this.asset.setVelocityX(-100);
+        }
+
+        if(y > this.asset.y) {
+            this.asset.setVelocityY(100);
+        } else if(y < this.asset.y) {
+            this.asset.setVelocityY(-100);
+        }
+    }
+
     update() {
         //update rotation
         if(this.asset.body.velocity.x < 0) {
@@ -115,25 +129,38 @@ export class Wolf {
            case "PATROL":
                //Check if we should switch to the "HUNT" state
                if(this.asset.sheep_in_range.length > 0) {
-                   //console.log("Now hunt");
+                   console.log("Now hunt");
                    this.event.paused = true;
                    this.state = "HUNT";
-
                }
                break;
            case "HUNT":
                //Check if we should switch to the  "PATROL" state
-               if(!(this.asset.sheep_in_range.length > 0)) {
-                    this.game.physics.accelerateTo(this.asset, this.startPositionX, this.startPositionY, 140, 140);
+               if(this.asset.sheep_in_range.length <= 0) {
+                    this.moveTo(this.startPositionX, this.startPositionY);
+
+                    if(this.asset.x < this.startPositionX + 1 && this.asset.x > this.startPositionX - 1) {
+                        this.asset.x = this.startPositionX;
+                    }
+                    if(this.asset.y < this.startPositionY + 1 && this.asset.y > this.startPositionY - 1) {
+                        this.asset.y = this.startPositionY;
+                    }
                     if(this.asset.x === this.startPositionX && this.asset.y === this.startPositionY) {
-                        //console.log("Now patrol");
+                        //console.log("x: " + this.asset.startVelocityX);
+                        //console.log("y: " + this.asset.startVelocityY);
+                        //console.log("ms: " + this.asset.ms);
+                        //console.log("ss: " + this.asset.startStep);
+                        //this.setPatrol(this.asset.startVelocityX, this.asset.startVelocityY, this.asset.ms, this.asset.startStep);
                         this.event.paused = false;
+                        //this.asset.setVelocityX(0);
+                        //this.asset.setVelocityY(0);
+                        console.log("now patrol");
                         this.state = "PATROL";
                     }
                } else {
                    //console.log("accelerating to sheep");
                    var eyed_sheep = this.asset.sheep_in_range[0];
-                   this.game.physics.accelerateToObject(this.asset, eyed_sheep, 100, 240);
+                   this.moveTo(eyed_sheep.x, eyed_sheep.y);
                }
                break;
        }
