@@ -251,6 +251,11 @@ export class Level extends GameScene {
         this.physics.add.collider(this.wolf, this.sheep, (wolf, sheep) => {
             //this.bite.play();
             GameScene.playSound(this.bite);
+            console.log(wolf.sheep_in_range.length);
+            if(wolf.sheep_in_range.includes(sheep)) {
+                remove(wolf.sheep_in_range, sheep);
+                console.log(wolf.sheep_in_range.length);
+            }
             this.removeSheep(sheep);
         }); //do I have an event?
         this.player.lassoAsset = null;
@@ -812,3 +817,12 @@ function pause(numberMillis) {
             return; 
     } 
 } 
+
+function remove(arr, element) {
+    var i;
+    for(i = 0; i < arr.length; i++) {
+        if(arr[i] === element) {
+            arr.splice(i, 1);
+        }
+    }
+}
