@@ -280,7 +280,7 @@ export class Level extends GameScene {
                 var target = null;
                 for (var i = 0; i < this.allSheep.length; i++) {
                     var sheep = this.allSheep[i].asset;
-                    if (Math.sqrt(Math.pow(this.player.x - sheep.x, 2) + Math.pow(this.player.y - sheep.y, 2)) <= 32 + 30) {
+                    if (Math.sqrt(Math.pow(this.player.x - sheep.x, 2) + Math.pow(this.player.y - sheep.y, 2)) <= 32 * 2 + 20) { //lasso radius
                         //When do I override the lasso target? Currently, the sheep to lasso will be the last one in list to fulfill conditions
                         target = sheep;
                     }
@@ -609,7 +609,7 @@ export class Level extends GameScene {
         sheepObj.lassoed = false;
         sheepObj.alert = false;
         sheepObj.dogAlert = false;
-        sheepObj.body.setSize(22, 22);
+        sheepObj.body.setSize(44, 44);
         var sheepAI = new Sheep(this, this.player, this.wolf, "IDLE", sheepObj);
         this.allSheep.push(sheepAI);
         this.numStartingSheep++;
@@ -638,6 +638,8 @@ export class Level extends GameScene {
         var wolfObj = this.wolf.create(x, y);
         wolfObj.play('walk');
         wolfObj.body.collideWorldBounds = true;
+        //wolfObj.body.immovable = true;
+        wolfObj.body.setSize(20, 64);
         wolfObj.respondToBark = false;
         var wolfAI = new Wolf(this, this.sheep, "PATROL", wolfObj);
         wolfAI.setPatrol(startVelocityX, startVelocityY, ms, startStep);

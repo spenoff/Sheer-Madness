@@ -83,12 +83,16 @@ export class Wolf {
         //update rotation
         if(this.asset.body.velocity.x < 0) {
             this.asset.angle = -90;
+            this.asset.body.setSize(64, 20);
         } else if(this.asset.body.velocity.x > 0) {
             this.asset.angle = 90;
+            this.asset.body.setSize(64, 20);
         } else if(this.asset.body.velocity.y > 0) {
             this.asset.angle = -180;
+            this.asset.body.setSize(20, 64);
         } else {
             this.asset.angle = 0;
+            this.asset.body.setSize(20, 64);
         }
         if(this.asset.body.velocity.x != 0 || this.asset.body.velocity.y != 0) {
             const newLocal = 'wolf_walk';

@@ -101,10 +101,11 @@ export class Sheep {
                 this.lassoAsset = null;
             }
 
-            this.asset.alert = Math.sqrt(Math.pow(dogX - this.asset.x, 2) + Math.pow(dogY - this.asset.y, 2)) <= 60;
+            this.asset.alert = Math.sqrt(Math.pow(dogX - this.asset.x, 2) + Math.pow(dogY - this.asset.y, 2)) <= 120; //herding radius
             this.asset.wolfWatch = null;
             this.wolves.children.iterate((wolf) => {
                 if (Math.sqrt(Math.pow(wolf.x - this.asset.x, 2) + Math.pow(wolf.y - this.asset.y, 2)) <= 100) {
+                    //wolf detection radius
                     if (this.asset.wolfWatch == null || Math.sqrt(Math.pow(wolf.x - this.asset.x, 2) + Math.pow(wolf.y - this.asset.y, 2)) < Math.sqrt(Math.pow(this.asset.wolfWatch.x - this.asset.x, 2) + Math.pow(this.asset.wolfWatch.y - this.asset.y, 2))) {
                         this.asset.wolfWatch = wolf;
                         if(!wolf.sheep_in_range.includes(this.asset)) {

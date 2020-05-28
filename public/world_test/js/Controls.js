@@ -11,7 +11,7 @@ export class Controls {
         this.sKey = sKey;
         this.dKey = dKey;
         this.sheep = sheep;
-        this.barkRadius = 250;
+        this.barkRadius = 500; //bark radius
         this.lassoed = false;
     }
 
