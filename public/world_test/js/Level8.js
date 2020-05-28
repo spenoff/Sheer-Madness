@@ -26,24 +26,25 @@ export class Level8 extends Level {
 
        var t = this.add.text(900, 800, text, style);
 
-        this.createBoxOfFences(32, 32, 25, 30);
+        this.createBoxOfFences(32, 32, 25, 31);
         this.createFinishSpace(32, 32, 672+160, 150);
 
         this.setPlayerPosition(610, 920);
         this.createSheep(610, 700);
-        this.createSheep(320, 320);
+        this.createSheep(250, 280);
 
+        //Dog Box
         this.createHorizontalFences(504, 775, 8, 1, false, false);
         this.createLFence(472, 775, 90);
         this.createLFence(472 + 9 * 32, 775, 180);
         this.createVerticalFences(472, 807, 5, 1, false, true);
         this.createVerticalFences(472 + 9 * 32, 807, 5, 1, false, true);
 
-        this.createHorizontalFences(64, 390, 10, 1, true, false);
-        this.createVerticalFences(64 + 10 * 32, 358, 6, -1, false, true);
-        this.createLFence(64 + 10 * 32, 390, -90);
+        //Sheep Box
+        this.createHorizontalFences(32, 32*12, 12, 1);
+        this.createVerticalFences(32*12, 32, 12, 1);
 
-        this.createWolf(450, 700, 120, 0, 1800);
+        this.createWolf(400, 700, 120, 0, 2000);
     }
 
     update() {

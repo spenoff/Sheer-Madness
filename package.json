@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/spenoff/Sheer-Madness#readme",
   "dependencies": {
+    "firebase-admin": "^8.12.1",
+    "firebase-functions": "^3.6.1",
     "phaser": "^3.22.0"
   }
 }
