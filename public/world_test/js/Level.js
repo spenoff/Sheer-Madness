@@ -393,7 +393,7 @@ export class Level extends GameScene {
                     //console.log(sheep.x , sheep.y);
                     if (sheep.x >= space.x - space.width/2 && sheep.x <= space.x + space.width/2 &&
                         sheep.y >= space.y - space.height/2 && sheep.y <= space.y + space.height/2) {
-                        console.log("scored");
+                        //console.log("scored");
                         var finishTime = Date.now();
                         this.score += this.sheepScore;
                         this.score += Math.floor(8000 *  1000 / (finishTime - this.startTime - this.pausedTime)); //balance needs to be checked
@@ -405,21 +405,6 @@ export class Level extends GameScene {
                     }
                 }
             }
-
-            /*
-            if (this.score >= this.requiredScore) {
-                var finishTime = Date.now();
-                //this.score += Math.floor(1000 * 100 * this.score / (finishTime - this.startTime));
-                this.levelDoneSequence(1, 'Level complete!\nYour score is: ' + this.score + '\nPress N to go to the next level');
-                console.log("SCORE: " + this.score);
-                status = 1;
-            }
-
-            if (this.allSheep.length * this.sheepScore + this.score < this.requiredScore) {
-                this.levelDoneSequence(2, 'Game over! You did not herd enough sheep.\nPress R to restart the level');
-                status = 2;
-            }
-            */
 
             if (this.allSheep.length == 0) {
                 if (this.score >= this.requiredScore && this.sheepHerded >= this.requiredSheepHerded) {
@@ -624,7 +609,6 @@ export class Level extends GameScene {
             }
         }
         if (remove_index != -1) {
-            console.log(remove_index);
             this.allSheep.splice(remove_index, 1);
         }
         if (this.player.lassoTarget == sheep) {
@@ -655,7 +639,6 @@ export class Level extends GameScene {
             }
         }
         if (remove_index != -1) {
-            console.log(remove_index);
             this.allWolves.splice(remove_index, 1);
         }
         wolf.destroy();
@@ -787,12 +770,6 @@ export class Level extends GameScene {
     createFinishSpace(x, y, width, height) {
         var spaceBgTile = this.add.tileSprite(x + width/2, y + height/2, width, height, 'red');
         spaceBgTile.setDepth(-1);
-        /* //does not work right now
-        this.physics.add.collider(spaceBgTile, this.sheep, (tile, sheep) => {
-            console.log("hi");
-        });
-        */
-
         this.allFinishSpaces.push({
             x: x + width/2,
             y: y + height/2,
@@ -809,7 +786,6 @@ export class Level extends GameScene {
     updateScoreText() {
         this.scoreText.setText("Score: " + this.score + ", Sheep herded: " + this.sheepHerded);
         this.scoreText.setX(1920 - this.scoreText.width);
-        //TODO: set xy
     }
 
     updateTimeText() {

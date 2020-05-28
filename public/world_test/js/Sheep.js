@@ -116,7 +116,7 @@ export class Sheep {
             });
 
            if(this.asset.in_bark_event) {
-            console.log(this.asset.be_vy);
+            //console.log(this.asset.be_vy);
             this.asset.setVelocityX(140 *  this.asset.be_vx);
             this.asset.setVelocityY(-140 * this.asset.be_vy);
            }
@@ -140,7 +140,7 @@ export class Sheep {
                         if(this.asset.collided_fence.y > this.asset.y) {
                             //fence is below the sheep
                             this.asset.setVelocityY(-16);
-                            console.log("t");
+                            //console.log("t");
                             if(Math.abs(this.asset.collided_fence.y - this.asset.y) > 64) {
                                 this.asset.collided_with_fence = false;
                                 this.asset.wait_count = 0;
@@ -149,7 +149,7 @@ export class Sheep {
                         } else if(this.asset.collided_fence.y < this.asset.y) {
                             //fence is above the sheep
                             this.asset.setVelocityY(16);
-                            console.log("y");
+                            //onsole.log("y");
                             if(Math.abs(this.asset.collided_fence.y - this.asset.y) > 64) {
                                 this.asset.collided_with_fence = false;
                                 this.asset.wait_count = 0;
@@ -161,7 +161,7 @@ export class Sheep {
                        if(this.asset.collided_fence.x > this.asset.x) {
                             //fence is below the sheep
                             this.asset.setVelocityX(-16);
-                            console.log("t");
+                            //console.log("t");
                             if(Math.abs(this.asset.collided_fence.x - this.asset.x) > 64) {
                                 this.asset.collided_with_fence = false;
                                 this.asset.wait_count = 0;
@@ -170,7 +170,7 @@ export class Sheep {
                         } else if(this.asset.collided_fence.x < this.asset.x) {
                             //fence is above the sheep
                             this.asset.setVelocityX(16);
-                            console.log("y");
+                            //console.log("y");
                             if(Math.abs(this.asset.collided_fence.x - this.asset.x) > 64) {
                                 this.asset.collided_with_fence = false;
                                 this.asset.wait_count = 0;
@@ -198,7 +198,7 @@ export class Sheep {
                         if(this.asset.collided_fence.x > this.asset.x) {
                             //fence is below the sheep
                             this.asset.setVelocityX(-16);
-                            console.log("t");
+                            //console.log("t");
                             if(Math.abs(this.asset.collided_fence.x - this.asset.x) > 64) {
                                 this.asset.collided_with_fence = false;
                                 this.asset.wait_count = 0;
@@ -207,7 +207,7 @@ export class Sheep {
                         } else if(this.asset.collided_fence.x < this.asset.x) {
                             //fence is above the sheep
                             this.asset.setVelocityX(16);
-                            console.log("y");
+                            //console.log("y");
                             if(Math.abs(this.asset.collided_fence.x - this.asset.x) > 64) {
                                 this.asset.collided_with_fence = false;
                                 this.asset.wait_count = 0;
@@ -218,7 +218,7 @@ export class Sheep {
                }
            }
            else if(this.asset.in_bark_event) {
-            console.log(this.asset.be_vy);
+            //console.log(this.asset.be_vy);
             this.asset.setVelocityX(140 *  this.asset.be_vx);
             this.asset.setVelocityY(-140 * this.asset.be_vy);
             this.asset.body.velocity.x += Math.floor((Math.random() * randomFactor * 2 + 1)) - randomFactor;
