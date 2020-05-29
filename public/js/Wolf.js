@@ -214,7 +214,7 @@ export class Wolf {
                      //if(this.asset.y < this.startPositionY + 3 && this.asset.y > this.startPositionY - 3) {
                          this.asset.y = this.startPositionY;
                     // }
-                    if(this.asset.x === this.startPositionX && this.asset.y === this.startPositionY) {
+                    //if(this.asset.x === this.startPositionX && this.asset.y === this.startPositionY) {
                         //console.log("x: " + this.asset.startVelocityX);
                         //console.log("y: " + this.asset.startVelocityY);
                         //console.log("ms: " + this.asset.ms);
@@ -232,7 +232,7 @@ export class Wolf {
                         this.update_counter = 0;
                         //console.log("now patrol");
                         this.state = "PATROL";
-                    }
+                   // }
                } else {
                    //console.log("accelerating to sheep");
                    var eyed_sheep = this.asset.sheep_in_range[0];
