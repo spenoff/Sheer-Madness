@@ -209,13 +209,13 @@ export class Level extends GameScene {
             dog.x = pond.x;
             dog.y = pond.y;
             dog.pond = pond;
-            var doSomething = () => {
-                if(dog.ac) { return; }
-                dog.ac = true;
+            //var doSomething = () => {
+                //if(dog.ac) { return; }
+                //dog.ac = true;
                 GameScene.playSound(this.drown);
                 this.levelDoneSequence(2, 'Game over! You are too tired from doggypaddling out of the lake that you cannot do your duties for the rest of the day.\nPress R to restart the level');
-            }
-            dog.on('animationcomplete', doSomething);
+            //}
+            //dog.on('animationcomplete', doSomething);
 
             
         });
@@ -239,14 +239,14 @@ export class Level extends GameScene {
         this.physics.add.collider(this.wolf, this.dog, (wolf, dog) => {
             //this.bite.play();
             dog.play("die");
-            var doSomething = () => {
-                if(dog.ac) { return; }
-                dog.ac = true;
+            //var doSomething = () => {
+                //if(dog.ac) { return; }
+                //dog.ac = true;
                 GameScene.playSound(this.bite);
                 this.levelDoneSequence(2, "Game over! The wolf killed you!\nPress R to restart the level");
                 //this.player.destroy();
-            }
-            dog.on('animationcomplete', doSomething);
+            //}
+            //dog.on('animationcomplete', doSomething);
         }); //do I have an event? - weird interaction
         this.physics.add.collider(this.wolf, this.sheep, (wolf, sheep) => {
             //this.bite.play();
@@ -393,6 +393,13 @@ export class Level extends GameScene {
                         this.score += this.sheepScore;
                         this.score += Math.floor(8000 *  1000 / (finishTime - this.startTime - this.pausedTime)); //balance needs to be checked
                         this.sheepHerded += 1;
+                        var k;
+                        for(k = 0; k < this.allWolves.length; k++) {
+                            var wolf = this.allWolves[k];
+                            if(wolf.asset.sheep_in_range.includes(sheep)) {
+                                remove(wolf.asset.sheep_in_range, sheep);
+                            }
+                        }
                         //this.baa.play();
                         GameScene.playSound(this.baa);
                         this.removeSheep(sheep);
