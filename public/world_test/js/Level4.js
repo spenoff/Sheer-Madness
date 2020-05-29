@@ -27,9 +27,9 @@ export class Level4 extends Level {
         this.createSheep(32*6, 32*6);
 
         //Left Wolf
-        this.createWolf(32*12, 32*17, 120, 0, 2100);
+        this.createWolf(32*12, 32*17, 120, 0, 125);
         //Right Wolf
-        this.createWolf(32*24, 32*17, 120, 0, 2100);
+        this.createWolf(32*24, 32*17, 120, 0, 125);
 
         this.createVerticalFences(32*10, 32, 23);
         this.createVerticalFences(32*34, 32, 23);

@@ -55,13 +55,13 @@ export class Level9 extends Level {
         }
 
         //Bottom Wolf
-        this.createWolf(80, 768, 120, 0, 5000);
+        this.createWolf(80, 768, 120, 0, 250);
         //Middle Wolf
-        this.createWolf(488, 640, -120, 0, 1800);
+        this.createWolf(488, 640, -120, 0, 90);
         //Top Wolf
-        this.createWolf(670, 512, -120, 0, 5000);
+        this.createWolf(670, 512, -120, 0, 250);
         //Vertical Wolf
-        this.createWolf(700, 350, 0, 120, 2800);
+        this.createWolf(700, 350, 0, 120, 140);
 
         this.createVerticalFences(742, 344, 5, -1, false, true);
         this.createHorizontalFences(742 + (32*7), 184+32, 8, -1, false, true);

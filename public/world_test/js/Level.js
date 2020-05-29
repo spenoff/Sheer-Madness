@@ -452,13 +452,13 @@ export class Level extends GameScene {
                 wolf.asset.setVelocityX(0);
                 wolf.asset.setVelocityY(0);
                 
-                if (wolf.event) {
-                    //console.log(wolf.event);
-                    //wolf.event.pause();
-                    if(wolf.state === "PATROL") {
-                        wolf.event.paused = true;
-                    }
-                }
+                // if (wolf.event) {
+                //     //console.log(wolf.event);
+                //     //wolf.event.pause();
+                //     if(wolf.state === "PATROL") {
+                //         wolf.event.paused = true;
+                //     }
+                // }
                 
             });
             
@@ -491,18 +491,18 @@ export class Level extends GameScene {
                 levelsel.destroy();
                 mainmenu.destroy(); 
                 this.pausedTime += (Date.now() - this.pauseStart);
-                this.allWolves.forEach(function(wolf) {
-                    wolf.asset.setVelocityX(wolf.storedX);
-                    wolf.asset.setVelocityY(wolf.storedY);
+                // this.allWolves.forEach(function(wolf) {
+                //     wolf.asset.setVelocityX(wolf.storedX);
+                //     wolf.asset.setVelocityY(wolf.storedY);
                     
-                    if (wolf.event) {
-                        //wolf.event.resume();
-                        if(wolf.state === "PATROL") {
-                            wolf.event.paused = false;
-                        }
-                    }
+                //     // if (wolf.event) {
+                //     //     //wolf.event.resume();
+                //     //     if(wolf.state === "PATROL") {
+                //     //         wolf.event.paused = false;
+                //     //     }
+                //     // }
                     
-                });
+                // });
 
             }, this);
             levelsel.on('pointerdown', function(event) {
@@ -552,7 +552,7 @@ export class Level extends GameScene {
         });
         this.allWolves.forEach((wolf) => {
             wolf.asset.setVelocity(0);
-            wolf.event.paused = true;
+            //wolf.event.paused = true;
         })
         this.lvdone = true;
 
@@ -623,7 +623,7 @@ export class Level extends GameScene {
         sheep.destroy();
     }
 
-    createWolf(x, y, startVelocityX=0, startVelocityY=0, ms=0, startStep=0) {
+    createWolf(x, y, startVelocityX=0, startVelocityY=0, frames=0, startStep=0) {
         var wolfObj = this.wolf.create(x, y);
         wolfObj.play('walk');
         wolfObj.body.collideWorldBounds = true;
@@ -631,7 +631,8 @@ export class Level extends GameScene {
         wolfObj.body.setSize(20, 64);
         wolfObj.respondToBark = false;
         var wolfAI = new Wolf(this, this.sheep, "PATROL", wolfObj);
-        wolfAI.setPatrol(startVelocityX, startVelocityY, ms, startStep);
+        wolfAI.setPatrol(startVelocityX, startVelocityY, frames, startStep);
+        wolfObj.startAngle = wolfObj.angle;
         this.allWolves.push(wolfAI);
         return wolfAI; 
     }
