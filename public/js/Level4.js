@@ -28,6 +28,7 @@ export class Level4 extends Level {
         this.setPlayerPosition(32*5, 32*3);
         this.createSheep(32*4, 32*6);
         this.createSheep(32*6, 32*6);
+        this.createSheep(32*8, 32*6);
 
         //Left Wolf
         this.createWolf(32*12, 32*17, 120, 0, 120);
