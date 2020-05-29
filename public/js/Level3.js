@@ -21,6 +21,9 @@ export class Level3 extends Level {
         let text = "Try running into the\nsheep and clicking";
         let style = { font: "65px Arial", fill: "#ff0044", align: "center" };
 
+        this.level = this.add.text(0, 0, "Level 3", {fontSize: "36px", color: "black", align: "right", "padding": {x: 20, y: 20}});
+        this.level.setX(1920 - this.level.width);
+
         var t = this.add.text(800, 800, text, style);
     
         this.setRequiredScore(500);

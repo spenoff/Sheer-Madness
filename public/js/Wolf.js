@@ -17,6 +17,7 @@ export class Wolf {
         this.p_stage = 0;
         this.type == ""
         this.moving = true;
+        this.asset.state = "";
     }
 
     addSheep(sheep) {
@@ -87,15 +88,15 @@ export class Wolf {
 
     moveTo(x, y) {
         if(x > this.asset.x) {
-            this.asset.setVelocityX(100);
+            this.asset.setVelocityX(50);
         } else if(x < this.asset.x) {
-            this.asset.setVelocityX(-100);
+            this.asset.setVelocityX(-50);
         }
 
         if(y > this.asset.y) {
-            this.asset.setVelocityY(100);
+            this.asset.setVelocityY(50);
         } else if(y < this.asset.y) {
-            this.asset.setVelocityY(-100);
+            this.asset.setVelocityY(-50);
         }
     }
 
@@ -152,6 +153,10 @@ export class Wolf {
     }
 
     update() {
+        console.log(this.state);
+        if(this.asset.state == "STOPPED") {
+            this.state = "STOPPED";
+        }
         //update rotation
         if(this.asset.body.velocity.x < 0) {
             this.asset.angle = -90;
@@ -234,6 +239,9 @@ export class Wolf {
                    this.moveTo(eyed_sheep.x, eyed_sheep.y);
                }
                break;
+            case "STOPPED":
+                this.asset.setVelocityX(0);
+                this.asset.setVelocityX(0);
        }
     }
 
