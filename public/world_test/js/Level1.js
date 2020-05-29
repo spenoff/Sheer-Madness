@@ -20,6 +20,9 @@ export class Level1 extends Level {
         //this.music.play();
         GameScene.playMusic(this.music);
 
+        this.level = this.add.text(0, 0, "Level 1", {fontSize: "36px", color: "black", align: "right", "padding": {x: 20, y: 20}});
+        this.level.setX(1920 - this.level.width);
+
         this.createBoxOfFences(32, 32, 20, 30);
         this.createFinishSpace(32, 32, 672, 150);
 

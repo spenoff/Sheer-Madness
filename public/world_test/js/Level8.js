@@ -1,50 +1,87 @@
-import { Level } from "./Level.js";
+import { Level } from "./Level.js"
 import { GameScene } from "./GameScene.js";
 
 export class Level8 extends Level {
     constructor() {
         super('Level8');
-        this.setRequiredScore(500);
+        
     }
 
     create() {
         super.create();
-
         this.game.sound.stopAll();
 
         this.lvdone = false;
 
-        
         this.music = this.game.sound.add('lv8');
         this.music.loop = true;
         //this.music.play();
         GameScene.playMusic(this.music);
+
+        this.level = this.add.text(0, 0, "Level 8", {fontSize: "36px", color: "black", align: "right", "padding": {x: 20, y: 20}});
+        this.level.setX(1920 - this.level.width);
+
+        this.createBoxOfFences(32, 32, 40, 31);
+        this.createFinishSpace(32*15, 32, 32*13, 32*5);
         
+        //Right Vertical
+        this.createVerticalFences(32*15, 32*6, 28, 1);
+        //Left Vertical
+        this.createVerticalFences(32*28, 32*6, 28, 1);
+        //Top Horizontal
+        this.createHorizontalFences(32*15, 32*6, 14, 1)
 
-       let text = "Try pressing the space bar";
-       let style = { font: "65px Arial", fill: "#ff0044", align: "center" };
+        //Left Maze
+        //Top
+        this.createHorizontalFences(32, 32*6, 5, 1);
+        this.createHorizontalFences(32*15, 32*6, 5, -1);
+        //Left Box
+        this.createBoxOfFences(32*6, 32*11, 3, 7);
+        //Bottom
+        this.createHorizontalFences(32, 32*24, 5, 1);
+        this.createHorizontalFences(32*15, 32*24, 5, -1);
 
-       var t = this.add.text(900, 800, text, style);
+        //Right Maze
+        //Top 
+        this.createHorizontalFences(32*28, 32*6, 5, 1);
+        this.createHorizontalFences(32*42, 32*6, 5, -1);
+        //Right Box
+        this.createBoxOfFences(32*33, 32*11, 3, 7);
+        //Bottom
+        this.createHorizontalFences(32*28, 32*24, 5, 1);
+        this.createHorizontalFences(32*42, 32*24, 5, -1);
 
-        this.createBoxOfFences(32, 32, 25, 31);
-        this.createFinishSpace(32, 32, 672+160, 150);
+        //Pond
+        for(var i=16; i<=27; i++) {
+            if(i>=20 && i<=23) {
+                continue;
+            }
+            this.createPond(32*i, 32*7);
+            this.createPond(32*i, 32*8);
+            this.createPond(32*i, 32*9);
+            this.createPond(32*i, 32*10);
+            this.createPond(32*i, 32*11);
+            this.createPond(32*i, 32*12);
+            this.createPond(32*i, 32*13);
+            this.createPond(32*i, 32*14);
+            this.createPond(32*i, 32*15);
+            this.createPond(32*i, 32*16);
+            this.createPond(32*i, 32*17);
+            this.createPond(32*i, 32*18);
+            this.createPond(32*i, 32*19);
+            this.createPond(32*i, 32*20);
+            this.createPond(32*i, 32*21);
+            this.createPond(32*i, 32*22);
+            this.createPond(32*i, 32*23);
+            this.createPond(32*i, 32*24);
+        }
+  
+        this.setPlayerPosition(32*21, 900);
+        this.createSheep(32*8, 950);
+        this.createSheep(32*35, 950);
+        // this.createSheep(400, 950);
 
-        this.setPlayerPosition(610, 920);
-        this.createSheep(610, 700);
-        this.createSheep(250, 280);
-
-        //Dog Box
-        this.createHorizontalFences(504, 775, 8, 1, false, false);
-        this.createLFence(472, 775, 90);
-        this.createLFence(472 + 9 * 32, 775, 180);
-        this.createVerticalFences(472, 807, 5, 1, false, true);
-        this.createVerticalFences(472 + 9 * 32, 807, 5, 1, false, true);
-
-        //Sheep Box
-        this.createHorizontalFences(32, 32*12, 12, 1);
-        this.createVerticalFences(32*12, 32, 12, 1);
-
-        this.createWolf(400, 700, 120, 0, 80);
+        // this.createWolf(368, 320, 0, 100, 260);
     }
 
     update() {
@@ -53,4 +90,5 @@ export class Level8 extends Level {
             this.scene.start('Level9');
         }
     }
+
 }

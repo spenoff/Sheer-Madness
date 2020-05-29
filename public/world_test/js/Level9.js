@@ -17,6 +17,9 @@ export class Level9 extends Level {
         this.music.loop = true;
         //this.music.play();
         //GameScene.playMusic(this.music);
+
+        this.level = this.add.text(0, 0, "Level 9", {fontSize: "36px", color: "black", align: "right", "padding": {x: 20, y: 20}});
+        this.level.setX(1920 - this.level.width);
     
         this.setRequiredScore(500);
         this.setPlayerPosition(368, 970);
