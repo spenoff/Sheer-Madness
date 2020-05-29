@@ -265,10 +265,10 @@ export class Level extends GameScene {
         this.player.moving = false;
         this.player.drowned = false;
 
-        this.scoreText = this.add.text(0, 0, "Score: 0, Sheep herded: 0", {fontSize: "36px", color: "black", align: "center", "padding": {x: 20, y: 20}});
+        this.scoreText = this.add.text(0, 0, "Sheep herded:0\n\nScore:0", {fontSize: "36px", color: "black", align: "right", "padding": {x: 20, y: 20}});
         this.scoreText.setX(1920 - this.scoreText.width);
 
-        this.timeText = this.add.text(0, 56, "0:00", {fontSize: "36px", color: "black", align: "center", "padding": {x: 20, y: 20}});
+        this.timeText = this.add.text(0, 133, "0:00", {fontSize: "36px", color: "black", align: "right", "padding": {x: 20, y: 20}});
         this.timeText.setX(1920 - this.timeText.width);
 
         var cursors = this.input.keyboard.createCursorKeys();
@@ -565,7 +565,7 @@ export class Level extends GameScene {
         pause(1600);
         this.game.sound.stopAll();
         //this.res_sound.play();
-        this.add.text(600, 400, msg, {backgroundColor: "0x0000ff", fontSize: "36px", fixedWidth: 660, align: "center", "padding": {x: 20, y: 20}, "wordWrap": {"width": 660}});
+        this.add.text(600, 400, msg, {backgroundColor: "0x0000ff", fontSize: "36px", fixedWidth: 660, align: "right", "padding": {x: 20, y: 20}, "wordWrap": {"width": 660}});
         
         var pf = this.play_filler();
         setTimeout(pf, 5000);
@@ -780,7 +780,7 @@ export class Level extends GameScene {
     }
 
     updateScoreText() {
-        this.scoreText.setText("Score: " + this.score + ", Sheep herded: " + this.sheepHerded);
+        this.scoreText.setText("Sheep herded: " + this.sheepHerded + "\n\nScore: " + this.score);
         this.scoreText.setX(1920 - this.scoreText.width);
     }
 
