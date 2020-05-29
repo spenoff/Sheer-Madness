@@ -53,7 +53,7 @@ export class Level7 extends Level {
         this.createSheep(300, 950);
         this.createSheep(400, 950);
 
-        this.createWolf(368, 320, 0, 100, 4600);
+        this.createWolf(368, 320, 0, 100, 260);
     }
 
     update() {
