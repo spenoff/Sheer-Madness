@@ -393,6 +393,13 @@ export class Level extends GameScene {
                         this.score += this.sheepScore;
                         this.score += Math.floor(8000 *  1000 / (finishTime - this.startTime - this.pausedTime)); //balance needs to be checked
                         this.sheepHerded += 1;
+                        var k;
+                        for(k = 0; k < this.allWolves.length; k++) {
+                            var wolf = this.allWolves[k];
+                            if(wolf.asset.sheep_in_range.includes(sheep)) {
+                                remove(wolf.asset.sheep_in_range, sheep);
+                            }
+                        }
                         //this.baa.play();
                         GameScene.playSound(this.baa);
                         this.removeSheep(sheep);
