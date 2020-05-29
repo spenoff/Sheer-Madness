@@ -17,6 +17,7 @@ export class Wolf {
         this.p_stage = 0;
         this.type == ""
         this.moving = true;
+        this.asset.state = "";
     }
 
     addSheep(sheep) {
@@ -152,6 +153,10 @@ export class Wolf {
     }
 
     update() {
+        console.log(this.state);
+        if(this.asset.state == "STOPPED") {
+            this.state = "STOPPED";
+        }
         //update rotation
         if(this.asset.body.velocity.x < 0) {
             this.asset.angle = -90;
@@ -204,12 +209,12 @@ export class Wolf {
                     //console.log("sy: " + this.startPositionY);
 
                     // if(this.asset.x < this.startPositionX + 3 && this.asset.x > this.startPositionX - 3) {
-                      //   this.asset.x = this.startPositionX;
+                         this.asset.x = this.startPositionX;
                     // }
                      //if(this.asset.y < this.startPositionY + 3 && this.asset.y > this.startPositionY - 3) {
-                     //    this.asset.y = this.startPositionY;
+                         this.asset.y = this.startPositionY;
                     // }
-                    //if(this.asset.x === this.startPositionX && this.asset.y === this.startPositionY) {
+                    if(this.asset.x === this.startPositionX && this.asset.y === this.startPositionY) {
                         //console.log("x: " + this.asset.startVelocityX);
                         //console.log("y: " + this.asset.startVelocityY);
                         //console.log("ms: " + this.asset.ms);
@@ -221,13 +226,13 @@ export class Wolf {
                         //this.event.paused = false;
                         //this.event.remove();
                         //this.setPatrol(this.asset.startVelocityX, this.asset.startVelocityY, this.asset.ms, this.asset.startStep);
-                        //this.asset.setVelocityX(this.startVelocityX);
-                        //this.asset.setVelocityY(this.startVelocityY);
-                        //this.p_stage = 0;
-                        //this.update_counter = 0;
+                        this.asset.setVelocityX(this.startVelocityX);
+                        this.asset.setVelocityY(this.startVelocityY);
+                        this.p_stage = 0;
+                        this.update_counter = 0;
                         //console.log("now patrol");
-                        this.state = "STOPPED";
-                    //}
+                        this.state = "PATROL";
+                    }
                } else {
                    //console.log("accelerating to sheep");
                    var eyed_sheep = this.asset.sheep_in_range[0];
@@ -236,8 +241,7 @@ export class Wolf {
                break;
             case "STOPPED":
                 this.asset.setVelocityX(0);
-                this.asset.setVelocityY(0);
-            break
+                this.asset.setVelocityX(0);
        }
     }
 
