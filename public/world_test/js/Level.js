@@ -251,6 +251,9 @@ export class Level extends GameScene {
         this.physics.add.collider(this.wolf, this.sheep, (wolf, sheep) => {
             //this.bite.play();
             GameScene.playSound(this.bite);
+            wolf.state = "STOPPED";
+            wolf.setVelocityX(0);
+            wolf.setVelocityY(0);
             //console.log(wolf.sheep_in_range.length);
             if(wolf.sheep_in_range.includes(sheep)) {
                 remove(wolf.sheep_in_range, sheep);
