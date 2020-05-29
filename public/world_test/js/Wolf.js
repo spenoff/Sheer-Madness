@@ -87,15 +87,15 @@ export class Wolf {
 
     moveTo(x, y) {
         if(x > this.asset.x) {
-            this.asset.setVelocityX(100);
+            this.asset.setVelocityX(50);
         } else if(x < this.asset.x) {
-            this.asset.setVelocityX(-100);
+            this.asset.setVelocityX(-50);
         }
 
         if(y > this.asset.y) {
-            this.asset.setVelocityY(100);
+            this.asset.setVelocityY(50);
         } else if(y < this.asset.y) {
-            this.asset.setVelocityY(-100);
+            this.asset.setVelocityY(-50);
         }
     }
 
@@ -204,12 +204,12 @@ export class Wolf {
                     //console.log("sy: " + this.startPositionY);
 
                     // if(this.asset.x < this.startPositionX + 3 && this.asset.x > this.startPositionX - 3) {
-                         this.asset.x = this.startPositionX;
+                      //   this.asset.x = this.startPositionX;
                     // }
                      //if(this.asset.y < this.startPositionY + 3 && this.asset.y > this.startPositionY - 3) {
-                         this.asset.y = this.startPositionY;
+                     //    this.asset.y = this.startPositionY;
                     // }
-                    if(this.asset.x === this.startPositionX && this.asset.y === this.startPositionY) {
+                    //if(this.asset.x === this.startPositionX && this.asset.y === this.startPositionY) {
                         //console.log("x: " + this.asset.startVelocityX);
                         //console.log("y: " + this.asset.startVelocityY);
                         //console.log("ms: " + this.asset.ms);
@@ -221,19 +221,23 @@ export class Wolf {
                         //this.event.paused = false;
                         //this.event.remove();
                         //this.setPatrol(this.asset.startVelocityX, this.asset.startVelocityY, this.asset.ms, this.asset.startStep);
-                        this.asset.setVelocityX(this.startVelocityX);
-                        this.asset.setVelocityY(this.startVelocityY);
-                        this.p_stage = 0;
-                        this.update_counter = 0;
+                        //this.asset.setVelocityX(this.startVelocityX);
+                        //this.asset.setVelocityY(this.startVelocityY);
+                        //this.p_stage = 0;
+                        //this.update_counter = 0;
                         //console.log("now patrol");
-                        this.state = "PATROL";
-                    }
+                        this.state = "STOPPED";
+                    //}
                } else {
                    //console.log("accelerating to sheep");
                    var eyed_sheep = this.asset.sheep_in_range[0];
                    this.moveTo(eyed_sheep.x, eyed_sheep.y);
                }
                break;
+            case "STOPPED":
+                this.asset.setVelocityX(0);
+                this.asset.setVelocityY(0);
+            break
        }
     }
 
