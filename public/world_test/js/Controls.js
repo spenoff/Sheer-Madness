@@ -78,7 +78,7 @@ export class Controls {
             if (Phaser.Input.Keyboard.JustDown(this.spaceKey)) {
                 this.sf = this.game.sound.add('bark');
                 this.sf.play();
-                console.log("Space");
+                //console.log("Space");
                 var vx = Math.sin(this.player.rotation);
                 var vy = Math.cos(this.player.rotation);
                 this.sheep.children.iterate((child) => {
@@ -94,7 +94,7 @@ export class Controls {
                             Sheep.barkEvent(child, 0, -1)
                         }
                         else if(this.player.angle == -90 || this.player.angle == 90){
-                            console.log("horz");
+                            //console.log("horz");
                             Sheep.barkEvent(child, this.player.angle / 90, 0)
                         } else {
                             Sheep.barkEvent(child, vx, vy);

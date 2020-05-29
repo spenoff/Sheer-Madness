@@ -20,46 +20,50 @@ export class Level5 extends Level {
         GameScene.playMusic(this.music);
     
         this.setRequiredScore(500);
-        this.setPlayerPosition(600, 900);
-        this.createSheep(600, 975);
-        this.createSheep(500, 900);
-        this.createBoxOfFences(127, 32, 31, 30);
-        this.createFinishSpace(127, 25, 1022, 60);
+
+        this.createBoxOfFences(32, 32, 40, 31);
+        this.createFinishSpace(32*37, 32, 32*5, 32*32);
+
+        //Dog Box
+        this.createHorizontalFences(32, 32*14, 37);
+        this.createHorizontalFences(32, 32*20, 37);
+        this.createVerticalFences(32*37,32*14, 7);
         
-        //Pond 1
-        for(var i = 0; i <= 4; i++){
-            for(var j = 0; j <= 4; j++)
-                this.createPond(222 + (32 * i), 781 - (32 * j));
+        this.setPlayerPosition(32*3, 32*17);
+        this.createSheep(32*4, 32*12);
+        this.createSheep(32*4, 32*22);
+
+        //Top Maze
+        this.createVerticalFences(32*9, 32*14, 8, -1);
+        this.createVerticalFences(32*18, 32, 8, 1);
+
+        //Bottom Maze
+        this.createVerticalFences(32*9, 32*20, 8, 1);
+        this.createVerticalFences(32*18, 32*33, 8, -1);
+
+        //Ponds
+        for(var i=24; i<=36; i++) {
+            //Top Pond Top
+            this.createPond(32*i, 32*2);
+            this.createPond(32*i, 32*3);
+            this.createPond(32*i, 32*4);
+            this.createPond(32*i, 32*5);
+            //Top Pond Bottom
+            this.createPond(32*i, 32*10);
+            this.createPond(32*i, 32*11);
+            this.createPond(32*i, 32*12);
+            this.createPond(32*i, 32*13);
+            //Bottom Pond Top
+            this.createPond(32*i, 32*21);
+            this.createPond(32*i, 32*22);
+            this.createPond(32*i, 32*23);
+            this.createPond(32*i, 32*24);
+            //Bottom Pond Bottom
+            this.createPond(32*i, 32*29);
+            this.createPond(32*i, 32*30);
+            this.createPond(32*i, 32*31);
+            this.createPond(32*i, 32*32);
         }
-
-        //Pond 2
-        for(var i = 0; i <= 4; i++){
-            for(var j = 0; j <= 4; j++)
-                this.createPond(910 + (32 * i), 524 - (32 * j));
-        }
-
-        //Pond 3
-        for(var i = 0; i <= 4; i++){
-            for(var j = 0; j <= 4; j++)
-                this.createPond(566 + (32 * i), 267 - (32 * j));
-        }
-
-        //Wolf 1
-        this.createWolf(850, 728, 100, 0, 2400);
-
-        //Wolf 2
-        this.createWolf(530, 476, 100, 0, 2400);
-
-        //Wolf 3
-        this.createWolf(170, 214, 100, 0, 2400);
-
-        this.createVerticalFences(458, 119, 7);
-        this.createVerticalFences(458, 376, 7);
-        this.createVerticalFences(458, 629, 7);
-
-        this.createVerticalFences(802, 119, 7);
-        this.createVerticalFences(802, 376, 7);
-        this.createVerticalFences(802, 629, 7);
 
     }
 

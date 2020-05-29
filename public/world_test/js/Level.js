@@ -251,10 +251,10 @@ export class Level extends GameScene {
         this.physics.add.collider(this.wolf, this.sheep, (wolf, sheep) => {
             //this.bite.play();
             GameScene.playSound(this.bite);
-            console.log(wolf.sheep_in_range.length);
+            //console.log(wolf.sheep_in_range.length);
             if(wolf.sheep_in_range.includes(sheep)) {
                 remove(wolf.sheep_in_range, sheep);
-                console.log(wolf.sheep_in_range.length);
+                //console.log(wolf.sheep_in_range.length);
             }
             this.removeSheep(sheep);
         }); //do I have an event?
@@ -338,19 +338,6 @@ export class Level extends GameScene {
                 if (sheep.asset.body.velocity.x != 0 || sheep.asset.body.velocity.y != 0) {
                     sheep.asset.angle = 90 + Math.atan2(sheep.asset.body.velocity.y, sheep.asset.body.velocity.x) * 180 / Math.PI;
                 }
-                /*
-                if (sheep.asset.angle % 180 == 0) {
-                    sheep.asset.body.setSize(22, 22);
-                }
-                
-                else if (sheep.asset.angle % 90 == 0) {
-                    sheep.asset.body.setSize(22, 22);
-                }
-                
-                else {
-                    sheep.asset.body.setSize();
-                }
-                */
             });
 
             if(this.player.lassoTarget != null && this.player.lassoAsset == null) {
@@ -414,7 +401,7 @@ export class Level extends GameScene {
             if (this.allSheep.length == 0) {
                 if (this.score >= this.requiredScore && this.sheepHerded >= this.requiredSheepHerded) {
                     this.levelDoneSequence(1, 'Level complete!\nYour score is: ' + this.score + '\nPress N to go to the next level');
-                    console.log("SCORE: " + this.score);
+                    //console.log("SCORE: " + this.score);
                     status = 1;
                 }
                 else {

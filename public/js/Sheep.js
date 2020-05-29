@@ -69,7 +69,7 @@ export class Sheep {
     }
 
     static barkEvent(asset, vx, vy) {
-        console.log("bark event");
+        //console.log("bark event");
         asset.setVelocityX(140 *  vx);
         asset.setVelocityY(-140 * vy);
         asset.in_bark_event = true;
@@ -101,21 +101,27 @@ export class Sheep {
                 this.lassoAsset = null;
             }
 
-            this.asset.alert = Math.sqrt(Math.pow(dogX - this.asset.x, 2) + Math.pow(dogY - this.asset.y, 2)) <= 60;
+            this.asset.alert = Math.sqrt(Math.pow(dogX - this.asset.x, 2) + Math.pow(dogY - this.asset.y, 2)) <= 120; //herding radius
             this.asset.wolfWatch = null;
             this.wolves.children.iterate((wolf) => {
                 if (Math.sqrt(Math.pow(wolf.x - this.asset.x, 2) + Math.pow(wolf.y - this.asset.y, 2)) <= 100) {
+                    //wolf detection radius
                     if (this.asset.wolfWatch == null || Math.sqrt(Math.pow(wolf.x - this.asset.x, 2) + Math.pow(wolf.y - this.asset.y, 2)) < Math.sqrt(Math.pow(this.asset.wolfWatch.x - this.asset.x, 2) + Math.pow(this.asset.wolfWatch.y - this.asset.y, 2))) {
                         this.asset.wolfWatch = wolf;
                         if(!wolf.sheep_in_range.includes(this.asset)) {
-                            console.log(wolf.sheep_in_range.push(this.asset));
+                            wolf.sheep_in_range.push(this.asset);
+                        }
+                    } else {
+                        if(wolf.sheep_in_range.includes(this.asset)) {
+                            remove(wolf.sheep_in_range(this.asset));
+                            //console.log(wolf.sheep_in_range.length);
                         }
                     }
                 }
             });
 
            if(this.asset.in_bark_event) {
-            console.log(this.asset.be_vy);
+            //console.log(this.asset.be_vy);
             this.asset.setVelocityX(140 *  this.asset.be_vx);
             this.asset.setVelocityY(-140 * this.asset.be_vy);
            }
@@ -135,11 +141,11 @@ export class Sheep {
                }
                switch(this.asset.collided_fence.type) {
                    case 0: //horizontal
-                        console.log("horz");
+                        //console.log("horz");
                         if(this.asset.collided_fence.y > this.asset.y) {
                             //fence is below the sheep
                             this.asset.setVelocityY(-16);
-                            console.log("t");
+                            //console.log("t");
                             if(Math.abs(this.asset.collided_fence.y - this.asset.y) > 64) {
                                 this.asset.collided_with_fence = false;
                                 this.asset.wait_count = 0;
@@ -148,7 +154,7 @@ export class Sheep {
                         } else if(this.asset.collided_fence.y < this.asset.y) {
                             //fence is above the sheep
                             this.asset.setVelocityY(16);
-                            console.log("y");
+                            //onsole.log("y");
                             if(Math.abs(this.asset.collided_fence.y - this.asset.y) > 64) {
                                 this.asset.collided_with_fence = false;
                                 this.asset.wait_count = 0;
@@ -160,7 +166,7 @@ export class Sheep {
                        if(this.asset.collided_fence.x > this.asset.x) {
                             //fence is below the sheep
                             this.asset.setVelocityX(-16);
-                            console.log("t");
+                            //console.log("t");
                             if(Math.abs(this.asset.collided_fence.x - this.asset.x) > 64) {
                                 this.asset.collided_with_fence = false;
                                 this.asset.wait_count = 0;
@@ -169,7 +175,7 @@ export class Sheep {
                         } else if(this.asset.collided_fence.x < this.asset.x) {
                             //fence is above the sheep
                             this.asset.setVelocityX(16);
-                            console.log("y");
+                            //console.log("y");
                             if(Math.abs(this.asset.collided_fence.x - this.asset.x) > 64) {
                                 this.asset.collided_with_fence = false;
                                 this.asset.wait_count = 0;
@@ -197,7 +203,7 @@ export class Sheep {
                         if(this.asset.collided_fence.x > this.asset.x) {
                             //fence is below the sheep
                             this.asset.setVelocityX(-16);
-                            console.log("t");
+                            //console.log("t");
                             if(Math.abs(this.asset.collided_fence.x - this.asset.x) > 64) {
                                 this.asset.collided_with_fence = false;
                                 this.asset.wait_count = 0;
@@ -206,7 +212,7 @@ export class Sheep {
                         } else if(this.asset.collided_fence.x < this.asset.x) {
                             //fence is above the sheep
                             this.asset.setVelocityX(16);
-                            console.log("y");
+                            //console.log("y");
                             if(Math.abs(this.asset.collided_fence.x - this.asset.x) > 64) {
                                 this.asset.collided_with_fence = false;
                                 this.asset.wait_count = 0;
@@ -217,7 +223,7 @@ export class Sheep {
                }
            }
            else if(this.asset.in_bark_event) {
-            console.log(this.asset.be_vy);
+            //console.log(this.asset.be_vy);
             this.asset.setVelocityX(140 *  this.asset.be_vx);
             this.asset.setVelocityY(-140 * this.asset.be_vy);
             this.asset.body.velocity.x += Math.floor((Math.random() * randomFactor * 2 + 1)) - randomFactor;
@@ -300,6 +306,15 @@ export class Sheep {
             this.asset.setVelocityX(this.dog.body.velocity.x);
             this.asset.setVelocityY(this.dog.body.velocity.y);
            
+        }
+    }
+}
+
+function remove(arr, element) {
+    var i;
+    for(i = 0; i < arr.length; i++) {
+        if(arr[i] === element) {
+            arr.splice(i, 1);
         }
     }
 }

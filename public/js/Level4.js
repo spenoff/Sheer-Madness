@@ -19,16 +19,21 @@ export class Level4 extends Level {
         //this.music.play();
         GameScene.playMusic(this.music);
 
-        this.createBoxOfFences(32, 32, 20, 30);
-        this.createFinishSpace(32, 32, 672, 150);
+        this.createBoxOfFences(32, 32, 40, 31);
+        this.createFinishSpace(32*34, 32, 32*8, 32*5);
 
-        this.setPlayerPosition(32 + 336, 950);
-        this.createSheep(32 + 336, 850);
+        this.setPlayerPosition(32*5, 32*3);
+        this.createSheep(32*4, 32*6);
+        this.createSheep(32*6, 32*6);
 
-        this.createWolf(288, 640, 0, -120, 1800);
-        this.createWolf(488, 640, 0, -120, 1800);
-        this.createHorizontalFences(32, 386, 14, 1);
-        this.createHorizontalFences(288, 704, 14, 1);
+        //Left Wolf
+        this.createWolf(32*12, 32*17, 120, 0, 125);
+        //Right Wolf
+        this.createWolf(32*24, 32*17, 120, 0, 125);
+
+        this.createVerticalFences(32*10, 32, 23);
+        this.createVerticalFences(32*34, 32, 23);
+        this.createVerticalFences(32*22, 32*33, 23, -1);
     }
 
     update() {

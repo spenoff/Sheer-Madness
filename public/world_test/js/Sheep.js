@@ -69,7 +69,7 @@ export class Sheep {
     }
 
     static barkEvent(asset, vx, vy) {
-        console.log("bark event");
+        //console.log("bark event");
         asset.setVelocityX(140 *  vx);
         asset.setVelocityY(-140 * vy);
         asset.in_bark_event = true;
@@ -109,12 +109,12 @@ export class Sheep {
                     if (this.asset.wolfWatch == null || Math.sqrt(Math.pow(wolf.x - this.asset.x, 2) + Math.pow(wolf.y - this.asset.y, 2)) < Math.sqrt(Math.pow(this.asset.wolfWatch.x - this.asset.x, 2) + Math.pow(this.asset.wolfWatch.y - this.asset.y, 2))) {
                         this.asset.wolfWatch = wolf;
                         if(!wolf.sheep_in_range.includes(this.asset)) {
-                            console.log(wolf.sheep_in_range.push(this.asset));
+                            wolf.sheep_in_range.push(this.asset);
                         }
                     } else {
                         if(wolf.sheep_in_range.includes(this.asset)) {
                             remove(wolf.sheep_in_range(this.asset));
-                            console.log(wolf.sheep_in_range.length);
+                            //console.log(wolf.sheep_in_range.length);
                         }
                     }
                 }
@@ -141,7 +141,7 @@ export class Sheep {
                }
                switch(this.asset.collided_fence.type) {
                    case 0: //horizontal
-                        console.log("horz");
+                        //console.log("horz");
                         if(this.asset.collided_fence.y > this.asset.y) {
                             //fence is below the sheep
                             this.asset.setVelocityY(-16);

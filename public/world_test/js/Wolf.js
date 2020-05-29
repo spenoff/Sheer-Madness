@@ -102,7 +102,7 @@ export class Wolf {
     patrol() {
         if (!this.asset.body) { return; }
         if(this.update_counter < this.frames) {
-            console.log(this.update_counter)
+            //console.log(this.update_counter)
             this.update_counter += 1;
             return;
             
@@ -181,15 +181,15 @@ export class Wolf {
         }
         */
        // check if sheep are in range
-       console.log(this.state);
-       console.log(this.asset.sheep_in_range.length);
+       //console.log(this.state);
+       //console.log(this.asset.sheep_in_range.length);
        //console.log(this.event.paused);
        switch(this.state) {
            case "PATROL":
                this.patrol();
                //Check if we should switch to the "HUNT" state
                if(this.asset.sheep_in_range.length > 0) {
-                   console.log("Now hunt");
+                   //console.log("Now hunt");
                    //this.event.paused = true;
                    this.state = "HUNT";
                }
@@ -198,10 +198,10 @@ export class Wolf {
                //Check if we should switch to the  "PATROL" state
                if(this.asset.sheep_in_range.length <= 0) {
                     //this.moveTo(this.startPositionX, this.startPositionY);
-                    console.log("x: " + this.asset.x);
-                    console.log("y: " + this.asset.y);
-                    console.log("sx: " + this.startPositionX);
-                    console.log("sy: " + this.startPositionY);
+                    //console.log("x: " + this.asset.x);
+                    //console.log("y: " + this.asset.y);
+                    //console.log("sx: " + this.startPositionX);
+                    //console.log("sy: " + this.startPositionY);
 
                     // if(this.asset.x < this.startPositionX + 3 && this.asset.x > this.startPositionX - 3) {
                          this.asset.x = this.startPositionX;
@@ -225,7 +225,7 @@ export class Wolf {
                         this.asset.setVelocityY(this.startVelocityY);
                         this.p_stage = 0;
                         this.update_counter = 0;
-                        console.log("now patrol");
+                        //console.log("now patrol");
                         this.state = "PATROL";
                     }
                } else {
