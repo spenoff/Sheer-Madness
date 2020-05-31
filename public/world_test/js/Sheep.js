@@ -113,7 +113,7 @@ export class Sheep {
                         }
                     } else {
                         if(wolf.sheep_in_range.includes(this.asset)) {
-                            remove(wolf.sheep_in_range(this.asset));
+                            remove(wolf.sheep_in_range, this.asset);
                             //console.log(wolf.sheep_in_range.length);
                         }
                     }
