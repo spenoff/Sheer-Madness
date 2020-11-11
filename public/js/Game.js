@@ -11,9 +11,6 @@ import { Level7 } from "./Level7.js";
 import { Level8 } from "./Level8.js"; 
 import { Level9 } from "./Level9.js"; 
 
-//CHANGE SCENE within scene class
-//this.scene.start('TestLevel2');
-
 
 class MainMenu extends GameScene {
 
@@ -81,22 +78,18 @@ class MainMenu extends GameScene {
         .on('pointerout', () => about.setFrame(0));
 
         start.on('pointerdown', function(event) {
-            //this.bell.play();
             GameScene.playSound(this.bell);
             this.scene.start('Level1');
         }, this);
         levelsel.on('pointerdown', function(event) {
-            //this.bell.play();
             GameScene.playSound(this.bell);
             this.scene.start('LevelSelectMenu')
         }, this);
         setting.on('pointerdown', function(event) {
-            //this.bell.play();
             GameScene.playSound(this.bell);
             this.scene.start('SettingMenu');
         }, this);
         about.on('pointerdown', function(event) {
-            //this.bell.play();
             GameScene.playSound(this.bell);
             this.scene.start('AboutMenu');
         }, this);
@@ -219,58 +212,47 @@ class LevelSelectMenu extends GameScene {
         .on('pointerout', () => back.setFrame(0));
 
         l1.on('pointerdown', function(event) {
-            //this.bell.play();
             GameScene.playSound(this.bell);
             this.scene.start('Level1');
         }, this);
         l2.on('pointerdown', function(event) {
-            //this.bell.play();
             GameScene.playSound(this.bell);
             this.scene.start('Level2');
         }, this);
         l3.on('pointerdown', function(event) {
-            //this.bell.play();
             GameScene.playSound(this.bell);
             this.scene.start('Level3');
         }, this);
         l4.on('pointerdown', function(event) {
-            //this.bell.play();
             GameScene.playSound(this.bell);
             this.scene.start('Level4');
         }, this);
         l5.on('pointerdown', function(event) {
-            //this.bell.play();
             GameScene.playSound(this.bell);
             this.scene.start('Level5');
         }, this);
         l6.on('pointerdown', function(event) {
-            //this.bell.play();
             GameScene.playSound(this.bell);
             this.scene.start('Level6');
         }, this);
         l7.on('pointerdown', function(event) {
-            //this.bell.play();
             GameScene.playSound(this.bell);
             this.scene.start('Level7');
         }, this);
         l8.on('pointerdown', function(event) {
-            //this.bell.play();
             GameScene.playSound(this.bell);
             this.scene.start('Level8');
         }, this);
         l9.on('pointerdown', function(event) {
-            //this.bell.play();
             GameScene.playSound(this.bell);
             this.scene.start('Level9');
         }, this);
         lock.on('pointerdown', function(event) {
-            //this.bell.play();
             GameScene.playSound(this.bell);
             this.scene.start('Level0');
         }, this);
 
         back.on('pointerdown', function(event) {
-            //this.bell.play();
             GameScene.playSound(this.bell);
             this.scene.start('MainMenu');
         }, this);
@@ -390,7 +372,6 @@ class SettingMenu extends GameScene {
         .on('pointerout', () => back.setFrame(0));
 
         back.on('pointerdown', function(event) {
-            //this.bell.play();
             GameScene.playSound(this.bell);
             this.scene.start('MainMenu');
         }, this);
@@ -445,7 +426,6 @@ class AboutMenu extends GameScene {
         .on('pointerout', () => back.setFrame(0));
 
         back.on('pointerdown', function(event) {
-            //this.bell.play();
             GameScene.playSound(this.bell);
             this.scene.start('MainMenu');
         }, this);
@@ -517,4 +497,3 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
-//game.scene.add('NewTestLevel', NewTestLevel);
