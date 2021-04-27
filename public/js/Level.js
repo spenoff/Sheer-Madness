@@ -246,9 +246,6 @@ export class Level extends GameScene {
         this.dKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         this.controls = new Controls(this, cursors, this.player, spaceKey, this.wKey, this.aKey, this.sKey, this.dKey, this.sheep, this.wolf);
 
-        //Is it possible to move this to controls? Likely not, since setting an event
-        //Lasso needs to be improved
-        //Dog can push into sheep position weirdly
         this.input.on('pointerup', (pointer) => {
             if (this.player.lassoTarget == null) {
                 var target = null;
