@@ -82,11 +82,6 @@ export class Level extends GameScene {
         this.lose = this.sound.add('lose');
 
         this.startTime = Date.now(); //epoch in ms
-
-        /*
-        var bgtile = this.add.tileSprite(0, 0, 1920*2, 1080*2, 'grass');
-        bgtile.setDepth(-1);
-        */
        
         var bgTileSize = 30;
 
@@ -94,7 +89,6 @@ export class Level extends GameScene {
         for (var y = 0; y < 1080; y += bgTileSize) {
             var row = [];
             for (var x = 0; x < 1920; x += bgTileSize) {
-                //console.log(x,y);
                 var frameKey = 6;
                 //special cases for edges and corners
                 if (x == 0 && y == 0) {
@@ -119,7 +113,6 @@ export class Level extends GameScene {
                     frameKey = 7;
                 }
                 else if (y == 1050) {
-                    //console.log("bottom");
                     frameKey = 11;
                 }
                 row.push(frameKey);
@@ -175,10 +168,8 @@ export class Level extends GameScene {
             key: 'die',
             frames: this.anims.generateFrameNames('dog', {start: 12, end: 12})
         });
-        //this.igg.create(960, 540, undefined, 0);
 
         this.player.body.collideWorldBounds = true;
-        //this.player.body.setSize(11, 32);
 
         this.physics.add.collider(this.dog, this.fence);
         this.physics.add.collider(this.sheep, this.fence, (sheep, fence) => {
@@ -209,58 +200,33 @@ export class Level extends GameScene {
             dog.x = pond.x;
             dog.y = pond.y;
             dog.pond = pond;
-            //var doSomething = () => {
-                //if(dog.ac) { return; }
-                //dog.ac = true;
-                GameScene.playSound(this.drown);
-                this.levelDoneSequence(2, 'Game over! You are too tired from doggypaddling out of the lake that you cannot do your duties for the rest of the day.\nPress R to restart the level');
-            //}
-            //dog.on('animationcomplete', doSomething);
-
-            
+            GameScene.playSound(this.drown);
+            this.levelDoneSequence(2, 'Game over! You are too tired from doggypaddling out of the lake that you cannot do your duties for the rest of the day.\nPress R to restart the level');            
         });
         this.physics.add.collider(this.sheep, this.pond, (sheep, pond) => {
-            //this.drown.play();
             GameScene.playSound(this.drown);
             this.removeSheep(sheep);
-            //Do we add something to let the player know the sheep drowned? sfx, anything else?
         });
-        /*
-        this.physics.add.collider(this.sheep, this.finishSpace, (sheep, space) => {
-            this.score += this.sheepScore;
-            this.removeSheep(sheep);
-        });
-        */
         this.physics.add.collider(this.wolf, this.fence);
         this.physics.add.collider(this.wolf, this.pond, (wolf, pond) => {
             GameScene.playSound(this.drown);
             this.removeWolf(wolf);
         }); //do I have an event? - weird interaction
         this.physics.add.collider(this.wolf, this.dog, (wolf, dog) => {
-            //this.bite.play();
             dog.play("die");
-            //var doSomething = () => {
-                //if(dog.ac) { return; }
-                //dog.ac = true;
-                GameScene.playSound(this.bite);
-                this.levelDoneSequence(2, "Game over! The wolf killed you!\nPress R to restart the level");
-                //this.player.destroy();
-            //}
-            //dog.on('animationcomplete', doSomething);
-        }); //do I have an event? - weird interaction
+            GameScene.playSound(this.bite);
+            this.levelDoneSequence(2, "Game over! The wolf killed you!\nPress R to restart the level");
+        });
         this.physics.add.collider(this.wolf, this.sheep, (wolf, sheep) => {
-            //this.bite.play();
             GameScene.playSound(this.bite);
             wolf.state = "STOPPED";
             wolf.setVelocityX(0);
             wolf.setVelocityY(0);
-            //console.log(wolf.sheep_in_range.length);
             if(wolf.sheep_in_range.includes(sheep)) {
                 remove(wolf.sheep_in_range, sheep);
-                //console.log(wolf.sheep_in_range.length);
             }
             this.removeSheep(sheep);
-        }); //do I have an event?
+        });
         this.player.lassoAsset = null;
         this.player.moving = false;
         this.player.drowned = false;
@@ -289,7 +255,6 @@ export class Level extends GameScene {
                 for (var i = 0; i < this.allSheep.length; i++) {
                     var sheep = this.allSheep[i].asset;
                     if (Math.sqrt(Math.pow(this.player.x - sheep.x, 2) + Math.pow(this.player.y - sheep.y, 2)) <= 32 * 2 + 20) { //lasso radius
-                        //When do I override the lasso target? Currently, the sheep to lasso will be the last one in list to fulfill conditions
                         target = sheep;
                     }
                 }
@@ -370,25 +335,15 @@ export class Level extends GameScene {
                     const newLocal = 'wolf_walk';
                     wolf.asset.play(newLocal);
                 }
-                /* //add in when wolf sprite created
-                //currently handled in wolf.update
-                if (wolf.asset.body.velocity.x != 0 || wolf.asset.body.velocity.y != 0) {
-                    wolf.asset.angle = 90 + Math.atan2(wolf.asset.body.velocity.y, wolf.asset.body.velocity.x) * 180 / Math.PI; 
-                }
-                */
             });
 
             //figure out how to implement just straight up collision
             for (var i = 0; i < this.allFinishSpaces.length; i++) {
                 var space = this.allFinishSpaces[i];
-                //console.log(space.x - space.width/2, space.x + space.width/2, space.y - space.height/2, space.y + space.height/2);
                 for (var j = 0; j < this.allSheep.length; j++) {
                     var sheep = this.allSheep[j].asset;
-                    //console.log(sheep);
-                    //console.log(sheep.x , sheep.y);
                     if (sheep.x >= space.x - space.width/2 && sheep.x <= space.x + space.width/2 &&
                         sheep.y >= space.y - space.height/2 && sheep.y <= space.y + space.height/2) {
-                        //console.log("scored");
                         var finishTime = Date.now();
                         this.score += this.sheepScore;
                         this.score += Math.floor(8000 *  1000 / (finishTime - this.startTime - this.pausedTime)); //balance needs to be checked
@@ -400,7 +355,6 @@ export class Level extends GameScene {
                                 remove(wolf.asset.sheep_in_range, sheep);
                             }
                         }
-                        //this.baa.play();
                         GameScene.playSound(this.baa);
                         this.removeSheep(sheep);
                         this.updateScoreText();
@@ -411,7 +365,6 @@ export class Level extends GameScene {
             if (this.allSheep.length == 0) {
                 if (this.score >= this.requiredScore && this.sheepHerded >= this.requiredSheepHerded) {
                     this.levelDoneSequence(1, 'Level complete!\nYour score is: ' + this.score + '\nPress N to go to the next level');
-                    //console.log("SCORE: " + this.score);
                     status = 1;
                 }
                 else {
@@ -437,26 +390,15 @@ export class Level extends GameScene {
 
         //Level Pausing
         if (Phaser.Input.Keyboard.JustDown(this.esckey)) {
-            //this.scene.pause(this.levelName);
             if(this.status == 4 || this.status == 1 || this.status == 2) { return; }
             this.status = 4;
             this.pauseStart = Date.now();
-            //this.pause_sound.play();
 
             this.allWolves.forEach(function(wolf) {
                 wolf.storedX = wolf.asset.body.velocity.x;
                 wolf.storedY = wolf.asset.body.velocity.y;
                 wolf.asset.setVelocityX(0);
-                wolf.asset.setVelocityY(0);
-                
-                // if (wolf.event) {
-                //     //console.log(wolf.event);
-                //     //wolf.event.pause();
-                //     if(wolf.state === "PATROL") {
-                //         wolf.event.paused = true;
-                //     }
-                // }
-                
+                wolf.asset.setVelocityY(0);                
             });
             
 
@@ -481,38 +423,21 @@ export class Level extends GameScene {
             
             resume.on('pointerdown', function(event) {
                 this.status = 0;
-                //this.bell.play();
                 GameScene.playSound(this.bell);
                 pausetitle.destroy();
                 resume.destroy();
                 levelsel.destroy();
                 mainmenu.destroy(); 
                 this.pausedTime += (Date.now() - this.pauseStart);
-                // this.allWolves.forEach(function(wolf) {
-                //     wolf.asset.setVelocityX(wolf.storedX);
-                //     wolf.asset.setVelocityY(wolf.storedY);
-                    
-                //     // if (wolf.event) {
-                //     //     //wolf.event.resume();
-                //     //     if(wolf.state === "PATROL") {
-                //     //         wolf.event.paused = false;
-                //     //     }
-                //     // }
-                    
-                // });
-
             }, this);
             levelsel.on('pointerdown', function(event) {
-                //this.bell.play();
                 GameScene.playSound(this.bell);
                 this.scene.start('LevelSelectMenu'); 
                 this.stopLevel();
             }, this);
             mainmenu.on('pointerdown', function(event) {
-                //this.bell.play();
                 GameScene.playSound(this.bell);
                 this.game.sound.stopAll();
-                //this.filler.play();
                 GameScene.playMusic(this.filler);
                 this.scene.start('MainMenu'); 
                 this.stopLevel();
@@ -536,7 +461,6 @@ export class Level extends GameScene {
     }
 
     play_filler() { 
-        //this.filler.play();
         GameScene.playMusic(this.filler);
     }
 
@@ -549,7 +473,6 @@ export class Level extends GameScene {
         });
         this.allWolves.forEach((wolf) => {
             wolf.asset.setVelocity(0);
-            //wolf.event.paused = true;
         })
         this.lvdone = true;
 
@@ -571,12 +494,10 @@ export class Level extends GameScene {
         GameScene.playMusic(this.res_sound);
         pause(1600);
         this.game.sound.stopAll();
-        //this.res_sound.play();
         this.add.text(600, 400, msg, {backgroundColor: "0x0000ff", fontSize: "36px", fixedWidth: 660, align: "center", "padding": {x: 20, y: 20}, "wordWrap": {"width": 660}});
         
         var pf = this.play_filler();
         setTimeout(pf, 5000);
-        //alert(msg);
     }
 
 
@@ -624,7 +545,6 @@ export class Level extends GameScene {
         var wolfObj = this.wolf.create(x, y);
         wolfObj.play('walk');
         wolfObj.body.collideWorldBounds = true;
-        //wolfObj.body.immovable = true;
         wolfObj.body.setSize(20, 64);
         wolfObj.respondToBark = false;
         var wolfAI = new Wolf(this, this.sheep, "PATROL", wolfObj);
